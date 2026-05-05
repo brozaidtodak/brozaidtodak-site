@@ -4,27 +4,31 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bro Zaid Todak — Business. Lifestyle. Growth.</title>
-  <meta name="description" content="Official website of Bro Zaid Todak — business, lifestyle, growth, and direction." />
+  <title>Bro Zaid Todak — CEO 10 Camp | Business. Lifestyle. Growth.</title>
+  <meta name="description" content="Personal site Muhammad Zaid Ariffuddin — CEO 10 Camp Enterprise, sub-syarikat Todak Group. Sharing journey building outdoor retail business in Malaysia." />
   <meta name="theme-color" content="#1f3b2d" />
   <link rel="canonical" href="https://brozaidtodak.com/" />
 
-  <!-- Favicon (emoji data URL — replace with real favicon later) -->
+  <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231f3b2d'/%3E%3Ctext x='50' y='68' font-size='60' text-anchor='middle' fill='%23d6b36a' font-family='Arial,sans-serif' font-weight='bold'%3EZ%3C/text%3E%3C/svg%3E" />
 
   <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website" />
+  <meta property="og:type" content="profile" />
   <meta property="og:url" content="https://brozaidtodak.com/" />
-  <meta property="og:title" content="Bro Zaid Todak — Business. Lifestyle. Growth." />
-  <meta property="og:description" content="A personal brand built around direction, discipline, leadership, and building a meaningful life through business and action." />
+  <meta property="og:title" content="Bro Zaid Todak — CEO 10 Camp" />
+  <meta property="og:description" content="CEO 10 Camp Enterprise (sub-syarikat Todak Group). Sharing the journey of building an outdoor retail business in Malaysia from age 26." />
   <meta property="og:image" content="https://brozaidtodak.com/og-image.jpg" />
-  <meta property="og:locale" content="en_MY" />
+  <meta property="og:locale" content="ms_MY" />
+  <meta property="og:locale:alternate" content="en_MY" />
+  <meta property="profile:first_name" content="Muhammad Zaid" />
+  <meta property="profile:last_name" content="Ariffuddin" />
+  <meta property="profile:username" content="brozaidtodak" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://brozaidtodak.com/" />
-  <meta name="twitter:title" content="Bro Zaid Todak — Business. Lifestyle. Growth." />
-  <meta name="twitter:description" content="A personal brand built around direction, discipline, leadership, and building a meaningful life through business and action." />
+  <meta name="twitter:title" content="Bro Zaid Todak — CEO 10 Camp" />
+  <meta name="twitter:description" content="CEO 10 Camp Enterprise. Building outdoor retail under the Todak Group umbrella." />
   <meta name="twitter:image" content="https://brozaidtodak.com/og-image.jpg" />
 
   <!-- Schema.org Person -->
@@ -32,9 +36,30 @@
   {
     "@context": "https://schema.org",
     "@type": "Person",
-    "name": "Bro Zaid Todak",
+    "name": "Muhammad Zaid Ariffuddin",
+    "alternateName": "Bro Zaid Todak",
     "url": "https://brozaidtodak.com",
-    "description": "Personal brand focused on business, lifestyle, leadership, and growth."
+    "jobTitle": "CEO & Director",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "10 Camp Enterprise",
+      "url": "https://www.10camp.com",
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Todak Group"
+      }
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Cyberjaya",
+      "addressRegion": "Selangor",
+      "addressCountry": "MY"
+    },
+    "sameAs": [
+      "https://instagram.com/brozaidtodak",
+      "https://www.tiktok.com/@brozaidtodak"
+    ],
+    "description": "Founder of 10 Camp Enterprise — outdoor retail and rental sub-company under Todak Group."
   }
   </script>
 
@@ -80,7 +105,7 @@
       align-items: center;
       padding: 40px 20px;
       text-align: center;
-      background: linear-gradient(rgba(31, 59, 45, 0.75), rgba(31, 59, 45, 0.75)),
+      background: linear-gradient(rgba(31, 59, 45, 0.78), rgba(31, 59, 45, 0.78)),
         url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
       color: white;
     }
@@ -88,12 +113,20 @@
     .hero h2 {
       font-size: 52px;
       margin-bottom: 15px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero .tagline-sub {
+      font-size: 22px;
+      margin-bottom: 12px;
+      color: #d6b36a;
+      font-weight: bold;
     }
 
     .hero p {
-      font-size: 20px;
-      max-width: 700px;
-      margin-bottom: 25px;
+      font-size: 19px;
+      max-width: 720px;
+      margin-bottom: 28px;
     }
 
     .btn {
@@ -101,7 +134,7 @@
       background-color: #d6b36a;
       color: #1f1f1f;
       text-decoration: none;
-      padding: 12px 24px;
+      padding: 12px 28px;
       border-radius: 8px;
       font-weight: bold;
       transition: 0.3s;
@@ -125,31 +158,63 @@
     }
 
     .section-text {
-      text-align: center;
+      text-align: left;
       max-width: 800px;
-      margin: 0 auto 40px;
-      font-size: 18px;
-      color: #444;
+      margin: 0 auto 30px;
+      font-size: 17px;
+      color: #333;
+    }
+
+    .section-text p {
+      margin-bottom: 16px;
+    }
+
+    .section-text strong {
+      color: #1f3b2d;
+    }
+
+    .business-link {
+      display: inline-block;
+      background-color: #1f3b2d;
+      color: #d6b36a;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 15px;
+      margin-top: 8px;
+      transition: 0.3s;
+    }
+
+    .business-link:hover {
+      background-color: #2d5440;
     }
 
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 22px;
       margin-top: 30px;
     }
 
     .card {
       background-color: white;
-      padding: 25px;
+      padding: 28px;
       border-radius: 14px;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-      text-align: center;
+      text-align: left;
+      border-top: 4px solid #d6b36a;
     }
 
     .card h3 {
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       color: #1f3b2d;
+      font-size: 20px;
+    }
+
+    .card p {
+      font-size: 15px;
+      color: #444;
     }
 
     .cta {
@@ -157,7 +222,7 @@
       background-color: #1f3b2d;
       color: white;
       border-radius: 16px;
-      padding: 50px 20px;
+      padding: 50px 25px;
       margin: 60px auto;
     }
 
@@ -169,6 +234,9 @@
     .cta p {
       margin-bottom: 25px;
       font-size: 18px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .social-links a {
@@ -177,9 +245,10 @@
       text-decoration: none;
       color: white;
       border: 1px solid white;
-      padding: 10px 18px;
+      padding: 10px 22px;
       border-radius: 8px;
       transition: 0.3s;
+      font-size: 15px;
     }
 
     .social-links a:hover {
@@ -195,22 +264,40 @@
       font-size: 14px;
     }
 
+    footer a {
+      color: #d6b36a;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
     @media (max-width: 768px) {
       .hero h2 {
         font-size: 36px;
       }
 
-      .hero p {
+      .hero .tagline-sub {
         font-size: 18px;
+      }
+
+      .hero p {
+        font-size: 17px;
       }
 
       header {
         flex-direction: column;
         gap: 10px;
+        padding: 15px 20px;
       }
 
       nav a {
         margin: 0 10px;
+      }
+
+      section {
+        padding: 50px 20px;
       }
     }
   </style>
@@ -228,19 +315,51 @@
 
   <section class="hero">
     <h2>Business. Lifestyle. Growth.</h2>
+    <p class="tagline-sub">CEO 10 Camp &middot; Part of Todak Group</p>
     <p>
-      Welcome to Bro Zaid Todak — a personal brand built around direction, discipline,
-      leadership, and building a meaningful life through business and action.
+      Aku Zaid &mdash; CEO 10 Camp Enterprise, anak muda Cyberjaya yang
+      sedang membina business outdoor retail di Malaysia. Platform ini
+      tempat aku share journey, mindset, dan real lessons di sebalik scale
+      a young company.
     </p>
-    <a href="#connect" class="btn">Let's Connect</a>
+    <a href="#connect" class="btn">Let&rsquo;s Connect</a>
   </section>
 
   <section id="about">
     <h2 class="section-title">About Me</h2>
-    <p class="section-text">
-      I'm Bro Zaid Todak. This platform is where I share my journey, mindset, ideas,
-      and perspectives on business, lifestyle, leadership, and growth.
-    </p>
+    <div class="section-text">
+      <p>
+        Nama aku <strong>Muhammad Zaid Ariffuddin</strong> &mdash; orang panggil Zaid.
+        Based di Cyberjaya, currently
+        <strong>CEO &amp; Director di 10 Camp Enterprise</strong>, sub-syarikat
+        di bawah <strong>Todak Group</strong>.
+      </p>
+      <p>
+        10 Camp adalah outdoor retail &amp; rental business yang carry 10 brand
+        camping &mdash; Naturehike, Mobi Garden, BlackDog, MountainHiker, dan lain-lain.
+        Kita serve dari hardcore campers sampai ke beginner yang nak rental gear
+        without commit big spend.
+      </p>
+      <p>
+        Aku start journey ni atas tiga sebab simple:
+      </p>
+      <p>
+        <strong>1.</strong> Aku memang passionate camping personally &mdash; outdoor bukan side
+        hobby, it&rsquo;s part of how aku reset, test product, dan build community.<br />
+        <strong>2.</strong> Aku nampak gap dalam Malaysian outdoor market &mdash; quality gear
+        selalu mahal, affordable gear selalu compromise. 10 Camp positioned at
+        the intersection.<br />
+        <strong>3.</strong> Family &amp; mentors dalam Todak ecosystem trust aku untuk run
+        outdoor business di bawah umbrella mereka. That trust set the standard.
+      </p>
+      <p>
+        Platform ni &mdash; <strong>brozaidtodak.com</strong> &mdash; adalah personal space
+        aku document the journey: business decisions, leadership at 26, lifestyle
+        moments dari trail, dan direction yang aku push for. Real stuff, no
+        corporate filter.
+      </p>
+      <a href="https://www.10camp.com" target="_blank" rel="noopener noreferrer" class="business-link">Visit 10camp.com &rarr;</a>
+    </div>
   </section>
 
   <section id="focus">
@@ -248,19 +367,34 @@
     <div class="cards">
       <div class="card">
         <h3>Business</h3>
-        <p>Building ideas, solving problems, and creating value through action.</p>
+        <p>
+          Building 10 Camp from the ground up &mdash; lessons on inventory, customer
+          trust, vendor relationships, dan scale outdoor retail di Malaysia tanpa
+          burning capital.
+        </p>
       </div>
       <div class="card">
         <h3>Lifestyle</h3>
-        <p>Sharing real experiences, routines, interests, and everyday growth.</p>
+        <p>
+          Camping isn&rsquo;t a side gig &mdash; it&rsquo;s how aku test product, build community,
+          dan reset between business cycles. Real stories dari trail, kit reviews,
+          and what works in Malaysian terrain.
+        </p>
       </div>
       <div class="card">
         <h3>Leadership</h3>
-        <p>Learning how to guide people, make decisions, and carry responsibility.</p>
+        <p>
+          26, CEO, leading a team &mdash; what it actually takes to make hard calls,
+          hold standard, and grow people yang join the journey early.
+        </p>
       </div>
       <div class="card">
         <h3>Direction</h3>
-        <p>Finding clarity, moving with purpose, and building a stronger future.</p>
+        <p>
+          10 Camp&rsquo;s next 5 years, my role in the Todak ecosystem, dan how
+          clarity drives every move &mdash; from product line decisions to long-term
+          business positioning.
+        </p>
       </div>
     </div>
   </section>
@@ -268,18 +402,22 @@
   <section id="connect" class="cta">
     <h2>Follow the Journey</h2>
     <p>
-      Stay connected through my social platforms and be part of the journey.
+      Stay connected through the platforms below &mdash; behind-the-scenes 10 Camp,
+      camping content, dan business reflections.
     </p>
     <div class="social-links">
-      <!-- TODO: replace with real Instagram/TikTok handles -->
-      <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
-      <a href="https://tiktok.com/" target="_blank" rel="noopener noreferrer">TikTok</a>
+      <a href="https://instagram.com/brozaidtodak" target="_blank" rel="noopener noreferrer">Instagram &middot; @brozaidtodak</a>
+      <a href="https://www.tiktok.com/@brozaidtodak" target="_blank" rel="noopener noreferrer">TikTok &middot; @brozaidtodak</a>
       <a href="mailto:hello@brozaidtodak.com">Email</a>
     </div>
   </section>
 
   <footer>
-    <p>&copy; 2026 Bro Zaid Todak. All rights reserved.</p>
+    <p>
+      &copy; 2026 Bro Zaid Todak. All rights reserved. &middot;
+      <a href="https://www.10camp.com" target="_blank" rel="noopener noreferrer">10 Camp Enterprise</a>
+      &middot; Part of the Todak ecosystem.
+    </p>
   </footer>
 
 </body>
