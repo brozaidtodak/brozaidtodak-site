@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { fetchProjects } from '../lib/projects.js'
 import {
-  fetchTransactionsByProject, createTransaction, deleteTransaction,
+  fetchTransactionsByProject, createTransaction, updateTransaction, deleteTransaction,
   CURRENCIES, SOURCE_TYPES, suggestSubcategories, summarize, formatRM,
 } from '../lib/transactions.js'
 
@@ -65,7 +65,7 @@ function ProjectFinancialView({ project }) {
   const [transactions, setTransactions] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
-  const [modal, setModal] = useState(null) // null | { direction, category }
+  const [modal, setModal] = useState(null) // null | { mode: 'new', direction, category } | { mode: 'edit', transaction }
 
   async function load() {
     setLoading(true); setError('')
@@ -81,7 +81,11 @@ function ProjectFinancialView({ project }) {
   useEffect(() => { load() }, [project.id])
 
   async function handleSave(input) {
-    await createTransaction({ ...input, project_id: project.id })
+    if (modal.mode === 'edit') {
+      await updateTransaction(modal.transaction.id, input)
+    } else {
+      await createTransaction({ ...input, project_id: project.id })
+    }
     setModal(null)
     await load()
   }
@@ -90,6 +94,10 @@ function ProjectFinancialView({ project }) {
     if (!confirm(`Delete this ${t.category} transaction (${formatRM(t.amount_myr)})?`)) return
     await deleteTransaction(t.id)
     await load()
+  }
+
+  function handleEdit(t) {
+    setModal({ mode: 'edit', transaction: t })
   }
 
   const stats = summarize(transactions)
@@ -122,10 +130,9 @@ function ProjectFinancialView({ project }) {
         addLabel="+ Pump"
         addStyle="primary"
         items={capital}
-        onAdd={() => setModal({ direction: 'in', category: 'capital' })}
-        onDelete={handleDelete}
+        onAdd={() => setModal({ mode: 'new', direction: 'in', category: 'capital' })}
         emptyText="No capital tracked yet. Pump it in once duit start masuk."
-        renderItem={(t) => <CapitalRow t={t} onDelete={() => handleDelete(t)} />}
+        renderItem={(t) => <CapitalRow t={t} onEdit={() => handleEdit(t)} onDelete={() => handleDelete(t)} />}
       />
 
       {/* Expenses */}
@@ -136,10 +143,9 @@ function ProjectFinancialView({ project }) {
         addLabel="+ Expense"
         addStyle="ghost"
         items={expenses}
-        onAdd={() => setModal({ direction: 'out', category: 'expense' })}
-        onDelete={handleDelete}
+        onAdd={() => setModal({ mode: 'new', direction: 'out', category: 'expense' })}
         emptyText="No expenses logged."
-        renderItem={(t) => <ExpenseRow t={t} onDelete={() => handleDelete(t)} />}
+        renderItem={(t) => <ExpenseRow t={t} onEdit={() => handleEdit(t)} onDelete={() => handleDelete(t)} />}
       />
 
       {/* Revenue */}
@@ -150,16 +156,16 @@ function ProjectFinancialView({ project }) {
         addLabel="+ Sale"
         addStyle="ghost"
         items={revenue}
-        onAdd={() => setModal({ direction: 'in', category: 'revenue' })}
-        onDelete={handleDelete}
+        onAdd={() => setModal({ mode: 'new', direction: 'in', category: 'revenue' })}
         emptyText="No revenue yet."
-        renderItem={(t) => <RevenueRow t={t} onDelete={() => handleDelete(t)} />}
+        renderItem={(t) => <RevenueRow t={t} onEdit={() => handleEdit(t)} onDelete={() => handleDelete(t)} />}
       />
 
       {modal && (
         <TransactionModal
           projectSlug={project.slug}
-          initial={modal}
+          mode={modal.mode}
+          initial={modal.mode === 'edit' ? modal.transaction : { direction: modal.direction, category: modal.category }}
           onCancel={() => setModal(null)}
           onSave={handleSave}
         />
@@ -210,21 +216,31 @@ function TransactionSection({ title, subtitle, eyebrow, eyebrowColor, addLabel, 
   )
 }
 
-function RowShell({ children, onDelete }) {
+function RowShell({ children, onEdit, onDelete, isTemplate }) {
   return (
-    <div className="group bg-white/[0.03] border border-white/8 rounded-xl px-4 py-3 flex items-center gap-4">
+    <div
+      onClick={onEdit}
+      className={`group bg-white/[0.03] border ${isTemplate ? 'border-dashed border-gold/25' : 'border-white/8'} rounded-xl px-4 py-3 flex items-center gap-4 hover:bg-white/[0.05] hover:border-white/20 cursor-pointer transition`}
+    >
       {children}
-      <button onClick={onDelete}
-        className="ml-auto opacity-0 group-hover:opacity-100 text-cream/30 hover:text-red-400 text-sm transition">
+      <button
+        onClick={(e) => { e.stopPropagation(); onDelete() }}
+        className="opacity-0 group-hover:opacity-100 text-cream/30 hover:text-red-400 text-sm transition px-1"
+        aria-label="Delete"
+      >
         ✕
       </button>
     </div>
   )
 }
 
-function CapitalRow({ t, onDelete }) {
+function isTemplateNotes(notes) {
+  return typeof notes === 'string' && notes.startsWith('TEMPLATE')
+}
+
+function CapitalRow({ t, onEdit, onDelete }) {
   return (
-    <RowShell onDelete={onDelete}>
+    <RowShell onEdit={onEdit} onDelete={onDelete} isTemplate={isTemplateNotes(t.notes)}>
       <span className="font-mono text-xs text-cream/55 w-24 shrink-0">{t.transaction_date}</span>
       <div className="flex-1 min-w-0">
         <p className="text-sm text-cream truncate">
@@ -245,13 +261,16 @@ function CapitalRow({ t, onDelete }) {
   )
 }
 
-function ExpenseRow({ t, onDelete }) {
+function ExpenseRow({ t, onEdit, onDelete }) {
   return (
-    <RowShell onDelete={onDelete}>
+    <RowShell onEdit={onEdit} onDelete={onDelete} isTemplate={isTemplateNotes(t.notes)}>
       <span className="font-mono text-xs text-cream/55 w-24 shrink-0">{t.transaction_date}</span>
       <div className="flex-1 min-w-0">
         <p className="text-sm text-cream truncate">{t.subcategory || 'Expense'}</p>
         {t.counterparty && <p className="text-xs text-cream/50 truncate">to {t.counterparty}</p>}
+        {isTemplateNotes(t.notes) && (
+          <p className="text-[10px] text-gold-dark/80 mt-0.5 font-mono">{t.notes}</p>
+        )}
       </div>
       <div className="text-right shrink-0">
         <p className="font-mono text-sm text-red-300">−{formatRM(t.amount_myr).replace('RM ', 'RM ')}</p>
@@ -263,9 +282,9 @@ function ExpenseRow({ t, onDelete }) {
   )
 }
 
-function RevenueRow({ t, onDelete }) {
+function RevenueRow({ t, onEdit, onDelete }) {
   return (
-    <RowShell onDelete={onDelete}>
+    <RowShell onEdit={onEdit} onDelete={onDelete} isTemplate={isTemplateNotes(t.notes)}>
       <span className="font-mono text-xs text-cream/55 w-24 shrink-0">{t.transaction_date}</span>
       <div className="flex-1 min-w-0">
         <p className="text-sm text-cream truncate">{t.subcategory || 'Sale'}</p>
@@ -281,23 +300,23 @@ function RevenueRow({ t, onDelete }) {
   )
 }
 
-function TransactionModal({ projectSlug, initial, onCancel, onSave }) {
+function TransactionModal({ projectSlug, mode, initial, onCancel, onSave }) {
   const today = new Date().toISOString().slice(0, 10)
   const suggestions = suggestSubcategories(projectSlug, initial.category)
 
   const [form, setForm] = useState({
-    transaction_date: today,
+    transaction_date: initial.transaction_date || today,
     direction: initial.direction,
     category: initial.category,
-    subcategory: '',
-    amount_original: '',
-    currency: 'MYR',
-    exchange_rate: 1,
-    counterparty: '',
-    source_type: initial.category === 'capital' ? 'investor' : '',
-    equity_percent: '',
-    payment_method: '',
-    notes: '',
+    subcategory: initial.subcategory || '',
+    amount_original: initial.amount_original ?? '',
+    currency: initial.currency || 'MYR',
+    exchange_rate: initial.exchange_rate ?? 1,
+    counterparty: initial.counterparty || '',
+    source_type: initial.source_type || (initial.category === 'capital' ? 'investor' : ''),
+    equity_percent: initial.equity_percent ?? '',
+    payment_method: initial.payment_method || '',
+    notes: initial.notes || '',
   })
   const [saving, setSaving] = useState(false)
   const [err, setErr] = useState('')
@@ -329,11 +348,12 @@ function TransactionModal({ projectSlug, initial, onCancel, onSave }) {
 
   const amountRM = Number(form.amount_original || 0) * Number(form.exchange_rate || 0)
 
-  const title = {
-    capital: 'Log capital inflow',
-    expense: 'Log expense',
-    revenue: 'Log sale / revenue',
+  const titleBase = {
+    capital: 'capital inflow',
+    expense: 'expense',
+    revenue: 'sale / revenue',
   }[form.category]
+  const title = (mode === 'edit' ? 'Edit ' : 'Log ') + titleBase
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
