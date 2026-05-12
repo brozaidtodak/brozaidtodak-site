@@ -15,7 +15,6 @@ export default function ProjectDetail() {
 
   const [project, setProject] = useState(null)
   const [milestones, setMilestones] = useState([])
-  const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [editing, setEditing] = useState(false)
@@ -36,14 +35,6 @@ export default function ProjectDetail() {
   }
 
   useEffect(() => { load() }, [slug])
-  useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => setEmail(data.user?.email || ''))
-  }, [])
-
-  async function handleLogout() {
-    await supabase.auth.signOut()
-    navigate('/login')
-  }
 
   async function handleToggle(m) {
     const updated = await toggleMilestone(m)
@@ -75,18 +66,14 @@ export default function ProjectDetail() {
   }
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-[#0c1812] text-cream flex items-center justify-center">
-        <p className="text-cream/50 text-sm font-mono">loading project…</p>
-      </div>
-    )
+    return <p className="text-cream/50 text-sm font-mono">loading project…</p>
   }
 
   if (error || !project) {
     return (
-      <div className="min-h-screen bg-[#0c1812] text-cream flex flex-col items-center justify-center gap-4">
+      <div className="flex flex-col items-start gap-4">
         <p className="text-red-400 text-sm">{error || 'Project not found.'}</p>
-        <Link to="/dashboard" className="text-gold text-sm hover:underline">← Back to dashboard</Link>
+        <Link to="/dashboard" className="text-gold text-sm hover:underline">← Back to overview</Link>
       </div>
     )
   }
@@ -94,27 +81,10 @@ export default function ProjectDetail() {
   const doneCount = milestones.filter((m) => m.status === 'done').length
 
   return (
-    <div className="min-h-screen bg-[#0c1812] text-cream">
-      <header className="border-b border-white/8 bg-[#0c1812]/85 backdrop-blur sticky top-0 z-10">
-        <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Link to="/" className="font-display text-xl text-cream font-semibold">Bro Zaid Todak</Link>
-            <span className="font-mono text-[11px] uppercase tracking-widest text-gold">/ command centre</span>
-          </div>
-          <div className="flex items-center gap-4">
-            <span className="text-xs text-cream/50 hidden sm:inline">{email}</span>
-            <button onClick={handleLogout}
-              className="text-sm text-cream/70 hover:text-cream font-medium transition">
-              Logout
-            </button>
-          </div>
-        </div>
-      </header>
-
-      <main className="max-w-4xl mx-auto px-6 py-10">
+    <div className="max-w-4xl">
         <Link to="/dashboard"
           className="inline-flex items-center gap-1.5 text-cream/55 hover:text-cream text-sm mb-8 transition">
-          <span>←</span><span>Back to dashboard</span>
+          <span>←</span><span>Back to overview</span>
         </Link>
 
         <div className="flex items-start justify-between gap-4 mb-3">
@@ -186,7 +156,6 @@ export default function ProjectDetail() {
             onSave={handleSaveProject}
           />
         )}
-      </main>
     </div>
   )
 }

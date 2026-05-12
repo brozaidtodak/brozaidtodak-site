@@ -183,9 +183,13 @@ function ProjectCard({
   )
 }
 
+const CARD_MILESTONE_LIMIT = 8
+
 function MilestoneList({ milestones, doneCount, onToggle, onAdd, onDelete }) {
   const [adding, setAdding] = useState(false)
   const [newName, setNewName] = useState('')
+  const shown = milestones.slice(0, CARD_MILESTONE_LIMIT)
+  const hidden = milestones.length - shown.length
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -207,7 +211,7 @@ function MilestoneList({ milestones, doneCount, onToggle, onAdd, onDelete }) {
       </div>
 
       <ul className="space-y-1.5">
-        {milestones.map((m) => (
+        {shown.map((m) => (
           <MilestoneRow
             key={m.id}
             milestone={m}
@@ -216,6 +220,12 @@ function MilestoneList({ milestones, doneCount, onToggle, onAdd, onDelete }) {
           />
         ))}
       </ul>
+
+      {hidden > 0 && (
+        <p className="mt-2 text-[11px] text-cream/45 font-mono">
+          + {hidden} more — open project to see all
+        </p>
+      )}
 
       {adding ? (
         <form onSubmit={handleSubmit} className="mt-2 flex gap-2">
