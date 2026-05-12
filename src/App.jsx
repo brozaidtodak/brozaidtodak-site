@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import Landing from './pages/Landing.jsx'
 import Login from './pages/Login.jsx'
 import Dashboard from './pages/Dashboard.jsx'
+import ProjectDetail from './pages/ProjectDetail.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 
 export default function App() {
@@ -14,6 +15,14 @@ export default function App() {
         element={
           <ProtectedRoute>
             <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/dashboard/projects/:slug"
+        element={
+          <ProtectedRoute>
+            <ProjectDetail />
           </ProtectedRoute>
         }
       />

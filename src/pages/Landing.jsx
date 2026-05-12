@@ -78,7 +78,7 @@ export default function Landing() {
             <polyline points="15 3 21 3 21 9" />
             <line x1="10" y1="14" x2="21" y2="3" />
           </SocialIcon>
-          <SocialIcon href="mailto:hello@brozaidtodak.com" label="Email">
+          <SocialIcon href="mailto:zaid@todak.com" label="Email">
             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
             <polyline points="22,6 12,13 2,6" />
           </SocialIcon>
@@ -87,14 +87,14 @@ export default function Landing() {
         {/* CTA buttons */}
         <div className="flex flex-wrap items-center justify-center gap-3 mt-7">
           <a
-            href="mailto:hello@brozaidtodak.com"
+            href="mailto:zaid@todak.com"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/15 text-cream text-sm font-medium hover:bg-white/[0.06] transition"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
               <polyline points="22,6 12,13 2,6" />
             </svg>
-            hello@brozaidtodak.com
+            zaid@todak.com
           </a>
         </div>
 
