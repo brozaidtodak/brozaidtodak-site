@@ -89,7 +89,7 @@ export default function Projects() {
         <p className="text-cream/50 text-sm">No projects yet. Click "Add project" to start.</p>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-start">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch">
         {projects.map((p) => (
           <ProjectCard
             key={p.id}
@@ -130,7 +130,7 @@ function ProjectCard({
   return (
     <article
       onClick={() => p.slug && navigate(`/dashboard/projects/${p.slug}`)}
-      className="group bg-white/[0.03] border border-white/8 rounded-2xl p-5 flex flex-col gap-3 hover:border-gold/40 transition cursor-pointer"
+      className="group bg-white/[0.03] border border-white/8 rounded-2xl p-5 flex flex-col gap-3 h-full hover:border-gold/40 transition cursor-pointer"
     >
       <div className="flex items-start justify-between gap-3">
         <h3 className="font-display text-lg text-cream group-hover:text-gold leading-tight flex-1 transition">{p.name}</h3>
