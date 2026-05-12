@@ -3,28 +3,48 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Zaid Todak — Founder & CEO, 10 Camp</title>
-  <meta name="description" content="Zaid Todak — Malaysian entrepreneur, Founder & CEO of 10 Camp. Building brands rooted in lifestyle, community, and discipline." />
+  <title>Bro Zaid Todak — Retailer · Builder · Naturalist</title>
+  <meta name="description" content="Bro Zaid Todak — Malaysian retailer running 10 CAMP outdoor gear, building his own tools (POS, dashboards) to run the business. Learning by doing." />
 
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Zaid Todak — Founder & CEO, 10 Camp" />
-  <meta property="og:description" content="Malaysian entrepreneur building brands that move people." />
+  <meta property="og:title" content="Bro Zaid Todak — Retailer · Builder · Naturalist" />
+  <meta property="og:description" content="Retailer building his own digital toolkit, one weekend at a time." />
   <meta property="og:url" content="https://brozaidtodak.com" />
   <meta property="og:image" content="https://brozaidtodak.com/og-image.jpg" />
+  <meta property="og:locale" content="en_MY" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:description" content="Retailer building his own digital toolkit, one weekend at a time." />
 
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='86'>🏕️</text></svg>" />
+  <link rel="canonical" href="https://brozaidtodak.com" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231f3b2d'/><text x='50' y='72' font-family='serif' font-size='66' font-weight='600' fill='%23d6b36a' text-anchor='middle'>Z</text></svg>" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Bro Zaid Todak",
+    "url": "https://brozaidtodak.com",
+    "jobTitle": "Retailer, Builder",
+    "description": "Malaysian retailer running 10 CAMP outdoor gear, building his own tools to run the business.",
+    "sameAs": [
+      "https://instagram.com/brozaidtodak",
+      "https://tiktok.com/@brozaidtodak"
+    ]
+  }
+  </script>
 
   <style>
     :root {
       --forest: #1f3b2d;
       --forest-deep: #152a20;
+      --moss: #2d5240;
       --cream: #f5f1e8;
       --cream-dark: #ebe5d4;
+      --bark: #6b4f35;
       --gold: #d6b36a;
       --gold-dark: #b8965a;
       --ink: #1a1a1a;
@@ -39,6 +59,15 @@
       color: var(--ink);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      position: relative;
+    }
+    /* subtle paper grain over everything */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 1;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
     h1, h2, h3, .serif {
       font-family: 'Fraunces', Georgia, serif;
@@ -48,7 +77,8 @@
     }
     a { color: inherit; }
     img { max-width: 100%; display: block; }
-    .container { max-width: 1140px; margin: 0 auto; padding: 0 32px; }
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 2; }
+    .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; font-feature-settings: 'tnum'; }
 
     nav.top {
       position: sticky; top: 0; z-index: 50;
@@ -71,16 +101,27 @@
     nav.top a { text-decoration: none; font-size: 14px; font-weight: 500; color: var(--ink); transition: color .2s; }
     nav.top a:hover { color: var(--forest); }
 
-    .hero { padding: 96px 0 120px; }
-    .hero-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: center; }
+    /* hero */
+    .hero { padding: 96px 0 120px; position: relative; overflow: hidden; }
+    .hero-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 2; }
+    /* leaf-shadow decoration top-right */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 420px; height: 420px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cpath d='M100 20 C 140 40, 170 90, 150 150 C 110 170, 60 150, 40 100 C 30 60, 60 30, 100 20 Z' fill='%231f3b2d' opacity='0.06'/%3E%3Cpath d='M100 20 L 100 170' stroke='%231f3b2d' stroke-width='1' opacity='0.08'/%3E%3Cpath d='M100 50 Q 80 70, 70 90' stroke='%231f3b2d' stroke-width='1' fill='none' opacity='0.08'/%3E%3Cpath d='M100 50 Q 120 70, 130 90' stroke='%231f3b2d' stroke-width='1' fill='none' opacity='0.08'/%3E%3Cpath d='M100 80 Q 80 100, 70 120' stroke='%231f3b2d' stroke-width='1' fill='none' opacity='0.08'/%3E%3Cpath d='M100 80 Q 120 100, 130 120' stroke='%231f3b2d' stroke-width='1' fill='none' opacity='0.08'/%3E%3C/svg%3E") no-repeat center / contain;
+      transform: rotate(28deg);
+      pointer-events: none; z-index: 1;
+    }
     .eyebrow {
       font-size: 12px; font-weight: 600;
       letter-spacing: 0.16em; text-transform: uppercase;
       color: var(--gold-dark); margin-bottom: 22px;
     }
-    .hero h1 { font-size: clamp(44px, 6vw, 72px); margin-bottom: 26px; color: var(--forest); }
+    .hero h1 { font-size: clamp(40px, 5.4vw, 64px); margin-bottom: 22px; color: var(--forest); }
     .hero h1 em { font-style: italic; color: var(--gold-dark); font-weight: 400; }
-    .lede { font-size: 19px; color: #3a3a3a; margin-bottom: 36px; max-width: 500px; }
+    .lede { font-size: 18px; color: #3a3a3a; margin-bottom: 32px; max-width: 520px; }
     .lede strong { color: var(--forest); font-weight: 600; }
     .cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
     .btn {
@@ -108,103 +149,140 @@
     }
     .portrait-tag {
       position: absolute; bottom: 22px; left: 22px;
-      background: var(--cream); padding: 9px 16px;
+      background: var(--cream); padding: 9px 14px 9px 12px;
       border-radius: 999px; font-size: 13px; font-weight: 500;
       box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      display: inline-flex; align-items: center; gap: 6px;
     }
-    .portrait-tag span { color: var(--gold-dark); font-weight: 600; }
+    .portrait-tag svg { color: var(--gold-dark); }
 
-    section.block { padding: 110px 0; border-top: 1px solid var(--line); }
-    .section-title { font-size: clamp(32px, 4.5vw, 48px); color: var(--forest); margin-bottom: 48px; max-width: 760px; }
+    /* sections + wood-grain divider */
+    section.block { padding: 110px 0; border-top: 1px solid var(--line); position: relative; }
+    section.block::before {
+      content: '';
+      position: absolute; top: -1px; left: 0; right: 0; height: 6px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(107, 79, 53, 0.12) 12%,
+        rgba(107, 79, 53, 0.06) 24%,
+        rgba(107, 79, 53, 0.14) 36%,
+        rgba(107, 79, 53, 0.04) 48%,
+        rgba(107, 79, 53, 0.12) 64%,
+        rgba(107, 79, 53, 0.06) 78%,
+        rgba(107, 79, 53, 0.10) 88%,
+        transparent 100%);
+      pointer-events: none;
+    }
+    .section-title { font-size: clamp(30px, 4.2vw, 44px); color: var(--forest); margin-bottom: 48px; max-width: 760px; }
 
+    /* sekarang (about) */
     .about-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; }
     .about-text p { font-size: 18px; color: #2a2a2a; margin-bottom: 20px; }
     .facts { display: flex; flex-direction: column; gap: 14px; margin-top: 36px; padding-top: 32px; border-top: 1px solid var(--line); }
-    .fact { display: grid; grid-template-columns: 140px 1fr; gap: 20px; font-size: 15px; }
+    .fact { display: grid; grid-template-columns: 150px 1fr; gap: 20px; font-size: 15px; }
     .fact dt { color: var(--muted); font-weight: 500; }
     .fact dd { color: var(--ink); font-weight: 500; }
 
-    .work-card {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 56px; align-items: center;
-      padding: 48px; background: white;
-      border-radius: 20px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 16px 50px rgba(31,59,45,0.08);
+    /* tengah bina (project cards) */
+    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .project-card {
+      background: white; border-radius: 18px; padding: 32px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 12px 40px rgba(31,59,45,0.06);
+      display: flex; flex-direction: column; gap: 14px;
+      transition: transform .2s;
     }
-    .work-meta {
+    .project-card:hover { transform: translateY(-2px); }
+    .project-meta {
+      font-size: 11px; color: var(--muted);
+      letter-spacing: 0.14em; text-transform: uppercase;
+      font-weight: 600;
+    }
+    .project-card h3 { font-size: 24px; color: var(--forest); }
+    .project-card p { font-size: 15px; color: #3a3a3a; flex: 1; }
+    .project-status {
+      display: inline-flex; align-items: center; gap: 8px;
       font-size: 12px; color: var(--muted);
+      padding-top: 14px; border-top: 1px solid var(--line);
+    }
+    .project-status .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); }
+    .project-status .dot.active { background: #5fa874; }
+    .project-status .dot.idle { background: var(--bark); opacity: 0.6; }
+
+    /* perjalanan (timeline) */
+    .timeline { display: flex; flex-direction: column; max-width: 760px; }
+    .timeline-row {
+      display: grid; grid-template-columns: 140px 1fr;
+      gap: 32px; padding: 24px 0;
+      border-bottom: 1px solid var(--line);
+      position: relative;
+    }
+    .timeline-row:last-child { border-bottom: none; }
+    .timeline-year {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px; color: var(--bark); font-weight: 500;
+      padding-top: 4px; letter-spacing: 0.02em;
+    }
+    .timeline-entry h3 {
+      font-family: 'Fraunces', serif; font-size: 22px;
+      color: var(--forest); margin-bottom: 6px; font-weight: 500;
+    }
+    .timeline-entry p { font-size: 15px; color: #3a3a3a; max-width: 480px; }
+    .timeline-tag {
+      display: inline-block; font-size: 11px;
+      color: var(--muted); font-weight: 600;
       letter-spacing: 0.12em; text-transform: uppercase;
-      font-weight: 600; margin-bottom: 14px;
+      margin-top: 8px;
     }
-    .work-card h3 { font-size: 38px; color: var(--forest); margin-bottom: 16px; }
-    .work-card p { font-size: 17px; color: #3a3a3a; margin-bottom: 28px; }
-    .work-link {
-      display: inline-flex; gap: 8px; align-items: center;
-      color: var(--forest); text-decoration: none;
-      font-weight: 600; font-size: 15px;
-      border-bottom: 1.5px solid var(--gold);
-      padding-bottom: 3px;
-    }
-    .work-link:hover { color: var(--gold-dark); }
-    .work-image { aspect-ratio: 4/3; border-radius: 12px; overflow: hidden; background: var(--cream-dark); }
-    .work-image img { width: 100%; height: 100%; object-fit: cover; }
 
-    .numbers-block {
-      background: var(--forest); color: var(--cream);
-      border-radius: 24px; padding: 80px 60px;
-    }
-    .numbers-block .section-title { color: var(--cream); }
-    .numbers-block .eyebrow { color: var(--gold); }
-    .numbers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; margin-top: 8px; }
-    .stat-num {
-      font-family: 'Fraunces', serif; font-weight: 500;
-      font-size: clamp(48px, 5vw, 64px); color: var(--gold);
-      letter-spacing: -0.03em; line-height: 1; margin-bottom: 12px;
-    }
-    .stat-label { font-size: 15px; color: rgba(245, 241, 232, 0.78); }
-
+    /* hubungi (connect) */
     .connect-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
     .connect-card {
-      background: white; border-radius: 18px; padding: 40px;
+      background: white; border-radius: 18px; padding: 36px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 12px 40px rgba(31,59,45,0.06);
     }
-    .connect-card h3 { font-size: 24px; color: var(--forest); margin-bottom: 10px; }
-    .connect-card > p { color: var(--muted); margin-bottom: 24px; font-size: 15px; }
+    .connect-card h3 { font-size: 22px; color: var(--forest); margin-bottom: 10px; }
+    .connect-card > p { color: var(--muted); margin-bottom: 22px; font-size: 14px; }
     .newsletter-form { display: flex; gap: 8px; flex-wrap: wrap; }
     .newsletter-form input {
       flex: 1; min-width: 200px;
-      padding: 14px 18px;
+      padding: 13px 18px;
       border: 1.5px solid var(--line);
       border-radius: 999px; font-size: 15px;
       font-family: inherit; background: var(--cream);
       color: var(--ink);
     }
     .newsletter-form input:focus { outline: none; border-color: var(--forest); }
+    .newsletter-note {
+      font-size: 12px; color: var(--muted);
+      margin-top: 12px; font-style: italic;
+    }
     .socials { display: flex; flex-direction: column; gap: 10px; }
     .social-link {
       display: flex; justify-content: space-between; align-items: center;
-      padding: 16px 20px; background: var(--cream);
+      padding: 14px 18px; background: var(--cream);
       border-radius: 12px; text-decoration: none;
-      color: var(--ink); font-weight: 500; font-size: 15px;
+      color: var(--ink); font-weight: 500; font-size: 14px;
       transition: background .2s;
     }
     .social-link:hover { background: var(--cream-dark); }
-    .social-link .handle { color: var(--muted); font-size: 14px; font-weight: 500; }
+    .social-link .handle { color: var(--muted); font-size: 13px; font-weight: 500; }
 
     footer {
       padding: 36px 0; border-top: 1px solid var(--line);
       color: var(--muted); font-size: 13px;
+      position: relative; z-index: 2;
     }
     footer .row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    footer .built { font-family: 'JetBrains Mono', monospace; font-size: 12px; }
 
     @media (max-width: 860px) {
       .container { padding: 0 24px; }
       .hero { padding: 56px 0 80px; }
+      .hero::after { width: 280px; height: 280px; top: -40px; right: -60px; }
       section.block { padding: 72px 0; }
-      .hero-grid, .about-grid, .work-card, .connect-grid { grid-template-columns: 1fr; gap: 48px; }
-      .work-card { padding: 32px; }
-      .numbers-block { padding: 56px 28px; border-radius: 20px; }
-      .numbers-grid { grid-template-columns: 1fr; gap: 32px; }
+      .hero-grid, .about-grid, .connect-grid { grid-template-columns: 1fr; gap: 48px; }
+      .projects-grid { grid-template-columns: 1fr; gap: 20px; }
+      .timeline-row { grid-template-columns: 90px 1fr; gap: 16px; }
       nav.top ul { gap: 18px; }
       nav.top a { font-size: 13px; }
       .portrait-tag { bottom: 16px; left: 16px; }
@@ -215,12 +293,12 @@
 
   <nav class="top">
     <div class="container row">
-      <a href="#top" class="logo">Zaid Todak</a>
+      <a href="#top" class="logo">Bro Zaid Todak</a>
       <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#work">Work</a></li>
-        <li><a href="#numbers">Milestones</a></li>
-        <li><a href="#connect">Connect</a></li>
+        <li><a href="#sekarang">Sekarang</a></li>
+        <li><a href="#bina">Tengah Bina</a></li>
+        <li><a href="#perjalanan">Perjalanan</a></li>
+        <li><a href="#hubungi">Hubungi</a></li>
       </ul>
     </div>
   </nav>
@@ -228,109 +306,135 @@
   <header id="top" class="hero">
     <div class="container hero-grid">
       <div>
-        <div class="eyebrow">Founder · Operator · Builder</div>
-        <h1>Building brands that move <em>Malaysians</em>.</h1>
+        <div class="eyebrow">Retailer · Builder · Naturalist</div>
+        <h1>Jual kit di luar.<br/><em>Bina tools</em> di dalam.</h1>
         <p class="lede">
-          I'm Zaid Todak — Founder &amp; CEO of <strong>10 Camp</strong>. I build, lead, and scale ventures rooted in lifestyle, community, and discipline.
+          Saya <strong>Bro Zaid Todak</strong> — run <strong>10 CAMP</strong>, kedai outdoor gear di Malaysia. Sambil tu, build sendiri tools yang aku perlu untuk run business — POS, dashboard, finance tracker. Belajar by doing.
         </p>
         <div class="cta-row">
-          <a href="#work" class="btn btn-primary">See my work →</a>
-          <a href="#connect" class="btn btn-ghost">Get in touch</a>
+          <a href="#bina" class="btn btn-primary">Tengok yang aku bina</a>
+          <a href="#hubungi" class="btn btn-ghost">Hubungi</a>
         </div>
       </div>
       <div class="portrait">
-        <!-- TODO: replace with real portrait of Zaid -->
-        <img src="https://i.pravatar.cc/900?u=zaidtodak" alt="Zaid Todak (placeholder portrait)" />
-        <div class="portrait-tag">📍 <span>Kuala Lumpur</span></div>
+        <!-- TODO: replace src with real portrait of Zaid (suggested aspect 4:5, ~900px wide) -->
+        <img src="https://i.pravatar.cc/900?u=brozaidtodak" alt="Bro Zaid Todak (placeholder portrait)" />
+        <div class="portrait-tag">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 7-8 13-8 13s-8-6-8-13a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Kuala Lumpur</span>
+        </div>
       </div>
     </div>
   </header>
 
-  <section id="about" class="block">
+  <section id="sekarang" class="block">
     <div class="container about-grid">
       <div>
-        <div class="eyebrow">About</div>
-        <h2 class="section-title">A founder shaped by the journey, not the title.</h2>
+        <div class="eyebrow">Sekarang</div>
+        <h2 class="section-title">Retailer yang belajar code untuk run business sendiri.</h2>
       </div>
       <div class="about-text">
         <p>
-          I started 10 Camp because I believed Malaysia needed brands that didn't just sell products — but stood for direction, discipline, and growth. Today, that mission still drives every decision I make.
+          10 CAMP mula 2024 sebagai project sampingan — kedai outdoor gear yang aku rasa Malaysia perlukan. Sekarang dah running on EasyStore, tapi aku tengah build POS sendiri sebab tools off-the-shelf tak fit cara aku nak operate.
         </p>
         <p>
-          My focus is simple: build companies that outlast trends, lead teams that take ownership, and live a life where business and personal growth move together.
+          Bukan dev background — aku belajar React, Supabase, Tailwind dengan tangan. Mistake banyak, tapi each tool yang aku siap bina is exactly what business aku perlu.
         </p>
         <dl class="facts">
           <div class="fact"><dt>Based in</dt><dd>Kuala Lumpur, Malaysia</dd></div>
-          <div class="fact"><dt>Currently</dt><dd>Founder &amp; CEO @ 10 Camp</dd></div>
-          <div class="fact"><dt>Focus</dt><dd>Brand · Lifestyle · Leadership</dd></div>
-          <div class="fact"><dt>Outside work</dt><dd>Outdoors, family, reading</dd></div>
+          <div class="fact"><dt>Currently</dt><dd>Running 10 CAMP + building Command Centre</dd></div>
+          <div class="fact"><dt>Focus</dt><dd>Outdoor retail · Self-built tools</dd></div>
+          <div class="fact"><dt>Outside work</dt><dd>Camping, phone repair (masih practise)</dd></div>
         </dl>
       </div>
     </div>
   </section>
 
-  <section id="work" class="block">
+  <section id="bina" class="block">
     <div class="container">
-      <div class="eyebrow">Featured work</div>
-      <h2 class="section-title">What I'm building right now.</h2>
-      <article class="work-card">
-        <div class="work-image">
-          <!-- TODO: replace with real 10 Camp hero shot or product image -->
-          <img src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=1200&q=80" alt="10 Camp placeholder" />
-        </div>
-        <div>
-          <div class="work-meta">FOUNDER &amp; CEO · [YYYY] — PRESENT</div>
-          <h3>10 Camp</h3>
-          <p>
-            A Malaysian lifestyle brand built around the outdoors, community, and the everyday discipline of showing up. From idea to operation — I lead product, brand, and team.
-          </p>
-          <a href="https://10camp.com" class="work-link" target="_blank" rel="noopener">
-            Visit 10camp.com →
-          </a>
-        </div>
-      </article>
-    </div>
-  </section>
+      <div class="eyebrow">Tengah Bina</div>
+      <h2 class="section-title">Tools yang aku tengah bina untuk diri sendiri.</h2>
+      <div class="projects-grid">
 
-  <section id="numbers" class="block">
-    <div class="container">
-      <div class="numbers-block">
-        <div class="eyebrow">By the numbers</div>
-        <h2 class="section-title">Milestones along the way.</h2>
-        <div class="numbers-grid">
-          <div>
-            <div class="stat-num">[X]</div>
-            <div class="stat-label">Years building 10 Camp</div>
-          </div>
-          <div>
-            <div class="stat-num">[Y]+</div>
-            <div class="stat-label">Customers served</div>
-          </div>
-          <div>
-            <div class="stat-num">[Z]</div>
-            <div class="stat-label">Team members</div>
-          </div>
-        </div>
+        <article class="project-card">
+          <div class="project-meta">Custom POS</div>
+          <h3>10 CAMP POS</h3>
+          <p>Point-of-sale system custom built untuk gantikan EasyStore — designed around cara 10 CAMP actually operate, not generic retail flow. React + Supabase.</p>
+          <div class="project-status"><span class="dot active"></span><span class="mono">Phase 2 · in progress</span></div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-meta">Personal Dashboard</div>
+          <h3>Brozaidtodak Command Centre</h3>
+          <p>Site yang kau tengah baca ni. Public landing + private dashboard untuk track projects, business metrics, finance. Built solo for daily use.</p>
+          <div class="project-status"><span class="dot active"></span><span class="mono">Phase 1 · in progress</span></div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-meta">Family Tree App</div>
+          <h3>Keluarga Kita</h3>
+          <p>Family tree app for tracking lineage and stories. Multi-owner, auth-gated, with public landing. Side project, slow burn.</p>
+          <div class="project-status"><span class="dot idle"></span><span class="mono">Slow burn · ongoing</span></div>
+        </article>
+
       </div>
     </div>
   </section>
 
-  <section id="connect" class="block">
+  <section id="perjalanan" class="block">
     <div class="container">
-      <div class="eyebrow">Connect</div>
-      <h2 class="section-title">Stay in the loop, or reach out directly.</h2>
+      <div class="eyebrow">Perjalanan</div>
+      <h2 class="section-title">Cerita sampai kat sini.</h2>
+      <div class="timeline">
+
+        <div class="timeline-row">
+          <div class="timeline-year">2024 — now</div>
+          <div class="timeline-entry">
+            <h3>10 CAMP</h3>
+            <p>Started a retail outdoor gear business in Malaysia. Solo operator. Began building software tools to run it the way I actually want.</p>
+            <span class="timeline-tag">Active</span>
+          </div>
+        </div>
+
+        <div class="timeline-row">
+          <div class="timeline-year">2021 — 2023</div>
+          <div class="timeline-entry">
+            <h3>Retail vape</h3>
+            <p>First real retail experience. Learned the floor — inventory, customers, margins. The shop is closed, but the operating instincts stayed.</p>
+            <span class="timeline-tag">Closed</span>
+          </div>
+        </div>
+
+        <div class="timeline-row">
+          <div class="timeline-year">ongoing</div>
+          <div class="timeline-entry">
+            <h3>Phone repair</h3>
+            <p>Side skill — still practising. Not a business, but a habit of taking things apart and putting them back together. The same instinct that runs through everything else here.</p>
+            <span class="timeline-tag">Skill in progress</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="hubungi" class="block">
+    <div class="container">
+      <div class="eyebrow">Hubungi</div>
+      <h2 class="section-title">Sapa, atau follow journey.</h2>
       <div class="connect-grid">
         <div class="connect-card">
-          <h3>Get the newsletter</h3>
-          <p>Notes on building, leading, and the things in between. No fluff.</p>
-          <form class="newsletter-form" onsubmit="event.preventDefault(); alert('TODO: hook up newsletter provider');">
-            <input type="email" placeholder="you@example.com" required />
+          <h3>Newsletter</h3>
+          <p>Notes pasal building, retail, dan jalan tengah. Once provider hooked up, sign up here.</p>
+          <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Newsletter belum live — coming soon.');">
+            <input type="email" placeholder="you@example.com" required aria-label="Email address" />
             <button type="submit" class="btn btn-primary">Subscribe</button>
           </form>
+          <div class="newsletter-note">Coming soon — provider belum hooked up.</div>
         </div>
         <div class="connect-card">
-          <h3>Find me elsewhere</h3>
-          <p>Follow the journey on social, or reach out via email.</p>
+          <h3>Cari aku sini</h3>
+          <p>Follow journey on social, atau email terus.</p>
           <div class="socials">
             <a class="social-link" href="mailto:hello@brozaidtodak.com">
               <span>Email</span><span class="handle">hello@brozaidtodak.com</span>
@@ -349,8 +453,8 @@
 
   <footer>
     <div class="container row">
-      <div>© 2026 Zaid Todak. All rights reserved.</div>
-      <div>Built in KL.</div>
+      <div>&copy; 2026 Bro Zaid Todak.</div>
+      <div class="built">made in KL · v0.1</div>
     </div>
   </footer>
 
