@@ -1,4 +1,36 @@
 import { Link } from 'react-router-dom'
+import { useEffect, useRef } from 'react'
+
+// ============================================================
+// SOCIAL FEED CONFIG  ← tampal kod widget kau di sini
+// ------------------------------------------------------------
+// Lepas daftar provider (Curator.io / Elfsight / SnapWidget) &
+// connect akaun, depa bagi 2 benda:
+//   1. scriptSrc → URL dalam <script src="..."></script>
+//   2. html      → <div ...></div> container widget
+// Tampal kat bawah ni je, section auto jadi live. Kalau kosong,
+// dia tunjuk kad "Follow" biasa (tak rosak).
+// ============================================================
+const FEEDS = [
+  {
+    key: 'instagram',
+    label: 'Instagram',
+    handle: '@brozaidtodak',
+    url: 'https://instagram.com/brozaidtodak',
+    scriptId: 'sf-instagram',
+    scriptSrc: '', // TODO: tampal URL script widget IG
+    html: '',      // TODO: tampal <div> container widget IG
+  },
+  {
+    key: 'tiktok',
+    label: 'TikTok',
+    handle: '@brozaidtodak',
+    url: 'https://tiktok.com/@brozaidtodak',
+    scriptId: 'sf-tiktok',
+    scriptSrc: '', // TODO: tampal URL script widget TikTok
+    html: '',      // TODO: tampal <div> container widget TikTok
+  },
+]
 
 const ROLES = [
   { label: 'Retailer · 10 CAMP', tone: 'text-gold' },
@@ -108,6 +140,23 @@ export default function Landing() {
           ))}
         </div>
 
+        {/* Latest from socials */}
+        <div className="w-full max-w-md mt-16">
+          <div className="flex items-center gap-3 mb-6">
+            <span className="h-px flex-1 bg-white/10" />
+            <span className="text-[11px] uppercase tracking-[0.18em] text-cream/45">
+              Latest
+            </span>
+            <span className="h-px flex-1 bg-white/10" />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {FEEDS.map((feed) => (
+              <SocialFeed key={feed.key} feed={feed} />
+            ))}
+          </div>
+        </div>
+
         {/* Footer: enter command centre */}
         <div className="mt-12">
           <Link
@@ -123,6 +172,56 @@ export default function Landing() {
           </Link>
         </div>
       </div>
+    </div>
+  )
+}
+
+function SocialFeed({ feed }) {
+  const ref = useRef(null)
+  const isLive = Boolean(feed.scriptSrc && feed.html)
+
+  useEffect(() => {
+    if (!isLive) return
+    // load widget script once (de-dupe by id AND src — some
+    // providers share one script for both feeds, e.g. Elfsight)
+    if (document.getElementById(feed.scriptId)) return
+    if (document.querySelector(`script[src="${feed.scriptSrc}"]`)) return
+    const s = document.createElement('script')
+    s.src = feed.scriptSrc
+    s.id = feed.scriptId
+    s.async = true
+    document.body.appendChild(s)
+  }, [isLive, feed.scriptSrc, feed.scriptId])
+
+  return (
+    <div className="rounded-2xl border border-white/8 bg-white/[0.03] p-4 flex flex-col">
+      <div className="flex items-center justify-between mb-3">
+        <span className="text-xs font-medium text-cream/80">{feed.label}</span>
+        <a
+          href={feed.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[11px] text-gold hover:text-gold-dark transition"
+        >
+          {feed.handle}
+        </a>
+      </div>
+
+      {isLive ? (
+        <div ref={ref} dangerouslySetInnerHTML={{ __html: feed.html }} />
+      ) : (
+        <a
+          href={feed.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex flex-col items-center justify-center text-center gap-2 py-8 rounded-xl border border-dashed border-white/10 hover:border-white/20 hover:bg-white/[0.02] transition"
+        >
+          <span className="text-cream/55 text-xs leading-relaxed">
+            Follow untuk content terbaru
+          </span>
+          <span className="text-gold text-xs font-medium">{feed.handle} →</span>
+        </a>
+      )}
     </div>
   )
 }
