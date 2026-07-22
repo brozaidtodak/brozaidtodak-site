@@ -15,48 +15,48 @@ const ROLES = [
 ]
 
 const STATS = [
-  { value: '5', label: 'Tahun dalam retail' },
-  { value: '10+', label: 'Sistem & laman dibina' },
-  { value: '1', label: 'Brand · 10 CAMP' },
+  { value: '5', label: 'Tahun dalam industri peruncitan' },
+  { value: '10+', label: 'Sistem & platform dibangunkan' },
+  { value: '1', label: 'Jenama · 10 CAMP' },
 ]
 
 const PROJECTS = [
   {
     name: '10 CAMP',
-    tag: 'Bisnes utama',
-    desc: 'Kedai outdoor & camping gear di Malaysia. Shopee, TikTok Shop dan walk-in — semua stok satu sistem.',
+    tag: 'Perniagaan utama',
+    desc: 'Peruncitan peralatan outdoor dan camping di Malaysia — beroperasi di Shopee, TikTok Shop dan kedai fizikal dengan inventori bersepadu dalam satu sistem.',
     url: 'https://10camp.com',
     status: 'LIVE',
   },
   {
     name: '10 CAMP POS',
-    tag: 'Sistem kedai',
-    desc: 'Point-of-sale lengkap dibina dari kosong — kasir, inventori, staf, loyalty, sampai AI assistant untuk staf.',
+    tag: 'Sistem runcit',
+    desc: 'Sistem point-of-sale lengkap yang dibangunkan dari asas — jualan, inventori, pengurusan staf, program kesetiaan pelanggan dan pembantu AI.',
     status: 'LIVE',
   },
   {
     name: 'Command Centre',
     tag: 'Kewangan',
-    desc: 'Back office kewangan sendiri — ledger, settlement marketplace, payroll, laporan untung rugi.',
+    desc: 'Back office kewangan bersepadu — lejar am, penyelarasan settlement marketplace, payroll dan pelaporan untung rugi.',
     status: 'LIVE',
   },
   {
     name: 'hr10',
-    tag: 'HR',
-    desc: 'Portal HR untuk team — roster syif, rekod staf, laporan pagi automatik ke WhatsApp.',
+    tag: 'Sumber manusia',
+    desc: 'Portal HR untuk pengurusan tenaga kerja — penjadualan syif, rekod kakitangan dan laporan operasi harian secara automatik.',
     status: 'LIVE',
   },
   {
     name: 'Shedan Bunga',
-    tag: 'Family biz',
-    desc: 'Laman web brand bunga beaded handmade — dari brand identity sampai website live.',
+    tag: 'Perniagaan keluarga',
+    desc: 'Pembangunan identiti jenama dan laman web rasmi untuk jenama bunga manik buatan tangan.',
     url: 'https://shedanbunga.com',
     status: 'LIVE',
   },
   {
     name: 'Empayar Sabrina',
-    tag: 'Family biz',
-    desc: 'POS + back office untuk bisnes batik keluarga — sistem sama level dengan kedai sendiri.',
+    tag: 'Perniagaan keluarga',
+    desc: 'Sistem POS dan back office untuk perniagaan batik keluarga — dibangunkan dengan standard yang sama seperti operasi utama.',
     status: 'LIVE',
   },
 ]
@@ -64,28 +64,28 @@ const PROJECTS = [
 const JOURNEY = [
   {
     year: '2021 – 2023',
-    title: 'Retail vape',
-    desc: 'First taste dunia retail. Belajar jual, belajar stok, belajar rugi. Kedai dah tutup, pelajaran kekal.',
+    title: 'Peruncitan vape',
+    desc: 'Permulaan dalam dunia peruncitan — pengurusan jualan, inventori dan aliran tunai. Perniagaan telah ditutup; pengalamannya kekal menjadi asas.',
   },
   {
-    year: 'Sepanjang jalan',
-    title: 'Repair phone',
-    desc: 'Side skill yang tak pernah lepas — bongkar, baiki, pasang balik. Cara aku belajar semua benda.',
+    year: 'Berterusan',
+    title: 'Pembaikan telefon',
+    desc: 'Kemahiran teknikal yang dikekalkan sehingga kini — diagnosis, pembaikan dan pemasangan semula. Disiplin yang sama diterapkan dalam pembinaan sistem.',
   },
   {
     year: '2024',
-    title: '10 CAMP lahir',
-    desc: 'Pindah ke outdoor gear. Mula dengan platform sedia ada — Shopify, EasyStore.',
+    title: '10 CAMP diasaskan',
+    desc: 'Peralihan kepada peralatan outdoor — bermula dengan platform sedia ada seperti Shopify dan EasyStore.',
   },
   {
     year: '2025',
-    title: 'Mula bina sendiri',
-    desc: 'Sistem sedia ada tak cukup. So aku bina POS sendiri — dan lepas tu tak berhenti.',
+    title: 'Pembangunan dalaman bermula',
+    desc: 'Sistem sedia ada tidak lagi menampung keperluan operasi. Sistem POS pertama dibangunkan sendiri — diikuti modul demi modul.',
   },
   {
     year: '2026',
-    title: 'Satu ekosistem',
-    desc: 'POS, kewangan, HR, meeting, planning — semua in-house, semua bersambung. Belajar by doing, bina by night.',
+    title: 'Ekosistem lengkap',
+    desc: 'POS, kewangan, HR, mesyuarat dan perancangan — keseluruhannya dibangunkan secara dalaman dan saling bersepadu.',
   },
 ]
 
@@ -229,14 +229,14 @@ export default function Landing() {
             Kuala Lumpur, Malaysia
           </p>
           <h1 className="font-display text-5xl md:text-7xl leading-[1.05] tracking-tight reveal">
-            Bina bisnes.
+            Membina perniagaan.
             <br />
-            <span className="text-gold">Bina tools sendiri.</span>
+            <span className="text-gold">Membina sistemnya sekali.</span>
           </h1>
           <p className="text-cream/85 text-base md:text-lg leading-relaxed mt-8 max-w-xl mx-auto reveal">
-            Aku run <span className="text-cream font-medium">10 CAMP</span> — kedai outdoor gear di
-            Malaysia. Semua sistem belakang kedai — POS, kewangan, HR — aku bina sendiri.
-            Belajar by doing.
+            Pengasas <span className="text-cream font-medium">10 CAMP</span> — peruncitan peralatan
+            outdoor di Malaysia. Keseluruhan sistem operasinya — POS, kewangan, HR — dibangunkan
+            secara dalaman, dari asas.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-2 mt-8 reveal">
             {ROLES.map((r) => (
@@ -253,14 +253,14 @@ export default function Landing() {
               href="#projek"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gold text-night text-sm font-semibold hover:bg-gold-dark transition"
             >
-              Tengok apa aku bina
+              Lihat portfolio
               <span aria-hidden="true">↓</span>
             </a>
             <a
               href="#hubungi"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/15 text-cream/85 text-sm font-medium hover:bg-white/[0.06] transition"
             >
-              Hubungi aku
+              Hubungi saya
             </a>
           </div>
         </div>
@@ -270,8 +270,8 @@ export default function Landing() {
       <section className="relative px-6 py-28 md:py-36">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="font-display text-3xl md:text-5xl leading-snug reveal">
-            Dari kedai vape ke kedai camping — satu benda tak berubah:{' '}
-            <span className="text-ember-bright">kalau tools takde, bina sendiri.</span>
+            Daripada peruncitan vape kepada peralatan kembara — satu prinsip kekal:{' '}
+            <span className="text-ember-bright">jika sistemnya tiada, bina sendiri.</span>
           </h2>
         </div>
       </section>
@@ -279,20 +279,22 @@ export default function Landing() {
       {/* ======== SEKARANG ======== */}
       <section className="relative px-6 py-20 md:py-28">
         <div className="max-w-4xl mx-auto">
-          <SectionLabel>Sekarang</SectionLabel>
+          <SectionLabel>Fokus semasa</SectionLabel>
           <div className="grid md:grid-cols-5 gap-10 items-start mt-8">
             <div className="md:col-span-3 reveal">
               <h3 className="font-display text-2xl md:text-3xl leading-snug">
-                Siang jaga kedai, malam tulis sistem.
+                Peruncit di siang hari, pembina sistem di malam hari.
               </h3>
               <p className="text-cream/85 leading-relaxed mt-5">
-                10 CAMP jual camping gear kat Shopee, TikTok Shop dan kedai fizikal. Bila bisnes
-                membesar, sistem sedia ada tak larat ikut — so aku bina sendiri satu persatu:
-                POS untuk kasir, back office untuk kewangan, portal HR untuk team.
+                10 CAMP beroperasi di Shopee, TikTok Shop dan kedai fizikal. Apabila perniagaan
+                berkembang, sistem sedia ada tidak lagi mencukupi — maka setiap satunya dibangunkan
+                secara dalaman: POS untuk operasi kedai, back office untuk kewangan, portal HR
+                untuk pengurusan tenaga kerja.
               </p>
               <p className="text-cream/85 leading-relaxed mt-4">
-                Bukan developer by training. Retailer yang belajar bina — sebab bisnes sendiri
-                yang perlukan dia.
+                Bukan pengaturcara terlatih — peruncit yang membina sistem kerana perniagaan
+                sendiri yang memerlukannya. Setiap modul lahir daripada masalah operasi yang
+                sebenar.
               </p>
             </div>
             <div className="md:col-span-2 grid grid-cols-1 gap-4">
@@ -321,9 +323,9 @@ export default function Landing() {
           }}
         />
         <div className="relative max-w-5xl mx-auto">
-          <SectionLabel>Tengah bina</SectionLabel>
+          <SectionLabel>Portfolio</SectionLabel>
           <h3 className="font-display text-3xl md:text-4xl mt-4 reveal">
-            Satu bisnes, satu ekosistem.
+            Satu perniagaan, satu ekosistem.
           </h3>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
             {PROJECTS.map((p) => (
@@ -372,10 +374,11 @@ export default function Landing() {
         />
         <div className="relative max-w-3xl mx-auto text-center">
           <h2 className="font-display text-4xl md:text-6xl leading-tight reveal">
-            Nak sembang?
+            Mari berhubung.
           </h2>
           <p className="text-cream/80 mt-5 max-w-md mx-auto reveal">
-            Pasal retail, pasal bina sistem sendiri, atau pasal camping gear — inbox je.
+            Untuk kerjasama, pertanyaan perniagaan atau perbincangan mengenai pembangunan
+            sistem — hubungi saya melalui e-mel atau media sosial.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 mt-9 reveal">
             <a
@@ -497,7 +500,7 @@ function ProjectCard({ project }) {
       <p className="text-cream/75 text-[15px] leading-relaxed">{project.desc}</p>
       {project.url && (
         <span className="text-gold text-xs font-medium mt-auto pt-2">
-          Lawati site →
+          Lawati laman →
         </span>
       )}
     </div>
