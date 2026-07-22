@@ -140,16 +140,27 @@ export default function Landing() {
         </Link>
       </header>
 
+      {/* gradient ambient penuh — dari hero sampai footer, takde potongan */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        aria-hidden="true"
+        style={{
+          background:
+            'radial-gradient(circle at 50% 12%, rgba(214,179,106,0.07), transparent 45%), radial-gradient(circle at 12% 30%, rgba(45,82,64,0.24), transparent 40%), linear-gradient(180deg, rgba(45,82,64,0.10) 0%, rgba(255,140,66,0.045) 25%, rgba(214,179,106,0.035) 50%, rgba(255,140,66,0.06) 75%, rgba(255,140,66,0.13) 100%)',
+        }}
+      />
+      {/* bara utama kat kaki hero — tak diclip, fade lembut ke bawah */}
+      <div
+        className="absolute top-0 inset-x-0 h-[190vh] pointer-events-none glow-pulse"
+        aria-hidden="true"
+        style={{
+          background:
+            'radial-gradient(ellipse 75% 28% at 50% 52%, rgba(255,140,66,0.15), transparent 65%)',
+        }}
+      />
+
       {/* ======== HERO ======== */}
       <section id="top" className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
-        {/* campfire glow */}
-        <div
-          className="absolute inset-0 pointer-events-none glow-pulse"
-          style={{
-            background:
-              'radial-gradient(ellipse 70% 45% at 50% 100%, rgba(255,140,66,0.16), transparent 65%), radial-gradient(circle at 50% 25%, rgba(214,179,106,0.07), transparent 55%), radial-gradient(circle at 15% 80%, rgba(45,82,64,0.28), transparent 50%)',
-          }}
-        />
         {/* embers */}
         {[
           { l: '42%', dur: '8s', delay: '0s', drift: '30px' },
