@@ -194,27 +194,36 @@ export default function Landing() {
             'radial-gradient(ellipse 75% 28% at 50% 52%, rgba(255,140,66,0.15), transparent 65%)',
         }}
       />
+      {/* glitter bara — fixed ikut viewport, naik dari bawah skrin di mana-mana section */}
+      <div
+        className="fixed inset-0 pointer-events-none will-change-transform z-0"
+        aria-hidden="true"
+        data-parallax="36"
+      >
+        {[
+          { l: '8%',  b: '6%',  dur: '10s', delay: '0s',   drift: '22px' },
+          { l: '16%', b: '30%', dur: '13s', delay: '4s',   drift: '-18px' },
+          { l: '26%', b: '10%', dur: '9s',  delay: '2s',   drift: '30px' },
+          { l: '34%', b: '45%', dur: '14s', delay: '7s',   drift: '14px' },
+          { l: '42%', b: '8%',  dur: '8s',  delay: '0.5s', drift: '30px' },
+          { l: '50%', b: '22%', dur: '11s', delay: '2.5s', drift: '-24px' },
+          { l: '57%', b: '6%',  dur: '9s',  delay: '5s',   drift: '18px' },
+          { l: '64%', b: '38%', dur: '13s', delay: '1.2s', drift: '-36px' },
+          { l: '72%', b: '12%', dur: '10s', delay: '3.8s', drift: '26px' },
+          { l: '80%', b: '28%', dur: '12s', delay: '6.4s', drift: '-14px' },
+          { l: '88%', b: '8%',  dur: '11s', delay: '8s',   drift: '20px' },
+          { l: '94%', b: '42%', dur: '14s', delay: '5.5s', drift: '-22px' },
+        ].map((e, i) => (
+          <span
+            key={i}
+            className="ember"
+            style={{ left: e.l, bottom: e.b, '--dur': e.dur, '--delay': e.delay, '--drift': e.drift }}
+          />
+        ))}
+      </div>
 
       {/* ======== HERO ======== */}
       <section id="top" className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
-        {/* embers — layer paling depan, gerak paling banyak */}
-        <div className="absolute inset-0 pointer-events-none will-change-transform" data-parallax="36" aria-hidden="true">
-          {[
-            { l: '42%', dur: '8s', delay: '0s', drift: '30px' },
-            { l: '50%', dur: '11s', delay: '2.5s', drift: '-24px' },
-            { l: '57%', dur: '9s', delay: '5s', drift: '18px' },
-            { l: '46%', dur: '13s', delay: '1.2s', drift: '-36px' },
-            { l: '62%', dur: '10s', delay: '3.8s', drift: '26px' },
-            { l: '36%', dur: '12s', delay: '6.4s', drift: '14px' },
-          ].map((e, i) => (
-            <span
-              key={i}
-              className="ember"
-              style={{ left: e.l, '--dur': e.dur, '--delay': e.delay, '--drift': e.drift }}
-            />
-          ))}
-        </div>
-
         <div className="relative text-center max-w-3xl mx-auto pt-20 pb-16 will-change-transform" data-parallax="-8">
           <p className="font-mono text-[11px] tracking-[0.28em] text-gold/80 uppercase mb-6 reveal">
             Kuala Lumpur, Malaysia
