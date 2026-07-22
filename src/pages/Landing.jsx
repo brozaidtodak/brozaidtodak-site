@@ -94,6 +94,40 @@ export default function Landing() {
     () => typeof window !== 'undefined' && sessionStorage.getItem('bzt-intro') === '1'
   )
 
+  // mouse parallax — layer background gerak lawan arah mouse, depth ikut data-parallax
+  useEffect(() => {
+    if (!introDone) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    if (!window.matchMedia('(pointer: fine)').matches) return
+
+    const layers = [...document.querySelectorAll('[data-parallax]')].map((el) => [
+      el,
+      parseFloat(el.dataset.parallax),
+    ])
+    if (!layers.length) return
+
+    let tx = 0, ty = 0, cx = 0, cy = 0
+    let raf
+    const onMove = (e) => {
+      tx = (e.clientX / window.innerWidth) * 2 - 1
+      ty = (e.clientY / window.innerHeight) * 2 - 1
+    }
+    const tick = () => {
+      cx += (tx - cx) * 0.06
+      cy += (ty - cy) * 0.06
+      for (const [el, depth] of layers) {
+        el.style.transform = `translate3d(${(-cx * depth).toFixed(2)}px, ${(-cy * depth).toFixed(2)}px, 0)`
+      }
+      raf = requestAnimationFrame(tick)
+    }
+    window.addEventListener('mousemove', onMove)
+    raf = requestAnimationFrame(tick)
+    return () => {
+      window.removeEventListener('mousemove', onMove)
+      cancelAnimationFrame(raf)
+    }
+  }, [introDone])
+
   useEffect(() => {
     if (!introDone) return
     const els = document.querySelectorAll('.reveal')
@@ -142,8 +176,9 @@ export default function Landing() {
 
       {/* gradient ambient penuh — dari hero sampai footer, takde potongan */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute -inset-10 pointer-events-none will-change-transform"
         aria-hidden="true"
+        data-parallax="12"
         style={{
           background:
             'radial-gradient(circle at 50% 12%, rgba(214,179,106,0.07), transparent 45%), radial-gradient(circle at 12% 30%, rgba(45,82,64,0.24), transparent 40%), linear-gradient(180deg, rgba(45,82,64,0.10) 0%, rgba(255,140,66,0.045) 25%, rgba(214,179,106,0.035) 50%, rgba(255,140,66,0.06) 75%, rgba(255,140,66,0.13) 100%)',
@@ -151,8 +186,9 @@ export default function Landing() {
       />
       {/* bara utama kat kaki hero — tak diclip, fade lembut ke bawah */}
       <div
-        className="absolute top-0 inset-x-0 h-[190vh] pointer-events-none glow-pulse"
+        className="absolute -top-10 -inset-x-10 h-[190vh] pointer-events-none glow-pulse will-change-transform"
         aria-hidden="true"
+        data-parallax="24"
         style={{
           background:
             'radial-gradient(ellipse 75% 28% at 50% 52%, rgba(255,140,66,0.15), transparent 65%)',
@@ -161,23 +197,25 @@ export default function Landing() {
 
       {/* ======== HERO ======== */}
       <section id="top" className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
-        {/* embers */}
-        {[
-          { l: '42%', dur: '8s', delay: '0s', drift: '30px' },
-          { l: '50%', dur: '11s', delay: '2.5s', drift: '-24px' },
-          { l: '57%', dur: '9s', delay: '5s', drift: '18px' },
-          { l: '46%', dur: '13s', delay: '1.2s', drift: '-36px' },
-          { l: '62%', dur: '10s', delay: '3.8s', drift: '26px' },
-          { l: '36%', dur: '12s', delay: '6.4s', drift: '14px' },
-        ].map((e, i) => (
-          <span
-            key={i}
-            className="ember"
-            style={{ left: e.l, '--dur': e.dur, '--delay': e.delay, '--drift': e.drift }}
-          />
-        ))}
+        {/* embers — layer paling depan, gerak paling banyak */}
+        <div className="absolute inset-0 pointer-events-none will-change-transform" data-parallax="36" aria-hidden="true">
+          {[
+            { l: '42%', dur: '8s', delay: '0s', drift: '30px' },
+            { l: '50%', dur: '11s', delay: '2.5s', drift: '-24px' },
+            { l: '57%', dur: '9s', delay: '5s', drift: '18px' },
+            { l: '46%', dur: '13s', delay: '1.2s', drift: '-36px' },
+            { l: '62%', dur: '10s', delay: '3.8s', drift: '26px' },
+            { l: '36%', dur: '12s', delay: '6.4s', drift: '14px' },
+          ].map((e, i) => (
+            <span
+              key={i}
+              className="ember"
+              style={{ left: e.l, '--dur': e.dur, '--delay': e.delay, '--drift': e.drift }}
+            />
+          ))}
+        </div>
 
-        <div className="relative text-center max-w-3xl mx-auto pt-20 pb-16">
+        <div className="relative text-center max-w-3xl mx-auto pt-20 pb-16 will-change-transform" data-parallax="-8">
           <p className="font-mono text-[11px] tracking-[0.28em] text-gold/80 uppercase mb-6 reveal">
             Kuala Lumpur, Malaysia
           </p>
@@ -315,7 +353,9 @@ export default function Landing() {
       {/* ======== HUBUNGI / FOOTER CTA ======== */}
       <section id="hubungi" className="relative px-6 pt-24 pb-10 overflow-hidden">
         <div
-          className="absolute inset-0 pointer-events-none glow-pulse"
+          className="absolute -inset-10 pointer-events-none glow-pulse will-change-transform"
+          aria-hidden="true"
+          data-parallax="16"
           style={{
             background:
               'radial-gradient(ellipse 75% 55% at 50% 115%, rgba(255,140,66,0.14), transparent 70%)',
