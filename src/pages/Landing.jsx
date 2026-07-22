@@ -226,7 +226,7 @@ export default function Landing() {
       <section id="top" className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
         <div className="relative text-center max-w-3xl mx-auto pt-20 pb-16 will-change-transform" data-parallax="-8">
           <p className="font-mono text-[11px] tracking-[0.28em] text-gold-bright uppercase mb-6 reveal">
-            Kuala Lumpur, Malaysia
+            Cyberjaya, Malaysia
           </p>
           <h1 className="font-display text-5xl md:text-7xl leading-[1.05] tracking-tight reveal">
             Membina perniagaan.
