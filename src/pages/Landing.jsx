@@ -167,7 +167,7 @@ export default function Landing() {
         </a>
         <Link
           to="/login"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/12 text-cream/70 hover:text-cream hover:border-gold/40 text-xs font-medium transition"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/12 text-cream/85 hover:text-cream hover:border-gold/40 text-xs font-medium transition"
         >
           <LockIcon />
           Command Centre
@@ -225,7 +225,7 @@ export default function Landing() {
       {/* ======== HERO ======== */}
       <section id="top" className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
         <div className="relative text-center max-w-3xl mx-auto pt-20 pb-16 will-change-transform" data-parallax="-8">
-          <p className="font-mono text-[11px] tracking-[0.28em] text-gold/80 uppercase mb-6 reveal">
+          <p className="font-mono text-[11px] tracking-[0.28em] text-gold-bright uppercase mb-6 reveal">
             Kuala Lumpur, Malaysia
           </p>
           <h1 className="font-display text-5xl md:text-7xl leading-[1.05] tracking-tight reveal">
@@ -233,7 +233,7 @@ export default function Landing() {
             <br />
             <span className="text-gold">Bina tools sendiri.</span>
           </h1>
-          <p className="text-cream/70 text-base md:text-lg leading-relaxed mt-8 max-w-xl mx-auto reveal">
+          <p className="text-cream/85 text-base md:text-lg leading-relaxed mt-8 max-w-xl mx-auto reveal">
             Aku run <span className="text-cream font-medium">10 CAMP</span> — kedai outdoor gear di
             Malaysia. Semua sistem belakang kedai — POS, kewangan, HR — aku bina sendiri.
             Belajar by doing.
@@ -242,7 +242,7 @@ export default function Landing() {
             {ROLES.map((r) => (
               <span
                 key={r.label}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-medium border border-white/8 bg-white/[0.04] ${r.tone}`}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-medium border border-white/12 bg-white/[0.04] ${r.tone}`}
               >
                 {r.label}
               </span>
@@ -271,7 +271,7 @@ export default function Landing() {
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="font-display text-3xl md:text-5xl leading-snug reveal">
             Dari kedai vape ke kedai camping — satu benda tak berubah:{' '}
-            <span className="text-ember">kalau tools takde, bina sendiri.</span>
+            <span className="text-ember-bright">kalau tools takde, bina sendiri.</span>
           </h2>
         </div>
       </section>
@@ -285,12 +285,12 @@ export default function Landing() {
               <h3 className="font-display text-2xl md:text-3xl leading-snug">
                 Siang jaga kedai, malam tulis sistem.
               </h3>
-              <p className="text-cream/70 leading-relaxed mt-5">
+              <p className="text-cream/85 leading-relaxed mt-5">
                 10 CAMP jual camping gear kat Shopee, TikTok Shop dan kedai fizikal. Bila bisnes
                 membesar, sistem sedia ada tak larat ikut — so aku bina sendiri satu persatu:
                 POS untuk kasir, back office untuk kewangan, portal HR untuk team.
               </p>
-              <p className="text-cream/70 leading-relaxed mt-4">
+              <p className="text-cream/85 leading-relaxed mt-4">
                 Bukan developer by training. Retailer yang belajar bina — sebab bisnes sendiri
                 yang perlukan dia.
               </p>
@@ -299,10 +299,10 @@ export default function Landing() {
               {STATS.map((s) => (
                 <div
                   key={s.label}
-                  className="rounded-2xl border border-white/8 bg-white/[0.03] px-6 py-5 flex items-baseline gap-4 reveal"
+                  className="rounded-2xl border border-white/12 bg-white/[0.03] px-6 py-5 flex items-baseline gap-4 reveal"
                 >
                   <span className="font-display text-4xl text-gold">{s.value}</span>
-                  <span className="text-xs text-cream/55 uppercase tracking-wider">{s.label}</span>
+                  <span className="text-xs text-cream/70 uppercase tracking-wider">{s.label}</span>
                 </div>
               ))}
             </div>
@@ -348,11 +348,11 @@ export default function Landing() {
                   className="absolute left-0 top-2 w-[11px] h-[11px] rounded-full border-2 border-gold bg-night"
                   aria-hidden="true"
                 />
-                <p className="font-mono text-[11px] tracking-[0.2em] text-gold/80 uppercase">
+                <p className="font-mono text-[11px] tracking-[0.2em] text-gold-bright uppercase">
                   {j.year}
                 </p>
                 <h4 className="font-display text-xl md:text-2xl mt-1.5">{j.title}</h4>
-                <p className="text-cream/65 leading-relaxed text-[15px] mt-2 max-w-xl">{j.desc}</p>
+                <p className="text-cream/80 leading-relaxed text-base mt-2 max-w-xl">{j.desc}</p>
               </div>
             ))}
           </div>
@@ -374,7 +374,7 @@ export default function Landing() {
           <h2 className="font-display text-4xl md:text-6xl leading-tight reveal">
             Nak sembang?
           </h2>
-          <p className="text-cream/65 mt-5 max-w-md mx-auto reveal">
+          <p className="text-cream/80 mt-5 max-w-md mx-auto reveal">
             Pasal retail, pasal bina sistem sendiri, atau pasal camping gear — inbox je.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 mt-9 reveal">
@@ -401,7 +401,7 @@ export default function Landing() {
             </div>
           </div>
 
-          <div className="mt-20 pt-8 border-t border-white/8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-cream/40">
+          <div className="mt-20 pt-8 border-t border-white/12 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-cream/60">
             <span>© 2026 Bro Zaid Todak</span>
             <Link
               to="/login"
@@ -448,7 +448,7 @@ function Intro({ onDone }) {
       }`}
     >
       <Monogram size={64} />
-      <p className="font-mono text-[11px] tracking-[0.3em] text-cream/50 uppercase">
+      <p className="font-mono text-[11px] tracking-[0.3em] text-cream/65 uppercase">
         Memuatkan&nbsp;&nbsp;{count}%
       </p>
     </div>
@@ -476,7 +476,7 @@ function Monogram({ size = 40 }) {
 
 function SectionLabel({ children }) {
   return (
-    <p className="font-mono text-[11px] tracking-[0.28em] text-gold/80 uppercase reveal">
+    <p className="font-mono text-[11px] tracking-[0.28em] text-gold-bright uppercase reveal">
       — {children}
     </p>
   )
@@ -484,9 +484,9 @@ function SectionLabel({ children }) {
 
 function ProjectCard({ project }) {
   const inner = (
-    <div className="h-full rounded-2xl border border-white/8 bg-white/[0.03] p-6 flex flex-col gap-3 transition hover:border-gold/30 hover:bg-white/[0.05] reveal">
+    <div className="h-full rounded-2xl border border-white/12 bg-white/[0.03] p-6 flex flex-col gap-3 transition hover:border-gold/30 hover:bg-white/[0.05] reveal">
       <div className="flex items-center justify-between">
-        <span className="font-mono text-[10px] tracking-[0.18em] text-cream/45 uppercase">
+        <span className="font-mono text-[10px] tracking-[0.18em] text-cream/65 uppercase">
           {project.tag}
         </span>
         <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-400/10 text-emerald-300 border border-emerald-400/20">
@@ -494,7 +494,7 @@ function ProjectCard({ project }) {
         </span>
       </div>
       <h4 className="font-display text-xl text-cream">{project.name}</h4>
-      <p className="text-cream/60 text-sm leading-relaxed">{project.desc}</p>
+      <p className="text-cream/75 text-[15px] leading-relaxed">{project.desc}</p>
       {project.url && (
         <span className="text-gold text-xs font-medium mt-auto pt-2">
           Lawati site →
@@ -518,7 +518,7 @@ function SocialIcon({ href, label, children }) {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/8 flex items-center justify-center text-cream/70 hover:text-cream hover:border-gold/40 transition"
+      className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/12 flex items-center justify-center text-cream/85 hover:text-cream hover:border-gold/40 transition"
     >
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         {children}
