@@ -505,39 +505,71 @@ function SeaStorm() {
   )
 }
 
-// ---- intro loader (sekali per sesi, ~1.3s) ----
+// ---- intro montaj (sekali per sesi, ~2.8s) — GSAP timeline sinematik ----
 function Intro({ onDone }) {
-  const [count, setCount] = useState(0)
-  const [fading, setFading] = useState(false)
+  const ref = useRef(null)
 
   useEffect(() => {
-    let raf
-    const start = performance.now()
-    const dur = 1100
-    const tick = (t) => {
-      const p = Math.min(1, (t - start) / dur)
-      setCount(Math.round(p * 100))
-      if (p < 1) {
-        raf = requestAnimationFrame(tick)
-      } else {
-        setFading(true)
-        setTimeout(onDone, 450)
-      }
+    const root = ref.current
+    if (!root) return
+    const q = gsap.utils.selector(root)
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    if (reduce) {
+      // hormat reduced-motion — terus tunjuk, fade cepat
+      const t = setTimeout(onDone, 400)
+      gsap.to(root, { opacity: 0, duration: 0.35, delay: 0.4 })
+      return () => clearTimeout(t)
     }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
+
+    const tl = gsap.timeline({ onComplete: onDone })
+
+    // 1) tiga perkataan naik dari mask, satu demi satu
+    tl.from(q('.iw'), {
+      yPercent: 120, duration: 0.8, ease: 'power4.out', stagger: 0.14,
+    })
+    // 2) kilauan oren menyapu merentas "zaid"
+    tl.fromTo(q('.iw-sweep'),
+      { xPercent: -120 },
+      { xPercent: 120, duration: 0.55, ease: 'power2.inOut' }, '-=0.15')
+    // 3) garis oren melukis di bawah wordmark
+    tl.from(q('.iw-line'), {
+      scaleX: 0, transformOrigin: 'left', duration: 0.55, ease: 'power3.out',
+    }, '-=0.35')
+    // 4) tagline mono muncul
+    tl.from(q('.iw-tag'), {
+      opacity: 0, y: 10, duration: 0.5, ease: 'power2.out',
+    }, '-=0.25')
+    // 5) tahan sekejap, zoom halus + fade keluar → dedah landing
+    tl.to(q('.iw-mark'), {
+      scale: 1.07, duration: 0.6, ease: 'power2.in',
+    }, '+=0.45')
+    tl.to(root, { opacity: 0, duration: 0.5, ease: 'power2.inOut' }, '<0.12')
+
+    return () => tl.kill()
   }, [onDone])
 
   return (
     <div
-      className={`fixed inset-0 z-50 bg-void flex flex-col items-center justify-center gap-6 ${
-        fading ? 'intro-fade' : ''
-      }`}
+      ref={ref}
+      className="fixed inset-0 z-50 bg-void flex flex-col items-center justify-center gap-5"
     >
-      <Wordmark className="text-4xl md:text-5xl" />
-      <p className="font-mono text-[11px] tracking-[0.3em] text-white/50 uppercase">
-        Memuatkan&nbsp;&nbsp;{count}%
-      </p>
+      <div className="iw-mark relative flex flex-col items-center gap-4">
+        <div className="relative">
+          <span className="flex font-sans font-black lowercase tracking-tight leading-none text-5xl md:text-7xl">
+            <span className="overflow-hidden inline-flex"><span className="iw inline-block text-white">bro</span></span>
+            <span className="overflow-hidden inline-flex relative">
+              <span className="iw inline-block text-accent">zaid</span>
+              <span className="iw-sweep pointer-events-none absolute inset-y-0 -inset-x-2 bg-white/35 blur-md" />
+            </span>
+            <span className="overflow-hidden inline-flex"><span className="iw inline-block text-white">todak</span></span>
+          </span>
+          <span className="iw-line absolute left-0 -bottom-2.5 h-[4px] w-full bg-accent rounded-full" />
+        </div>
+        <span className="iw-tag font-mono text-[11px] tracking-[0.4em] text-white/45 uppercase">
+          Cyberjaya · Builder
+        </span>
+      </div>
     </div>
   )
 }
