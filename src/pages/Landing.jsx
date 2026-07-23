@@ -497,13 +497,9 @@ function SeaStorm() {
   )
 }
 
-// ---- intro montaj (~2.8s) — GSAP timeline sinematik ----
-// Fasa 1 "armed": tunggu ketukan (buka audio) supaya whoosh boleh main.
-//   Ketuk → montaj + BUNYI. Tak ketuk dlm 1.8s → montaj auto (senyap).
-// Pelayar sekat audio sebelum interaksi pengguna — itu sebab perlu ketuk.
+// ---- intro montaj (sekali per sesi, ~2.8s) — GSAP timeline sinematik ----
 function Intro({ onDone }) {
   const ref = useRef(null)
-  const [armed, setArmed] = useState(true)
 
   useEffect(() => {
     const root = ref.current
@@ -511,25 +507,27 @@ function Intro({ onDone }) {
     const q = gsap.utils.selector(root)
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-    // sembunyi elemen wordmark dulu (armed phase = skrin hint sahaja)
-    gsap.set(q('.iw'), { yPercent: 120 })
-    gsap.set(q('.iw-line'), { scaleX: 0, transformOrigin: 'left' })
-    gsap.set(q('.iw-tag'), { opacity: 0, y: 10 })
-    gsap.set(q('.iw-sweep'), { xPercent: -120 })
-
-    if (reduce) {
-      const t = setTimeout(onDone, 400)
-      gsap.to(root, { opacity: 0, duration: 0.35, delay: 0.4 })
-      return () => clearTimeout(t)
-    }
-
-    // ---- audio (WebAudio synth) ----
+    // ---- whoosh SFX (disintesis WebAudio — tiada fail audio) ----
+    // Nota: pelayar sekat audio auto sebelum interaksi pengguna. Kita cuba
+    // buka AudioContext bila mouse/tap/kekunci pertama; kalau tak sempat, senyap.
     const AC = window.AudioContext || window.webkitAudioContext
     let actx = null
+    const ensureCtx = () => {
+      if (!AC) return
+      if (!actx) actx = new AC()
+      if (actx.state === 'suspended') actx.resume().catch(() => {})
+    }
+    const unlock = () => ensureCtx()
+    window.addEventListener('pointerdown', unlock, { once: true })
+    window.addEventListener('pointermove', unlock, { once: true })
+    window.addEventListener('keydown', unlock, { once: true })
+    ensureCtx() // cuba awal (kadang dibenarkan jika domain pernah diinteraksi)
+
     const playWhoosh = () => {
       try {
         if (!actx || actx.state !== 'running') return
-        const now = actx.currentTime, dur = 0.6
+        const now = actx.currentTime
+        const dur = 0.6
         const buf = actx.createBuffer(1, Math.floor(actx.sampleRate * dur), actx.sampleRate)
         const d = buf.getChannelData(0)
         for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1
@@ -540,61 +538,59 @@ function Intro({ onDone }) {
         flt.frequency.exponentialRampToValueAtTime(220, now + dur)
         const g = actx.createGain()
         g.gain.setValueAtTime(0.0001, now)
-        g.gain.exponentialRampToValueAtTime(0.24, now + 0.12)
+        g.gain.exponentialRampToValueAtTime(0.22, now + 0.12)
         g.gain.exponentialRampToValueAtTime(0.0001, now + dur)
         src.connect(flt); flt.connect(g); g.connect(actx.destination)
         src.start(now); src.stop(now + dur)
       } catch (e) { /* senyap */ }
     }
 
-    let started = false
-    let tl = null
-    let fallback = null
-
-    const runMontage = () => {
-      if (started) return
-      started = true
-      setArmed(false)
-      clearTimeout(fallback)
-      window.removeEventListener('pointerdown', onGesture)
-      window.removeEventListener('keydown', onGesture)
-      window.removeEventListener('touchstart', onGesture)
-
-      tl = gsap.timeline({ onComplete: () => { if (actx) actx.close().catch(() => {}); onDone() } })
-      tl.to(q('.iw'), { yPercent: 0, duration: 0.8, ease: 'power4.out', stagger: 0.14 })
-      tl.to(q('.iw-sweep'), { xPercent: 120, duration: 0.55, ease: 'power2.inOut' }, '-=0.15')
-      tl.to(q('.iw-line'), { scaleX: 1, duration: 0.55, ease: 'power3.out' }, '-=0.35')
-      tl.to(q('.iw-tag'), { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.25')
-      tl.to(q('.iw-mark'), { scale: 1.07, duration: 0.6, ease: 'power2.in', onStart: playWhoosh }, '+=0.45')
-      tl.to(root, { opacity: 0, duration: 0.5, ease: 'power2.inOut' }, '<0.12')
-    }
-
-    // ketukan sebenar (klik/tekan/sentuh) = buka audio + main dgn bunyi
-    const onGesture = () => {
-      if (AC) { if (!actx) actx = new AC(); if (actx.state === 'suspended') actx.resume().catch(() => {}) }
-      runMontage()
-    }
-    window.addEventListener('pointerdown', onGesture)
-    window.addEventListener('keydown', onGesture)
-    window.addEventListener('touchstart', onGesture)
-
-    // fallback: tiada ketukan dlm 1.8s → montaj auto (senyap)
-    fallback = setTimeout(runMontage, 1800)
-
-    return () => {
-      clearTimeout(fallback)
-      window.removeEventListener('pointerdown', onGesture)
-      window.removeEventListener('keydown', onGesture)
-      window.removeEventListener('touchstart', onGesture)
-      if (tl) tl.kill()
+    const cleanupAudio = () => {
+      window.removeEventListener('pointerdown', unlock)
+      window.removeEventListener('pointermove', unlock)
+      window.removeEventListener('keydown', unlock)
       if (actx) actx.close().catch(() => {})
     }
+
+    if (reduce) {
+      // hormat reduced-motion — terus tunjuk, fade cepat
+      const t = setTimeout(onDone, 400)
+      gsap.to(root, { opacity: 0, duration: 0.35, delay: 0.4 })
+      return () => { clearTimeout(t); cleanupAudio() }
+    }
+
+    const tl = gsap.timeline({ onComplete: () => { cleanupAudio(); onDone() } })
+
+    // 1) tiga perkataan naik dari mask, satu demi satu
+    tl.from(q('.iw'), {
+      yPercent: 120, duration: 0.8, ease: 'power4.out', stagger: 0.14,
+    })
+    // 2) kilauan oren menyapu merentas "zaid"
+    tl.fromTo(q('.iw-sweep'),
+      { xPercent: -120 },
+      { xPercent: 120, duration: 0.55, ease: 'power2.inOut' }, '-=0.15')
+    // 3) garis oren melukis di bawah wordmark
+    tl.from(q('.iw-line'), {
+      scaleX: 0, transformOrigin: 'left', duration: 0.55, ease: 'power3.out',
+    }, '-=0.35')
+    // 4) tagline mono muncul
+    tl.from(q('.iw-tag'), {
+      opacity: 0, y: 10, duration: 0.5, ease: 'power2.out',
+    }, '-=0.25')
+    // 5) tahan sekejap, zoom halus + fade keluar → dedah landing (+ whoosh)
+    tl.to(q('.iw-mark'), {
+      scale: 1.07, duration: 0.6, ease: 'power2.in',
+      onStart: playWhoosh,
+    }, '+=0.45')
+    tl.to(root, { opacity: 0, duration: 0.5, ease: 'power2.inOut' }, '<0.12')
+
+    return () => { tl.kill(); cleanupAudio() }
   }, [onDone])
 
   return (
     <div
       ref={ref}
-      className="fixed inset-0 z-50 bg-void flex flex-col items-center justify-center gap-5 cursor-pointer"
+      className="fixed inset-0 z-50 bg-void flex flex-col items-center justify-center gap-5"
     >
       <div className="iw-mark relative flex flex-col items-center gap-4">
         <div className="relative">
@@ -612,17 +608,6 @@ function Intro({ onDone }) {
           Cyberjaya · Builder
         </span>
       </div>
-
-      {armed && (
-        <div className="absolute bottom-16 flex flex-col items-center gap-2 animate-pulse">
-          <span className="font-mono text-[11px] tracking-[0.3em] text-accent uppercase">
-            🔊 ketuk untuk masuk
-          </span>
-          <span className="font-mono text-[10px] tracking-[0.2em] text-white/35 uppercase">
-            (dengan bunyi)
-          </span>
-        </div>
-      )}
     </div>
   )
 }
