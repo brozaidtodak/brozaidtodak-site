@@ -180,16 +180,15 @@ body {
 /* MAGNETIK — butang/ikon tertarik ke kursor */
 .magnetic { transition: transform .25s cubic-bezier(.22,1,.36,1); will-change: transform; }
 
-/* STATEMENT — garis bawah melukis bila hover frasa oren */
-.stmt-accent { position: relative; cursor: default; transition: text-shadow .3s ease; }
-.stmt-accent::after {
-  content: ''; position: absolute; left: 0; bottom: -.08em; height: 3px; width: 100%;
-  background: var(--color-accent); border-radius: 99px;
-  transform: scaleX(0); transform-origin: left;
-  transition: transform .5s cubic-bezier(.22,1,.36,1);
+/* STATEMENT — glow halus bila hover frasa oren (selamat utk teks 2-baris) */
+.stmt-accent {
+  cursor: default;
+  transition: text-shadow .35s ease, filter .35s ease;
 }
-.stmt-accent:hover { text-shadow: 0 0 26px rgba(255,77,0,.45); }
-.stmt-accent:hover::after { transform: scaleX(1); }
+.stmt-accent:hover {
+  text-shadow: 0 0 30px rgba(255,77,0,.5);
+  filter: brightness(1.12);
+}
 
 /* PERJALANAN — garis masa isi ikut scroll + hover highlight */
 .timeline-track, .timeline-fill {
