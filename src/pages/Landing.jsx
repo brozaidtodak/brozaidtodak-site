@@ -222,10 +222,7 @@ export default function Landing() {
       {/* top nav */}
       <header className="absolute top-0 inset-x-0 z-20 flex items-center justify-between px-6 md:px-12 py-6">
         <a href="#top" className="flex items-center gap-3">
-          <Monogram size={38} />
-          <span className="text-sm font-bold tracking-widest uppercase text-white/90 hidden sm:block">
-            Bro Zaid Todak
-          </span>
+          <Wordmark className="text-xl md:text-2xl" />
         </a>
         <Link
           to="/login"
@@ -541,7 +538,7 @@ function Intro({ onDone }) {
         fading ? 'intro-fade' : ''
       }`}
     >
-      <Monogram size={64} />
+      <Wordmark className="text-4xl md:text-5xl" />
       <p className="font-mono text-[11px] tracking-[0.3em] text-white/50 uppercase">
         Memuatkan&nbsp;&nbsp;{count}%
       </p>
@@ -549,16 +546,13 @@ function Intro({ onDone }) {
   )
 }
 
-function Monogram({ size = 40 }) {
+function Wordmark({ className = '' }) {
   return (
-    <div
-      className="rounded-full shrink-0 border-2 border-white/30 bg-void flex items-center justify-center"
-      style={{ width: size, height: size }}
-    >
-      <span className="font-sans font-black text-white" style={{ fontSize: size * 0.42 }}>
-        Z
-      </span>
-    </div>
+    <span className={`font-sans font-black lowercase tracking-tight leading-none ${className}`}>
+      <span className="text-white">bro</span>
+      <span className="text-accent">zaid</span>
+      <span className="text-white">todak</span>
+    </span>
   )
 }
 
