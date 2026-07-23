@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { SplitText } from 'gsap/SplitText'
+import { COPY, DEFAULT_LANG, ROLE_TONES, availableLangs, copyFor } from '../lib/i18n'
 
 gsap.registerPlugin(ScrollTrigger, SplitText)
 
@@ -11,93 +12,42 @@ gsap.registerPlugin(ScrollTrigger, SplitText)
 // Inspirasi todak.com: hitam pekat, Inter bold putih, kelabu
 // sekunder. DISIPLIN WARNA: satu aksen sahaja (Todak Orange) +
 // neutral. Struktur cinematic + parallax + sparks dikekalkan.
+//
+// TEKS: semua ayat public dipindah ke ../lib/i18n.js (BM/EN, +zh/ta
+// bila sedia). Di sini kita cuma rujuk `c.*` ikut bahasa terpilih.
 // ============================================================
 
-const ROLES = [
-  { label: 'Retailer · 10 CAMP', tone: 'text-accent' },
-  { label: 'Builder', tone: 'text-white' },
-  { label: 'Naturalist', tone: 'text-white/70' },
-]
-
-const STATS = [
-  { count: 5, suffix: '', label: 'Tahun dalam industri peruncitan' },
-  { count: 10, suffix: '+', label: 'Sistem & platform dibangunkan' },
-  { count: 1, suffix: '', label: 'Jenama · 10 CAMP' },
-]
-
-const PROJECTS = [
-  {
-    name: '10 CAMP',
-    tag: 'Perniagaan utama',
-    desc: 'Peruncitan peralatan outdoor dan camping di Malaysia — beroperasi di Shopee, TikTok Shop dan kedai fizikal dengan inventori bersepadu dalam satu sistem.',
-    url: 'https://10camp.com',
-    status: 'LIVE',
-  },
-  {
-    name: '10 CAMP POS',
-    tag: 'Sistem runcit',
-    desc: 'Sistem point-of-sale lengkap yang dibangunkan dari asas — jualan, inventori, pengurusan staf, program kesetiaan pelanggan dan pembantu AI.',
-    status: 'LIVE',
-  },
-  {
-    name: 'Command Centre',
-    tag: 'Kewangan',
-    desc: 'Back office kewangan bersepadu — lejar am, penyelarasan settlement marketplace, payroll dan pelaporan untung rugi.',
-    status: 'LIVE',
-  },
-  {
-    name: 'hr10',
-    tag: 'Sumber manusia',
-    desc: 'Portal HR untuk pengurusan tenaga kerja — penjadualan syif, rekod kakitangan dan laporan operasi harian secara automatik.',
-    status: 'LIVE',
-  },
-  {
-    name: 'Shedan Bunga',
-    tag: 'Perniagaan keluarga',
-    desc: 'Pembangunan identiti jenama dan laman web rasmi untuk jenama bunga manik buatan tangan.',
-    url: 'https://shedanbunga.com',
-    status: 'LIVE',
-  },
-  {
-    name: 'Empayar Sabrina',
-    tag: 'Perniagaan keluarga',
-    desc: 'Sistem POS dan back office untuk perniagaan batik keluarga — dibangunkan dengan standard yang sama seperti operasi utama.',
-    status: 'LIVE',
-  },
-]
-
-const JOURNEY = [
-  {
-    year: '2021 – 2023',
-    title: 'Peruncitan vape',
-    desc: 'Permulaan dalam dunia peruncitan — pengurusan jualan, inventori dan aliran tunai. Perniagaan telah ditutup; pengalamannya kekal menjadi asas.',
-  },
-  {
-    year: 'Berterusan',
-    title: 'Pembaikan telefon',
-    desc: 'Kemahiran teknikal yang dikekalkan sehingga kini — diagnosis, pembaikan dan pemasangan semula. Disiplin yang sama diterapkan dalam pembinaan sistem.',
-  },
-  {
-    year: '2024',
-    title: '10 CAMP diasaskan',
-    desc: 'Peralihan kepada peralatan outdoor — bermula dengan platform sedia ada seperti Shopify dan EasyStore.',
-  },
-  {
-    year: '2025',
-    title: 'Pembangunan dalaman bermula',
-    desc: 'Sistem sedia ada tidak lagi menampung keperluan operasi. Sistem POS pertama dibangunkan sendiri — diikuti modul demi modul.',
-  },
-  {
-    year: '2026',
-    title: 'Ekosistem lengkap',
-    desc: 'POS, kewangan, HR, mesyuarat dan perancangan — keseluruhannya dibangunkan secara dalaman dan saling bersepadu.',
-  },
+// Data projek yang TAK berubah ikut bahasa (nama, url, status).
+// Tag + deskripsi datang dari kamus i18n, digabung ikut index.
+const PROJECT_META = [
+  { name: '10 CAMP', url: 'https://10camp.com', status: 'LIVE' },
+  { name: '10 CAMP POS', status: 'LIVE' },
+  { name: 'Command Centre', status: 'LIVE' },
+  { name: 'hr10', status: 'LIVE' },
+  { name: 'Shedan Bunga', url: 'https://shedanbunga.com', status: 'LIVE' },
+  { name: 'Empayar Sabrina', status: 'LIVE' },
 ]
 
 export default function Landing() {
   // montaj main SETIAP lawatan (bukan sekali sesi)
   const [introDone, setIntroDone] = useState(false)
   const rootRef = useRef(null)
+
+  // bahasa terpilih — pulih dari simpanan / auto-kesan pelayar / default BM
+  const [lang, setLang] = useState(() => {
+    try {
+      const saved = localStorage.getItem('bzt-lang')
+      if (saved && COPY[saved]) return saved
+      const nav = (navigator.language || '').slice(0, 2).toLowerCase()
+      if (COPY[nav]) return nav
+    } catch { /* SSR / storage disekat */ }
+    return DEFAULT_LANG
+  })
+  useEffect(() => {
+    try { localStorage.setItem('bzt-lang', lang) } catch { /* abai */ }
+    document.documentElement.lang = lang
+  }, [lang])
+  const c = copyFor(lang)
 
   // mouse parallax — layer background gerak lawan arah mouse, depth ikut data-parallax
   useEffect(() => {
@@ -278,13 +228,16 @@ export default function Landing() {
         <a href="#top" className="flex items-center gap-3">
           <Wordmark className="text-xl md:text-2xl" />
         </a>
-        <Link
-          to="/login"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/15 text-white/75 hover:text-white hover:border-white/40 text-xs font-semibold transition"
-        >
-          <LockIcon />
-          Command Centre
-        </Link>
+        <div className="flex items-center gap-2 md:gap-3">
+          <LangSwitcher lang={lang} setLang={setLang} />
+          <Link
+            to="/login"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/15 text-white/75 hover:text-white hover:border-white/40 text-xs font-semibold transition"
+          >
+            <LockIcon />
+            <span className="hidden sm:inline">{c.nav.commandCentre}</span>
+          </Link>
+        </div>
       </header>
 
       {/* gradient ambient penuh — monokrom, sedikit haba accent kat kaki */}
@@ -340,27 +293,29 @@ export default function Landing() {
         <div className="hero-spotlight" aria-hidden="true" />
         <div className="relative z-[2] text-center max-w-4xl mx-auto pt-20 pb-16 will-change-transform" data-parallax="-8">
           <p className="hero-sub font-mono text-[11px] tracking-[0.28em] text-white/55 uppercase mb-6">
-            Cyberjaya, Malaysia
+            {c.hero.location}
           </p>
-          <h1 id="hero-title" className="font-display font-bold text-5xl md:text-7xl lg:text-8xl leading-[0.98] tracking-tight uppercase">
-            Membina
+          {/* key={lang} — bina semula segar bila tukar bahasa supaya SplitText
+              (yang ubah DOM di luar pengetahuan React) tak tinggal teks lama */}
+          <h1 key={lang} id="hero-title" className="font-display font-bold text-5xl md:text-7xl lg:text-8xl leading-[0.98] tracking-tight uppercase">
+            {c.hero.titleL1}
             <br />
-            perniagaan.
+            {c.hero.titleL2}
             <br />
-            <span className="text-accent">Membina sistemnya sekali.</span>
+            <span className="text-accent">{c.hero.titleAccent}</span>
           </h1>
           <p className="hero-sub text-white/75 text-base md:text-lg leading-relaxed mt-9 max-w-xl mx-auto">
-            Pengasas <span className="text-white font-semibold">10 CAMP</span> — peruncitan peralatan
-            outdoor di Malaysia. Keseluruhan sistem operasinya — POS, kewangan, HR — dibangunkan
-            secara dalaman, dari asas.
+            {c.hero.subPre}
+            <span className="text-white font-semibold">{c.hero.subBrand}</span>
+            {c.hero.subPost}
           </p>
           <div className="hero-sub flex flex-wrap items-center justify-center gap-2 mt-9">
-            {ROLES.map((r) => (
+            {c.hero.roles.map((label, i) => (
               <span
-                key={r.label}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold border border-white/12 bg-white/[0.04] ${r.tone}`}
+                key={label}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold border border-white/12 bg-white/[0.04] ${ROLE_TONES[i] || 'text-white'}`}
               >
-                {r.label}
+                {label}
               </span>
             ))}
           </div>
@@ -369,22 +324,22 @@ export default function Landing() {
               href="#projek"
               className="btn-pad btn-light magnetic inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white text-black text-sm font-bold"
             >
-              Lihat portfolio
+              {c.hero.ctaPortfolio}
               <span aria-hidden="true">↓</span>
             </a>
             <a
               href="#hubungi"
               className="btn-pad magnetic inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/20 text-white/90 text-sm font-semibold hover:bg-white/[0.07]"
             >
-              Hubungi saya
+              {c.hero.ctaContact}
             </a>
           </div>
         </div>
 
         {/* penunjuk skrol — isi ruang bawah hero + pandu mata turun */}
-        <a href="#projek" aria-label="Skrol ke bawah"
+        <a href="#projek" aria-label={c.hero.scrollAria}
            className="scroll-cue absolute bottom-8 left-1/2 -translate-x-1/2 z-[2] flex flex-col items-center gap-3 text-white/45 hover:text-white/80 transition-colors">
-          <span className="font-mono text-[10px] tracking-[0.32em] uppercase">Skrol</span>
+          <span className="font-mono text-[10px] tracking-[0.32em] uppercase">{c.hero.scroll}</span>
           <span className="scroll-mouse"><span className="scroll-wheel" /></span>
         </a>
       </section>
@@ -393,8 +348,8 @@ export default function Landing() {
       <section className="relative px-6 py-28 md:py-36">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="font-display font-bold text-3xl md:text-5xl leading-snug tracking-tight reveal">
-            Daripada peruncitan vape kepada peralatan kembara — satu prinsip kekal:{' '}
-            <span className="text-accent stmt-accent">jika sistemnya tiada, bina sendiri.</span>
+            {c.statement.pre}
+            <span className="text-accent stmt-accent">{c.statement.accent}</span>
           </h2>
         </div>
       </section>
@@ -402,26 +357,21 @@ export default function Landing() {
       {/* ======== FOKUS SEMASA ======== */}
       <section className="relative px-6 py-20 md:py-28">
         <div className="max-w-4xl mx-auto">
-          <SectionLabel>Fokus semasa</SectionLabel>
+          <SectionLabel>{c.focus.label}</SectionLabel>
           <div className="grid md:grid-cols-5 gap-10 items-start mt-8">
             <div className="md:col-span-3 reveal">
               <h3 className="font-sans font-extrabold text-2xl md:text-3xl leading-snug tracking-tight">
-                Peruncit di siang hari, pembina sistem di malam hari.
+                {c.focus.heading}
               </h3>
               <p className="text-white/75 leading-relaxed mt-5">
-                10 CAMP beroperasi di Shopee, TikTok Shop dan kedai fizikal. Apabila perniagaan
-                berkembang, sistem sedia ada tidak lagi mencukupi — maka setiap satunya dibangunkan
-                secara dalaman: POS untuk operasi kedai, back office untuk kewangan, portal HR
-                untuk pengurusan tenaga kerja.
+                {c.focus.p1}
               </p>
               <p className="text-white/75 leading-relaxed mt-4">
-                Bukan pengaturcara terlatih — peruncit yang membina sistem kerana perniagaan
-                sendiri yang memerlukannya. Setiap modul lahir daripada masalah operasi yang
-                sebenar.
+                {c.focus.p2}
               </p>
             </div>
             <div className="md:col-span-2 grid grid-cols-1 gap-4">
-              {STATS.map((s) => (
+              {c.focus.stats.map((s) => (
                 <div
                   key={s.label}
                   className="tilt relative rounded-2xl border border-white/12 bg-white/[0.03] px-6 py-5 flex items-baseline gap-4 reveal"
@@ -444,13 +394,17 @@ export default function Landing() {
       {/* ======== PORTFOLIO ======== */}
       <section id="projek" className="relative px-6 py-20 md:py-28">
         <div className="relative max-w-5xl mx-auto">
-          <SectionLabel>Portfolio</SectionLabel>
+          <SectionLabel>{c.portfolio.label}</SectionLabel>
           <h3 className="font-display font-bold text-3xl md:text-4xl tracking-tight mt-4 reveal">
-            Satu perniagaan, satu ekosistem.
+            {c.portfolio.heading}
           </h3>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr gap-5 mt-10">
-            {PROJECTS.map((p) => (
-              <ProjectCard key={p.name} project={p} />
+            {PROJECT_META.map((m, i) => (
+              <ProjectCard
+                key={m.name}
+                project={{ ...m, ...(c.portfolio.projects[i] || {}) }}
+                visitLabel={c.portfolio.visit}
+              />
             ))}
           </div>
         </div>
@@ -459,12 +413,12 @@ export default function Landing() {
       {/* ======== PERJALANAN ======== */}
       <section className="relative px-6 py-20 md:py-28">
         <div className="max-w-3xl mx-auto">
-          <SectionLabel>Perjalanan</SectionLabel>
+          <SectionLabel>{c.journey.label}</SectionLabel>
           <div className="timeline-wrap relative mt-10">
             {/* spine berterusan + fill ikut scroll */}
             <span className="timeline-track" aria-hidden="true" />
             <span className="timeline-fill" aria-hidden="true" />
-            {JOURNEY.map((j) => (
+            {c.journey.items.map((j) => (
               <div key={j.title} className="journey-item group relative pl-8 pb-12 last:pb-0 reveal">
                 <span
                   className="journey-dot absolute left-0 top-2 w-[11px] h-[11px] rounded-full border-2 border-accent bg-void"
@@ -494,14 +448,13 @@ export default function Landing() {
         />
         <div className="relative max-w-3xl mx-auto text-center">
           <h2 className="font-display font-bold text-4xl md:text-6xl tracking-tight uppercase reveal">
-            Mari berhubung.
+            {c.contact.heading}
           </h2>
           <p className="text-white/70 mt-5 max-w-md mx-auto reveal">
-            Untuk kerjasama, pertanyaan perniagaan atau perbincangan mengenai pembangunan
-            sistem — hubungi saya melalui e-mel atau media sosial.
+            {c.contact.body}
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 mt-9 reveal">
-            <EmailCopy />
+            <EmailCopy copyTitle={c.contact.copyTitle} copiedLabel={c.contact.copied} />
             <div className="flex items-center gap-3">
               <SocialIcon href="https://instagram.com/brozaidtodak" label="Instagram">
                 <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
@@ -520,13 +473,13 @@ export default function Landing() {
           </div>
 
           <div className="mt-20 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/60">
-            <span>© 2026 Bro Zaid Todak</span>
+            <span>{c.contact.footer}</span>
             <Link
               to="/login"
               className="group inline-flex items-center gap-2 hover:text-white/90 transition"
             >
               <LockIcon />
-              <span>Enter Command Centre</span>
+              <span>{c.nav.enterCommandCentre}</span>
               <span className="text-accent transition-transform group-hover:translate-x-0.5">→</span>
             </Link>
           </div>
@@ -699,7 +652,36 @@ function SectionLabel({ children }) {
   )
 }
 
-function ProjectCard({ project }) {
+// ---- pemilih bahasa (pil ringkas di header) ----
+// Hanya bahasa yang betul-betul ada teks (availableLangs) tunjuk butang.
+function LangSwitcher({ lang, setLang }) {
+  return (
+    <div
+      className="flex items-center gap-0.5 p-0.5 rounded-full border border-white/12 bg-white/[0.03]"
+      role="group"
+      aria-label="Pilih bahasa"
+    >
+      {availableLangs.map((l) => (
+        <button
+          key={l.code}
+          type="button"
+          onClick={() => setLang(l.code)}
+          aria-pressed={lang === l.code}
+          title={l.label}
+          className={`px-2.5 py-1 rounded-full text-[11px] font-bold leading-none transition ${
+            lang === l.code
+              ? 'bg-white text-black'
+              : 'text-white/55 hover:text-white'
+          }`}
+        >
+          {l.short}
+        </button>
+      ))}
+    </div>
+  )
+}
+
+function ProjectCard({ project, visitLabel }) {
   const inner = (
     <div
       className="card-pad tilt relative h-full rounded-2xl border border-white/12 bg-white/[0.03] p-6 flex flex-col gap-3 hover:border-accent/40"
@@ -716,7 +698,7 @@ function ProjectCard({ project }) {
       <p className="text-white/70 text-[15px] leading-relaxed">{project.desc}</p>
       {project.url && (
         <span className="text-xs font-semibold mt-auto pt-2 text-accent">
-          Lawati laman →
+          {visitLabel}
         </span>
       )}
     </div>
@@ -730,7 +712,7 @@ function ProjectCard({ project }) {
   )
 }
 
-function EmailCopy() {
+function EmailCopy({ copyTitle = 'Klik untuk salin', copiedLabel = 'Disalin!' }) {
   const [copied, setCopied] = useState(false)
   const email = 'zaid@todak.com'
   const copy = () => {
@@ -742,13 +724,13 @@ function EmailCopy() {
   return (
     <button
       onClick={copy}
-      title="Klik untuk salin"
+      title={copyTitle}
       className="magnetic inline-flex items-center gap-2 px-7 py-3 rounded-full bg-white text-black text-sm font-bold hover:bg-white/85 transition"
     >
       {copied ? (
         <>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-          Disalin!
+          {copiedLabel}
         </>
       ) : (
         <>
