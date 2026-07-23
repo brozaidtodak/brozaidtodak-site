@@ -95,9 +95,8 @@ const JOURNEY = [
 ]
 
 export default function Landing() {
-  const [introDone, setIntroDone] = useState(
-    () => typeof window !== 'undefined' && sessionStorage.getItem('bzt-intro') === '1'
-  )
+  // montaj main SETIAP lawatan (bukan sekali sesi)
+  const [introDone, setIntroDone] = useState(false)
   const rootRef = useRef(null)
 
   // mouse parallax — layer background gerak lawan arah mouse, depth ikut data-parallax
@@ -206,14 +205,7 @@ export default function Landing() {
   return (
     <div ref={rootRef} className="min-h-screen bg-void text-white font-sans relative overflow-x-clip">
       <SeaStorm />
-      {!introDone && (
-        <Intro
-          onDone={() => {
-            sessionStorage.setItem('bzt-intro', '1')
-            setIntroDone(true)
-          }}
-        />
-      )}
+      {!introDone && <Intro onDone={() => setIntroDone(true)} />}
 
       {/* top nav */}
       <header className="absolute top-0 inset-x-0 z-20 flex items-center justify-between px-6 md:px-12 py-6">
@@ -515,14 +507,59 @@ function Intro({ onDone }) {
     const q = gsap.utils.selector(root)
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
+    // ---- whoosh SFX (disintesis WebAudio — tiada fail audio) ----
+    // Nota: pelayar sekat audio auto sebelum interaksi pengguna. Kita cuba
+    // buka AudioContext bila mouse/tap/kekunci pertama; kalau tak sempat, senyap.
+    const AC = window.AudioContext || window.webkitAudioContext
+    let actx = null
+    const ensureCtx = () => {
+      if (!AC) return
+      if (!actx) actx = new AC()
+      if (actx.state === 'suspended') actx.resume().catch(() => {})
+    }
+    const unlock = () => ensureCtx()
+    window.addEventListener('pointerdown', unlock, { once: true })
+    window.addEventListener('pointermove', unlock, { once: true })
+    window.addEventListener('keydown', unlock, { once: true })
+    ensureCtx() // cuba awal (kadang dibenarkan jika domain pernah diinteraksi)
+
+    const playWhoosh = () => {
+      try {
+        if (!actx || actx.state !== 'running') return
+        const now = actx.currentTime
+        const dur = 0.6
+        const buf = actx.createBuffer(1, Math.floor(actx.sampleRate * dur), actx.sampleRate)
+        const d = buf.getChannelData(0)
+        for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1
+        const src = actx.createBufferSource(); src.buffer = buf
+        const flt = actx.createBiquadFilter(); flt.type = 'bandpass'; flt.Q.value = 0.9
+        flt.frequency.setValueAtTime(320, now)
+        flt.frequency.exponentialRampToValueAtTime(3600, now + dur * 0.55)
+        flt.frequency.exponentialRampToValueAtTime(220, now + dur)
+        const g = actx.createGain()
+        g.gain.setValueAtTime(0.0001, now)
+        g.gain.exponentialRampToValueAtTime(0.22, now + 0.12)
+        g.gain.exponentialRampToValueAtTime(0.0001, now + dur)
+        src.connect(flt); flt.connect(g); g.connect(actx.destination)
+        src.start(now); src.stop(now + dur)
+      } catch (e) { /* senyap */ }
+    }
+
+    const cleanupAudio = () => {
+      window.removeEventListener('pointerdown', unlock)
+      window.removeEventListener('pointermove', unlock)
+      window.removeEventListener('keydown', unlock)
+      if (actx) actx.close().catch(() => {})
+    }
+
     if (reduce) {
       // hormat reduced-motion — terus tunjuk, fade cepat
       const t = setTimeout(onDone, 400)
       gsap.to(root, { opacity: 0, duration: 0.35, delay: 0.4 })
-      return () => clearTimeout(t)
+      return () => { clearTimeout(t); cleanupAudio() }
     }
 
-    const tl = gsap.timeline({ onComplete: onDone })
+    const tl = gsap.timeline({ onComplete: () => { cleanupAudio(); onDone() } })
 
     // 1) tiga perkataan naik dari mask, satu demi satu
     tl.from(q('.iw'), {
@@ -540,13 +577,14 @@ function Intro({ onDone }) {
     tl.from(q('.iw-tag'), {
       opacity: 0, y: 10, duration: 0.5, ease: 'power2.out',
     }, '-=0.25')
-    // 5) tahan sekejap, zoom halus + fade keluar → dedah landing
+    // 5) tahan sekejap, zoom halus + fade keluar → dedah landing (+ whoosh)
     tl.to(q('.iw-mark'), {
       scale: 1.07, duration: 0.6, ease: 'power2.in',
+      onStart: playWhoosh,
     }, '+=0.45')
     tl.to(root, { opacity: 0, duration: 0.5, ease: 'power2.inOut' }, '<0.12')
 
-    return () => tl.kill()
+    return () => { tl.kill(); cleanupAudio() }
   }, [onDone])
 
   return (
