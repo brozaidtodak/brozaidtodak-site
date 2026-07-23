@@ -9,8 +9,8 @@ gsap.registerPlugin(ScrollTrigger, SplitText)
 // ============================================================
 // LANDING — tema "Todak monokrom"
 // Inspirasi todak.com: hitam pekat, Inter bold putih, kelabu
-// sekunder, aksen warna per-projek (macam brand Todak).
-// Struktur cinematic + parallax + sparks dikekalkan.
+// sekunder. DISIPLIN WARNA: satu aksen sahaja (Todak Orange) +
+// neutral. Struktur cinematic + parallax + sparks dikekalkan.
 // ============================================================
 
 const ROLES = [
@@ -32,28 +32,24 @@ const PROJECTS = [
     desc: 'Peruncitan peralatan outdoor dan camping di Malaysia — beroperasi di Shopee, TikTok Shop dan kedai fizikal dengan inventori bersepadu dalam satu sistem.',
     url: 'https://10camp.com',
     status: 'LIVE',
-    color: '#ff4d00',
   },
   {
     name: '10 CAMP POS',
     tag: 'Sistem runcit',
     desc: 'Sistem point-of-sale lengkap yang dibangunkan dari asas — jualan, inventori, pengurusan staf, program kesetiaan pelanggan dan pembantu AI.',
     status: 'LIVE',
-    color: '#4ade80',
   },
   {
     name: 'Command Centre',
     tag: 'Kewangan',
     desc: 'Back office kewangan bersepadu — lejar am, penyelarasan settlement marketplace, payroll dan pelaporan untung rugi.',
     status: 'LIVE',
-    color: '#38bdf8',
   },
   {
     name: 'hr10',
     tag: 'Sumber manusia',
     desc: 'Portal HR untuk pengurusan tenaga kerja — penjadualan syif, rekod kakitangan dan laporan operasi harian secara automatik.',
     status: 'LIVE',
-    color: '#facc15',
   },
   {
     name: 'Shedan Bunga',
@@ -61,14 +57,12 @@ const PROJECTS = [
     desc: 'Pembangunan identiti jenama dan laman web rasmi untuk jenama bunga manik buatan tangan.',
     url: 'https://shedanbunga.com',
     status: 'LIVE',
-    color: '#c084fc',
   },
   {
     name: 'Empayar Sabrina',
     tag: 'Perniagaan keluarga',
     desc: 'Sistem POS dan back office untuk perniagaan batik keluarga — dibangunkan dengan standard yang sama seperti operasi utama.',
     status: 'LIVE',
-    color: '#fb7185',
   },
 ]
 
@@ -567,16 +561,10 @@ function SectionLabel({ children }) {
 function ProjectCard({ project }) {
   const inner = (
     <div
-      className="card-pad h-full rounded-2xl border border-white/12 bg-white/[0.03] p-6 flex flex-col gap-3"
-      style={{ '--card-accent': project.color }}
-      onMouseEnter={(e) => (e.currentTarget.style.borderColor = project.color + '99')}
-      onMouseLeave={(e) => (e.currentTarget.style.borderColor = '')}
+      className="card-pad h-full rounded-2xl border border-white/12 bg-white/[0.03] p-6 flex flex-col gap-3 transition-colors hover:border-accent/40"
     >
       <div className="flex items-center justify-between">
-        <span
-          className="font-mono text-[10px] tracking-[0.18em] uppercase font-medium"
-          style={{ color: project.color }}
-        >
+        <span className="font-mono text-[10px] tracking-[0.18em] uppercase font-medium text-accent">
           {project.tag}
         </span>
         <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/[0.07] text-white/85 border border-white/15">
@@ -586,7 +574,7 @@ function ProjectCard({ project }) {
       <h4 className="font-sans font-bold text-xl text-white">{project.name}</h4>
       <p className="text-white/70 text-[15px] leading-relaxed">{project.desc}</p>
       {project.url && (
-        <span className="text-xs font-semibold mt-auto pt-2" style={{ color: project.color }}>
+        <span className="text-xs font-semibold mt-auto pt-2 text-accent">
           Lawati laman →
         </span>
       )}
