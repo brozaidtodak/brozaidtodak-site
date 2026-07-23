@@ -17,8 +17,9 @@
   --color-accent: #ff4d00;
   --color-ink: #1a1a1a;
   --color-muted: #6b6b6b;
-  --font-display: "Fraunces", Georgia, serif;
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  /* p1 — font premium (Fontshare) ganti Inter: Clash Display utk tajuk, General Sans utk badan */
+  --font-display: "Clash Display", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "General Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
@@ -115,3 +116,40 @@ body {
   color: var(--color-ink);
   -webkit-font-smoothing: antialiased;
 }
+
+/* ===== p1 — Upgrade "padu": micro-interaksi + kualiti ===== */
+
+/* butang magnetik + hover naik dgn easing premium */
+.btn-pad {
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease, background .25s ease;
+  will-change: transform;
+}
+.btn-pad:hover { transform: translateY(-3px); }
+.btn-pad.btn-accent:hover { box-shadow: 0 12px 34px rgba(255,77,0,.32); }
+.btn-pad.btn-light:hover { box-shadow: 0 12px 34px rgba(255,255,255,.18); }
+
+/* kad projek — lift + border glow bila hover (craft) */
+.card-pad {
+  transition: transform .4s cubic-bezier(.22,1,.36,1), border-color .3s ease, background .3s ease;
+  will-change: transform;
+}
+.card-pad:hover {
+  transform: translateY(-6px);
+  background: rgba(255,255,255,.055);
+}
+
+/* tajuk Clash Display — tightening premium */
+.font-display { letter-spacing: -0.02em; }
+
+/* SplitText — baris bertopeng supaya perkataan luncur naik dari bawah */
+.ovh { overflow: hidden; }
+
+/* hero-sub — mula tersembunyi (GSAP kawal masa masuk) */
+.hero-sub { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .hero-sub { opacity: 1 !important; transform: none !important; }
+  #hero-title { opacity: 1 !important; }
+}
+
+/* garis masa perjalanan — dot glow (art direction bara) */
+.journey-dot { box-shadow: 0 0 0 0 rgba(255,77,0,.5); }

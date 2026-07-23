@@ -1,5 +1,10 @@
 import { Link } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { SplitText } from 'gsap/SplitText'
+
+gsap.registerPlugin(ScrollTrigger, SplitText)
 
 // ============================================================
 // LANDING — tema "Todak monokrom"
@@ -15,9 +20,9 @@ const ROLES = [
 ]
 
 const STATS = [
-  { value: '5', label: 'Tahun dalam industri peruncitan' },
-  { value: '10+', label: 'Sistem & platform dibangunkan' },
-  { value: '1', label: 'Jenama · 10 CAMP' },
+  { count: 5, suffix: '', label: 'Tahun dalam industri peruncitan' },
+  { count: 10, suffix: '+', label: 'Sistem & platform dibangunkan' },
+  { count: 1, suffix: '', label: 'Jenama · 10 CAMP' },
 ]
 
 const PROJECTS = [
@@ -99,6 +104,7 @@ export default function Landing() {
   const [introDone, setIntroDone] = useState(
     () => typeof window !== 'undefined' && sessionStorage.getItem('bzt-intro') === '1'
   )
+  const rootRef = useRef(null)
 
   // mouse parallax — layer background gerak lawan arah mouse, depth ikut data-parallax
   useEffect(() => {
@@ -134,26 +140,75 @@ export default function Landing() {
     }
   }, [introDone])
 
+  // p1 — GSAP choreography ("padu"): hero SplitText, scroll reveals eased,
+  // stats count-up, kad stagger, sea storm parallax. Hormat reduced-motion.
   useEffect(() => {
     if (!introDone) return
-    const els = document.querySelectorAll('.reveal')
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add('reveal-in')
-            io.unobserve(e.target)
-          }
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const ctx = gsap.context(() => {
+      if (reduce) {
+        gsap.set('.reveal', { opacity: 1, y: 0 })
+        document.querySelectorAll('[data-count]').forEach((el) => {
+          el.textContent = el.dataset.count + (el.dataset.suffix || '')
         })
-      },
-      { threshold: 0.12 }
-    )
-    els.forEach((el) => io.observe(el))
-    return () => io.disconnect()
+        return
+      }
+
+      // HERO — tajuk pecah perkataan, naik dgn easing (SplitText)
+      const title = document.querySelector('#hero-title')
+      let split
+      if (title) {
+        split = new SplitText(title, { type: 'lines,words', linesClass: 'ovh' })
+        gsap.from(split.words, {
+          yPercent: 115, opacity: 0, duration: 1, ease: 'power4.out',
+          stagger: 0.05, delay: 0.15,
+        })
+      }
+      // elemen sokongan hero — fade + naik berperingkat
+      // fromTo (bukan from) sebab CSS .hero-sub opacity:0 — end state mesti eksplisit
+      gsap.fromTo('.hero-sub',
+        { y: 26, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.85, ease: 'power3.out', stagger: 0.12, delay: 0.55 }
+      )
+
+      // REVEAL scroll — eased slide+fade bila masuk viewport
+      gsap.utils.toArray('.reveal').forEach((el) => {
+        gsap.fromTo(el,
+          { y: 44, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.95, ease: 'power3.out',
+            scrollTrigger: { trigger: el, start: 'top 86%' } }
+        )
+      })
+
+      // STATS — nombor naik (count-up) bila scroll sampai
+      gsap.utils.toArray('[data-count]').forEach((el) => {
+        const target = parseFloat(el.dataset.count)
+        const suffix = el.dataset.suffix || ''
+        const obj = { v: 0 }
+        gsap.to(obj, {
+          v: target, duration: 1.7, ease: 'power2.out',
+          scrollTrigger: { trigger: el, start: 'top 90%' },
+          onUpdate: () => { el.textContent = Math.round(obj.v) + suffix },
+        })
+      })
+
+      // KAD PROJEK — stagger masuk
+      gsap.from('.card-pad', {
+        y: 52, opacity: 0, duration: 0.8, ease: 'power3.out', stagger: 0.08,
+        scrollTrigger: { trigger: '#projek', start: 'top 78%' },
+      })
+
+      // SEA STORM — parallax perlahan bila scroll (kedalaman)
+      gsap.to('.seastorm__media', {
+        yPercent: 16, ease: 'none',
+        scrollTrigger: { trigger: '#top', start: 'top top', end: 'bottom top', scrub: true },
+      })
+    }, rootRef)
+    return () => ctx.revert()
   }, [introDone])
 
   return (
-    <div className="min-h-screen bg-void text-white font-sans relative overflow-x-clip">
+    <div ref={rootRef} className="min-h-screen bg-void text-white font-sans relative overflow-x-clip">
       <SeaStorm />
       {!introDone && (
         <Intro
@@ -232,22 +287,22 @@ export default function Landing() {
       {/* ======== HERO ======== */}
       <section id="top" className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
         <div className="relative text-center max-w-4xl mx-auto pt-20 pb-16 will-change-transform" data-parallax="-8">
-          <p className="font-mono text-[11px] tracking-[0.28em] text-white/55 uppercase mb-6 reveal">
+          <p className="hero-sub font-mono text-[11px] tracking-[0.28em] text-white/55 uppercase mb-6">
             Cyberjaya, Malaysia
           </p>
-          <h1 className="font-sans font-black text-5xl md:text-7xl leading-[1.02] tracking-tight uppercase reveal">
+          <h1 id="hero-title" className="font-display font-bold text-5xl md:text-7xl lg:text-8xl leading-[0.98] tracking-tight uppercase">
             Membina
             <br />
             perniagaan.
             <br />
             <span className="text-accent">Membina sistemnya sekali.</span>
           </h1>
-          <p className="text-white/75 text-base md:text-lg leading-relaxed mt-8 max-w-xl mx-auto reveal">
+          <p className="hero-sub text-white/75 text-base md:text-lg leading-relaxed mt-9 max-w-xl mx-auto">
             Pengasas <span className="text-white font-semibold">10 CAMP</span> — peruncitan peralatan
             outdoor di Malaysia. Keseluruhan sistem operasinya — POS, kewangan, HR — dibangunkan
             secara dalaman, dari asas.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-2 mt-8 reveal">
+          <div className="hero-sub flex flex-wrap items-center justify-center gap-2 mt-9">
             {ROLES.map((r) => (
               <span
                 key={r.label}
@@ -257,17 +312,17 @@ export default function Landing() {
               </span>
             ))}
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-4 mt-10 reveal">
+          <div className="hero-sub flex flex-wrap items-center justify-center gap-4 mt-11">
             <a
               href="#projek"
-              className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-white text-black text-sm font-bold hover:bg-white/85 transition"
+              className="btn-pad btn-light inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white text-black text-sm font-bold"
             >
               Lihat portfolio
               <span aria-hidden="true">↓</span>
             </a>
             <a
               href="#hubungi"
-              className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-white/20 text-white/90 text-sm font-semibold hover:bg-white/[0.07] transition"
+              className="btn-pad inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/20 text-white/90 text-sm font-semibold hover:bg-white/[0.07]"
             >
               Hubungi saya
             </a>
@@ -278,7 +333,7 @@ export default function Landing() {
       {/* ======== BIG STATEMENT ======== */}
       <section className="relative px-6 py-28 md:py-36">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="font-sans font-extrabold text-3xl md:text-5xl leading-snug tracking-tight reveal">
+          <h2 className="font-display font-bold text-3xl md:text-5xl leading-snug tracking-tight reveal">
             Daripada peruncitan vape kepada peralatan kembara — satu prinsip kekal:{' '}
             <span className="text-accent">jika sistemnya tiada, bina sendiri.</span>
           </h2>
@@ -312,7 +367,13 @@ export default function Landing() {
                   key={s.label}
                   className="rounded-2xl border border-white/12 bg-white/[0.03] px-6 py-5 flex items-baseline gap-4 reveal"
                 >
-                  <span className="font-sans font-black text-4xl text-white">{s.value}</span>
+                  <span
+                    className="font-display font-bold text-4xl md:text-5xl text-white tabular-nums"
+                    data-count={s.count}
+                    data-suffix={s.suffix}
+                  >
+                    0{s.suffix}
+                  </span>
                   <span className="text-xs text-white/60 uppercase tracking-wider font-medium">{s.label}</span>
                 </div>
               ))}
@@ -325,7 +386,7 @@ export default function Landing() {
       <section id="projek" className="relative px-6 py-20 md:py-28">
         <div className="relative max-w-5xl mx-auto">
           <SectionLabel>Portfolio</SectionLabel>
-          <h3 className="font-sans font-black text-3xl md:text-4xl tracking-tight mt-4 reveal">
+          <h3 className="font-display font-bold text-3xl md:text-4xl tracking-tight mt-4 reveal">
             Satu perniagaan, satu ekosistem.
           </h3>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
@@ -373,7 +434,7 @@ export default function Landing() {
           }}
         />
         <div className="relative max-w-3xl mx-auto text-center">
-          <h2 className="font-sans font-black text-4xl md:text-6xl tracking-tight uppercase reveal">
+          <h2 className="font-display font-bold text-4xl md:text-6xl tracking-tight uppercase reveal">
             Mari berhubung.
           </h2>
           <p className="text-white/70 mt-5 max-w-md mx-auto reveal">
@@ -512,9 +573,9 @@ function SectionLabel({ children }) {
 function ProjectCard({ project }) {
   const inner = (
     <div
-      className="h-full rounded-2xl border border-white/12 bg-white/[0.03] p-6 flex flex-col gap-3 transition hover:bg-white/[0.06] reveal"
+      className="card-pad h-full rounded-2xl border border-white/12 bg-white/[0.03] p-6 flex flex-col gap-3"
       style={{ '--card-accent': project.color }}
-      onMouseEnter={(e) => (e.currentTarget.style.borderColor = project.color + '66')}
+      onMouseEnter={(e) => (e.currentTarget.style.borderColor = project.color + '99')}
       onMouseLeave={(e) => (e.currentTarget.style.borderColor = '')}
     >
       <div className="flex items-center justify-between">
