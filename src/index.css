@@ -13,6 +13,8 @@
   --color-ember-bright: #ffa262;
   --color-gold-bright: #e8c07d;
   --color-night: #0a1410;
+  --color-void: #050505;
+  --color-accent: #ff4d00;
   --color-ink: #1a1a1a;
   --color-muted: #6b6b6b;
   --font-display: "Fraunces", Georgia, serif;
@@ -41,13 +43,14 @@
 .ember {
   position: absolute;
   bottom: 8%;
-  width: 4px;
-  height: 4px;
+  width: 3px;
+  height: 3px;
   border-radius: 9999px;
-  background: radial-gradient(circle, #ffd9a0 0%, #ff8c42 60%, transparent 100%);
+  background: radial-gradient(circle, #ffffff 0%, #a1a1aa 60%, transparent 100%);
   animation: ember-float var(--dur, 9s) linear infinite;
   animation-delay: var(--delay, 0s);
   pointer-events: none;
+  opacity: 0.8;
 }
 
 @keyframes glow-pulse {

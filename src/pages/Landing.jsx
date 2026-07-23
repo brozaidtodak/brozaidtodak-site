@@ -2,16 +2,16 @@ import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
 // ============================================================
-// LANDING — "Hutan malam + bara api"
-// Cinematic scroll layout (inspired by thevirtualwild.com) tapi
-// kekal identiti hutan: hijau gelap + glow emas/oren campfire.
-// Panel bersih, tiada corak garis hiasan.
+// LANDING — tema "Todak monokrom"
+// Inspirasi todak.com: hitam pekat, Inter bold putih, kelabu
+// sekunder, aksen warna per-projek (macam brand Todak).
+// Struktur cinematic + parallax + sparks dikekalkan.
 // ============================================================
 
 const ROLES = [
-  { label: 'Retailer · 10 CAMP', tone: 'text-gold' },
-  { label: 'Builder', tone: 'text-emerald-300' },
-  { label: 'Naturalist', tone: 'text-amber-200' },
+  { label: 'Retailer · 10 CAMP', tone: 'text-accent' },
+  { label: 'Builder', tone: 'text-white' },
+  { label: 'Naturalist', tone: 'text-white/70' },
 ]
 
 const STATS = [
@@ -27,24 +27,28 @@ const PROJECTS = [
     desc: 'Peruncitan peralatan outdoor dan camping di Malaysia — beroperasi di Shopee, TikTok Shop dan kedai fizikal dengan inventori bersepadu dalam satu sistem.',
     url: 'https://10camp.com',
     status: 'LIVE',
+    color: '#ff4d00',
   },
   {
     name: '10 CAMP POS',
     tag: 'Sistem runcit',
     desc: 'Sistem point-of-sale lengkap yang dibangunkan dari asas — jualan, inventori, pengurusan staf, program kesetiaan pelanggan dan pembantu AI.',
     status: 'LIVE',
+    color: '#4ade80',
   },
   {
     name: 'Command Centre',
     tag: 'Kewangan',
     desc: 'Back office kewangan bersepadu — lejar am, penyelarasan settlement marketplace, payroll dan pelaporan untung rugi.',
     status: 'LIVE',
+    color: '#38bdf8',
   },
   {
     name: 'hr10',
     tag: 'Sumber manusia',
     desc: 'Portal HR untuk pengurusan tenaga kerja — penjadualan syif, rekod kakitangan dan laporan operasi harian secara automatik.',
     status: 'LIVE',
+    color: '#facc15',
   },
   {
     name: 'Shedan Bunga',
@@ -52,12 +56,14 @@ const PROJECTS = [
     desc: 'Pembangunan identiti jenama dan laman web rasmi untuk jenama bunga manik buatan tangan.',
     url: 'https://shedanbunga.com',
     status: 'LIVE',
+    color: '#c084fc',
   },
   {
     name: 'Empayar Sabrina',
     tag: 'Perniagaan keluarga',
     desc: 'Sistem POS dan back office untuk perniagaan batik keluarga — dibangunkan dengan standard yang sama seperti operasi utama.',
     status: 'LIVE',
+    color: '#fb7185',
   },
 ]
 
@@ -147,7 +153,7 @@ export default function Landing() {
   }, [introDone])
 
   return (
-    <div className="min-h-screen bg-night text-cream font-sans relative overflow-x-clip">
+    <div className="min-h-screen bg-void text-white font-sans relative overflow-x-clip">
       {!introDone && (
         <Intro
           onDone={() => {
@@ -161,40 +167,40 @@ export default function Landing() {
       <header className="absolute top-0 inset-x-0 z-20 flex items-center justify-between px-6 md:px-12 py-6">
         <a href="#top" className="flex items-center gap-3">
           <Monogram size={38} />
-          <span className="font-display text-sm tracking-wide text-cream/85 hidden sm:block">
+          <span className="text-sm font-bold tracking-widest uppercase text-white/90 hidden sm:block">
             Bro Zaid Todak
           </span>
         </a>
         <Link
           to="/login"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/12 text-cream/85 hover:text-cream hover:border-gold/40 text-xs font-medium transition"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/15 text-white/75 hover:text-white hover:border-white/40 text-xs font-semibold transition"
         >
           <LockIcon />
           Command Centre
         </Link>
       </header>
 
-      {/* gradient ambient penuh — dari hero sampai footer, takde potongan */}
+      {/* gradient ambient penuh — monokrom, sedikit haba accent kat kaki */}
       <div
         className="absolute -inset-10 pointer-events-none will-change-transform"
         aria-hidden="true"
         data-parallax="12"
         style={{
           background:
-            'radial-gradient(circle at 50% 12%, rgba(214,179,106,0.07), transparent 45%), radial-gradient(circle at 12% 30%, rgba(45,82,64,0.24), transparent 40%), linear-gradient(180deg, rgba(45,82,64,0.10) 0%, rgba(255,140,66,0.045) 25%, rgba(214,179,106,0.035) 50%, rgba(255,140,66,0.06) 75%, rgba(255,140,66,0.13) 100%)',
+            'radial-gradient(circle at 50% 8%, rgba(255,255,255,0.05), transparent 45%), radial-gradient(circle at 12% 35%, rgba(255,255,255,0.03), transparent 40%), linear-gradient(180deg, rgba(255,255,255,0.02) 0%, transparent 40%, rgba(255,77,0,0.04) 80%, rgba(255,77,0,0.09) 100%)',
         }}
       />
-      {/* bara utama kat kaki hero — tak diclip, fade lembut ke bawah */}
+      {/* sinar utama kat kaki hero */}
       <div
         className="absolute -top-10 -inset-x-10 h-[190vh] pointer-events-none glow-pulse will-change-transform"
         aria-hidden="true"
         data-parallax="24"
         style={{
           background:
-            'radial-gradient(ellipse 75% 28% at 50% 52%, rgba(255,140,66,0.15), transparent 65%)',
+            'radial-gradient(ellipse 75% 28% at 50% 52%, rgba(255,255,255,0.06), transparent 65%)',
         }}
       />
-      {/* glitter bara — fixed ikut viewport, naik dari bawah skrin di mana-mana section */}
+      {/* sparks — fixed ikut viewport, naik dari bawah skrin di mana-mana section */}
       <div
         className="fixed inset-0 pointer-events-none will-change-transform z-0"
         aria-hidden="true"
@@ -224,17 +230,19 @@ export default function Landing() {
 
       {/* ======== HERO ======== */}
       <section id="top" className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
-        <div className="relative text-center max-w-3xl mx-auto pt-20 pb-16 will-change-transform" data-parallax="-8">
-          <p className="font-mono text-[11px] tracking-[0.28em] text-gold-bright uppercase mb-6 reveal">
+        <div className="relative text-center max-w-4xl mx-auto pt-20 pb-16 will-change-transform" data-parallax="-8">
+          <p className="font-mono text-[11px] tracking-[0.28em] text-white/55 uppercase mb-6 reveal">
             Cyberjaya, Malaysia
           </p>
-          <h1 className="font-display text-5xl md:text-7xl leading-[1.05] tracking-tight reveal">
-            Membina perniagaan.
+          <h1 className="font-sans font-black text-5xl md:text-7xl leading-[1.02] tracking-tight uppercase reveal">
+            Membina
             <br />
-            <span className="text-gold">Membina sistemnya sekali.</span>
+            perniagaan.
+            <br />
+            <span className="text-accent">Membina sistemnya sekali.</span>
           </h1>
-          <p className="text-cream/85 text-base md:text-lg leading-relaxed mt-8 max-w-xl mx-auto reveal">
-            Pengasas <span className="text-cream font-medium">10 CAMP</span> — peruncitan peralatan
+          <p className="text-white/75 text-base md:text-lg leading-relaxed mt-8 max-w-xl mx-auto reveal">
+            Pengasas <span className="text-white font-semibold">10 CAMP</span> — peruncitan peralatan
             outdoor di Malaysia. Keseluruhan sistem operasinya — POS, kewangan, HR — dibangunkan
             secara dalaman, dari asas.
           </p>
@@ -242,7 +250,7 @@ export default function Landing() {
             {ROLES.map((r) => (
               <span
                 key={r.label}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-medium border border-white/12 bg-white/[0.04] ${r.tone}`}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold border border-white/12 bg-white/[0.04] ${r.tone}`}
               >
                 {r.label}
               </span>
@@ -251,14 +259,14 @@ export default function Landing() {
           <div className="flex flex-wrap items-center justify-center gap-4 mt-10 reveal">
             <a
               href="#projek"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gold text-night text-sm font-semibold hover:bg-gold-dark transition"
+              className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-white text-black text-sm font-bold hover:bg-white/85 transition"
             >
               Lihat portfolio
               <span aria-hidden="true">↓</span>
             </a>
             <a
               href="#hubungi"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/15 text-cream/85 text-sm font-medium hover:bg-white/[0.06] transition"
+              className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-white/20 text-white/90 text-sm font-semibold hover:bg-white/[0.07] transition"
             >
               Hubungi saya
             </a>
@@ -269,29 +277,29 @@ export default function Landing() {
       {/* ======== BIG STATEMENT ======== */}
       <section className="relative px-6 py-28 md:py-36">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="font-display text-3xl md:text-5xl leading-snug reveal">
+          <h2 className="font-sans font-extrabold text-3xl md:text-5xl leading-snug tracking-tight reveal">
             Daripada peruncitan vape kepada peralatan kembara — satu prinsip kekal:{' '}
-            <span className="text-ember-bright">jika sistemnya tiada, bina sendiri.</span>
+            <span className="text-accent">jika sistemnya tiada, bina sendiri.</span>
           </h2>
         </div>
       </section>
 
-      {/* ======== SEKARANG ======== */}
+      {/* ======== FOKUS SEMASA ======== */}
       <section className="relative px-6 py-20 md:py-28">
         <div className="max-w-4xl mx-auto">
           <SectionLabel>Fokus semasa</SectionLabel>
           <div className="grid md:grid-cols-5 gap-10 items-start mt-8">
             <div className="md:col-span-3 reveal">
-              <h3 className="font-display text-2xl md:text-3xl leading-snug">
+              <h3 className="font-sans font-extrabold text-2xl md:text-3xl leading-snug tracking-tight">
                 Peruncit di siang hari, pembina sistem di malam hari.
               </h3>
-              <p className="text-cream/85 leading-relaxed mt-5">
+              <p className="text-white/75 leading-relaxed mt-5">
                 10 CAMP beroperasi di Shopee, TikTok Shop dan kedai fizikal. Apabila perniagaan
                 berkembang, sistem sedia ada tidak lagi mencukupi — maka setiap satunya dibangunkan
                 secara dalaman: POS untuk operasi kedai, back office untuk kewangan, portal HR
                 untuk pengurusan tenaga kerja.
               </p>
-              <p className="text-cream/85 leading-relaxed mt-4">
+              <p className="text-white/75 leading-relaxed mt-4">
                 Bukan pengaturcara terlatih — peruncit yang membina sistem kerana perniagaan
                 sendiri yang memerlukannya. Setiap modul lahir daripada masalah operasi yang
                 sebenar.
@@ -303,8 +311,8 @@ export default function Landing() {
                   key={s.label}
                   className="rounded-2xl border border-white/12 bg-white/[0.03] px-6 py-5 flex items-baseline gap-4 reveal"
                 >
-                  <span className="font-display text-4xl text-gold">{s.value}</span>
-                  <span className="text-xs text-cream/70 uppercase tracking-wider">{s.label}</span>
+                  <span className="font-sans font-black text-4xl text-white">{s.value}</span>
+                  <span className="text-xs text-white/60 uppercase tracking-wider font-medium">{s.label}</span>
                 </div>
               ))}
             </div>
@@ -312,19 +320,11 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* ======== TENGAH BINA ======== */}
+      {/* ======== PORTFOLIO ======== */}
       <section id="projek" className="relative px-6 py-20 md:py-28">
-        {/* soft glow behind cards */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              'radial-gradient(ellipse 60% 40% at 50% 40%, rgba(214,179,106,0.05), transparent 60%)',
-          }}
-        />
         <div className="relative max-w-5xl mx-auto">
           <SectionLabel>Portfolio</SectionLabel>
-          <h3 className="font-display text-3xl md:text-4xl mt-4 reveal">
+          <h3 className="font-sans font-black text-3xl md:text-4xl tracking-tight mt-4 reveal">
             Satu perniagaan, satu ekosistem.
           </h3>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
@@ -342,19 +342,18 @@ export default function Landing() {
           <div className="mt-10 space-y-0">
             {JOURNEY.map((j, i) => (
               <div key={j.title} className="relative pl-8 pb-12 last:pb-0 reveal">
-                {/* timeline spine */}
                 {i < JOURNEY.length - 1 && (
-                  <span className="absolute left-[5px] top-4 bottom-0 w-px bg-white/10" aria-hidden="true" />
+                  <span className="absolute left-[5px] top-4 bottom-0 w-px bg-white/12" aria-hidden="true" />
                 )}
                 <span
-                  className="absolute left-0 top-2 w-[11px] h-[11px] rounded-full border-2 border-gold bg-night"
+                  className="absolute left-0 top-2 w-[11px] h-[11px] rounded-full border-2 border-accent bg-void"
                   aria-hidden="true"
                 />
-                <p className="font-mono text-[11px] tracking-[0.2em] text-gold-bright uppercase">
+                <p className="font-mono text-[11px] tracking-[0.2em] text-white/55 uppercase">
                   {j.year}
                 </p>
-                <h4 className="font-display text-xl md:text-2xl mt-1.5">{j.title}</h4>
-                <p className="text-cream/80 leading-relaxed text-base mt-2 max-w-xl">{j.desc}</p>
+                <h4 className="font-sans font-bold text-xl md:text-2xl mt-1.5">{j.title}</h4>
+                <p className="text-white/70 leading-relaxed text-base mt-2 max-w-xl">{j.desc}</p>
               </div>
             ))}
           </div>
@@ -369,21 +368,21 @@ export default function Landing() {
           data-parallax="16"
           style={{
             background:
-              'radial-gradient(ellipse 75% 55% at 50% 115%, rgba(255,140,66,0.14), transparent 70%)',
+              'radial-gradient(ellipse 75% 55% at 50% 115%, rgba(255,77,0,0.12), transparent 70%)',
           }}
         />
         <div className="relative max-w-3xl mx-auto text-center">
-          <h2 className="font-display text-4xl md:text-6xl leading-tight reveal">
+          <h2 className="font-sans font-black text-4xl md:text-6xl tracking-tight uppercase reveal">
             Mari berhubung.
           </h2>
-          <p className="text-cream/80 mt-5 max-w-md mx-auto reveal">
+          <p className="text-white/70 mt-5 max-w-md mx-auto reveal">
             Untuk kerjasama, pertanyaan perniagaan atau perbincangan mengenai pembangunan
             sistem — hubungi saya melalui e-mel atau media sosial.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 mt-9 reveal">
             <a
               href="mailto:zaid@todak.com"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gold text-night text-sm font-semibold hover:bg-gold-dark transition"
+              className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-white text-black text-sm font-bold hover:bg-white/85 transition"
             >
               zaid@todak.com
             </a>
@@ -404,15 +403,15 @@ export default function Landing() {
             </div>
           </div>
 
-          <div className="mt-20 pt-8 border-t border-white/12 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-cream/60">
+          <div className="mt-20 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/60">
             <span>© 2026 Bro Zaid Todak</span>
             <Link
               to="/login"
-              className="group inline-flex items-center gap-2 hover:text-cream/80 transition"
+              className="group inline-flex items-center gap-2 hover:text-white/90 transition"
             >
               <LockIcon />
               <span>Enter Command Centre</span>
-              <span className="text-gold transition-transform group-hover:translate-x-0.5">→</span>
+              <span className="text-accent transition-transform group-hover:translate-x-0.5">→</span>
             </Link>
           </div>
         </div>
@@ -446,12 +445,12 @@ function Intro({ onDone }) {
 
   return (
     <div
-      className={`fixed inset-0 z-50 bg-night flex flex-col items-center justify-center gap-6 ${
+      className={`fixed inset-0 z-50 bg-void flex flex-col items-center justify-center gap-6 ${
         fading ? 'intro-fade' : ''
       }`}
     >
       <Monogram size={64} />
-      <p className="font-mono text-[11px] tracking-[0.3em] text-cream/65 uppercase">
+      <p className="font-mono text-[11px] tracking-[0.3em] text-white/50 uppercase">
         Memuatkan&nbsp;&nbsp;{count}%
       </p>
     </div>
@@ -461,25 +460,19 @@ function Intro({ onDone }) {
 function Monogram({ size = 40 }) {
   return (
     <div
-      className="rounded-full p-[2px] shrink-0"
-      style={{
-        width: size,
-        height: size,
-        background: 'conic-gradient(from 180deg, #d6b36a, #5fa874, #d6b36a, #2d5240, #d6b36a)',
-      }}
+      className="rounded-full shrink-0 border-2 border-white/30 bg-void flex items-center justify-center"
+      style={{ width: size, height: size }}
     >
-      <div className="w-full h-full rounded-full bg-night flex items-center justify-center">
-        <span className="font-display text-gold font-semibold" style={{ fontSize: size * 0.42 }}>
-          Z
-        </span>
-      </div>
+      <span className="font-sans font-black text-white" style={{ fontSize: size * 0.42 }}>
+        Z
+      </span>
     </div>
   )
 }
 
 function SectionLabel({ children }) {
   return (
-    <p className="font-mono text-[11px] tracking-[0.28em] text-gold-bright uppercase reveal">
+    <p className="font-mono text-[11px] tracking-[0.28em] text-white/55 uppercase reveal">
       — {children}
     </p>
   )
@@ -487,19 +480,27 @@ function SectionLabel({ children }) {
 
 function ProjectCard({ project }) {
   const inner = (
-    <div className="h-full rounded-2xl border border-white/12 bg-white/[0.03] p-6 flex flex-col gap-3 transition hover:border-gold/30 hover:bg-white/[0.05] reveal">
+    <div
+      className="h-full rounded-2xl border border-white/12 bg-white/[0.03] p-6 flex flex-col gap-3 transition hover:bg-white/[0.06] reveal"
+      style={{ '--card-accent': project.color }}
+      onMouseEnter={(e) => (e.currentTarget.style.borderColor = project.color + '66')}
+      onMouseLeave={(e) => (e.currentTarget.style.borderColor = '')}
+    >
       <div className="flex items-center justify-between">
-        <span className="font-mono text-[10px] tracking-[0.18em] text-cream/65 uppercase">
+        <span
+          className="font-mono text-[10px] tracking-[0.18em] uppercase font-medium"
+          style={{ color: project.color }}
+        >
           {project.tag}
         </span>
-        <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-400/10 text-emerald-300 border border-emerald-400/20">
+        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/[0.07] text-white/85 border border-white/15">
           {project.status}
         </span>
       </div>
-      <h4 className="font-display text-xl text-cream">{project.name}</h4>
-      <p className="text-cream/75 text-[15px] leading-relaxed">{project.desc}</p>
+      <h4 className="font-sans font-bold text-xl text-white">{project.name}</h4>
+      <p className="text-white/70 text-[15px] leading-relaxed">{project.desc}</p>
       {project.url && (
-        <span className="text-gold text-xs font-medium mt-auto pt-2">
+        <span className="text-xs font-semibold mt-auto pt-2" style={{ color: project.color }}>
           Lawati laman →
         </span>
       )}
@@ -521,7 +522,7 @@ function SocialIcon({ href, label, children }) {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/12 flex items-center justify-center text-cream/85 hover:text-cream hover:border-gold/40 transition"
+      className="w-11 h-11 rounded-full bg-white/[0.05] border border-white/12 flex items-center justify-center text-white/75 hover:text-white hover:border-white/40 transition"
     >
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         {children}
