@@ -186,9 +186,11 @@ export default function Landing() {
         })
       })
 
-      // KAD PROJEK — stagger masuk
+      // KAD PROJEK — masuk BARIS DEMI BARIS (axis:'y') supaya kad sebaris
+      // naik serentak → irama grid kekal terjaga sepanjang animasi
       gsap.from('.card-pad', {
-        y: 52, opacity: 0, duration: 0.8, ease: 'power3.out', stagger: 0.08,
+        y: 32, opacity: 0, duration: 0.7, ease: 'power3.out',
+        stagger: { each: 0.12, grid: 'auto', axis: 'y', from: 'start' },
         scrollTrigger: { trigger: '#projek', start: 'top 78%' },
       })
 
@@ -380,7 +382,7 @@ export default function Landing() {
           <h3 className="font-display font-bold text-3xl md:text-4xl tracking-tight mt-4 reveal">
             Satu perniagaan, satu ekosistem.
           </h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr gap-5 mt-10">
             {PROJECTS.map((p) => (
               <ProjectCard key={p.name} project={p} />
             ))}
