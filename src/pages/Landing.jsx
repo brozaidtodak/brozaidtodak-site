@@ -154,6 +154,7 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-void text-white font-sans relative overflow-x-clip">
+      <SeaStorm />
       {!introDone && (
         <Intro
           onDone={() => {
@@ -416,6 +417,36 @@ export default function Landing() {
           </div>
         </div>
       </section>
+    </div>
+  )
+}
+
+// ---- latar video Sea Storm (getlayers.ai) ----
+// Autoplay gelung senyap di desktop; poster statik je bila reduced-motion
+// atau autoplay disekat (jimat data + hormat pilihan pengguna).
+function SeaStorm() {
+  const [motionOK, setMotionOK] = useState(true)
+  useEffect(() => {
+    setMotionOK(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+  }, [])
+  return (
+    <div className="seastorm" aria-hidden="true">
+      {motionOK ? (
+        <video
+          className="seastorm__media"
+          src="/bg/sea-storm.mp4"
+          poster="/bg/sea-storm.webp"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+        />
+      ) : (
+        <img className="seastorm__media" src="/bg/sea-storm.webp" alt="" />
+      )}
+      <div className="seastorm__scrim" />
+      <div className="seastorm__fade" />
     </div>
   )
 }

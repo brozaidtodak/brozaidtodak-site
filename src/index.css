@@ -24,6 +24,43 @@
 
 /* ---- Landing (hutan malam + bara) ---- */
 
+/* Latar video Sea Storm (getlayers.ai) — fixed di belakang hero, gelung senyap.
+   Scrim gelap + vignette jaga kontras teks putih atas pancaran cahaya emas. */
+.seastorm {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100svh;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.seastorm__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 38%;
+  /* sebati dgn tema: gelapkan sikit + naikkan haba supaya cahaya emas condong ke oren jenama */
+  filter: brightness(0.82) contrast(1.06) saturate(1.08);
+}
+.seastorm__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 34%, transparent 0%, rgba(5,5,5,0.35) 70%),
+    linear-gradient(180deg, rgba(5,5,5,0.55) 0%, rgba(5,5,5,0.2) 34%, rgba(5,5,5,0.45) 62%, var(--color-void) 96%);
+}
+/* selepas hero, seluruh page kembali pekat supaya section bawah kekal boleh baca */
+.seastorm__fade {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 40vh;
+  background: linear-gradient(180deg, transparent 0%, var(--color-void) 92%);
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(28px);
@@ -67,6 +104,7 @@
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
   .ember, .glow-pulse { animation: none; }
+  /* video diganti poster statik di komponen bila reduced-motion */
 }
 
 html { scroll-behavior: smooth; }
