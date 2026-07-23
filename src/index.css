@@ -156,6 +156,15 @@ body {
 
 /* ============ INTERAKSI SETIAP SECTION ============ */
 
+/* ROADMAP gate — goyang bila kata laluan salah */
+.gate-shake { animation: gateShake .4s cubic-bezier(.36,.07,.19,.97); }
+@keyframes gateShake {
+  10%, 90% { transform: translateX(-2px); }
+  20%, 80% { transform: translateX(4px); }
+  30%, 50%, 70% { transform: translateX(-7px); }
+  40%, 60% { transform: translateX(7px); }
+}
+
 /* HERO — jejak bara ikut kursor (ember trail) */
 .hero-embers {
   position: absolute; inset: 0; z-index: 1;
