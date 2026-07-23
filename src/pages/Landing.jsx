@@ -202,6 +202,72 @@ export default function Landing() {
     return () => ctx.revert()
   }, [introDone])
 
+  // ---- interaksi setiap section: spotlight, tilt, magnetik, timeline fill ----
+  useEffect(() => {
+    if (!introDone) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    if (!window.matchMedia('(pointer: fine)').matches) return
+    const cleanups = []
+
+    // HERO — spotlight oren ikut kursor
+    const hero = document.getElementById('top')
+    const spot = hero && hero.querySelector('.hero-spotlight')
+    if (hero && spot) {
+      const move = (e) => {
+        const r = hero.getBoundingClientRect()
+        spot.style.setProperty('--sx', e.clientX - r.left + 'px')
+        spot.style.setProperty('--sy', e.clientY - r.top + 'px')
+        spot.style.opacity = '1'
+      }
+      const leave = () => { spot.style.opacity = '0' }
+      hero.addEventListener('mousemove', move)
+      hero.addEventListener('mouseleave', leave)
+      cleanups.push(() => { hero.removeEventListener('mousemove', move); hero.removeEventListener('mouseleave', leave) })
+    }
+
+    // TILT 3D + glow (kad stat + kad projek)
+    document.querySelectorAll('.tilt').forEach((el) => {
+      const move = (e) => {
+        const r = el.getBoundingClientRect()
+        const px = (e.clientX - r.left) / r.width
+        const py = (e.clientY - r.top) / r.height
+        el.style.setProperty('--mx', px * 100 + '%')
+        el.style.setProperty('--my', py * 100 + '%')
+        el.style.transform = `perspective(900px) rotateY(${(px - 0.5) * 7}deg) rotateX(${(0.5 - py) * 7}deg) translateY(-5px)`
+      }
+      const leave = () => { el.style.transform = '' }
+      el.addEventListener('mousemove', move)
+      el.addEventListener('mouseleave', leave)
+      cleanups.push(() => { el.removeEventListener('mousemove', move); el.removeEventListener('mouseleave', leave) })
+    })
+
+    // MAGNETIK — butang/ikon tertarik ke kursor
+    document.querySelectorAll('.magnetic').forEach((el) => {
+      const move = (e) => {
+        const r = el.getBoundingClientRect()
+        const mx = e.clientX - (r.left + r.width / 2)
+        const my = e.clientY - (r.top + r.height / 2)
+        el.style.transform = `translate(${mx * 0.3}px, ${my * 0.45}px)`
+      }
+      const leave = () => { el.style.transform = '' }
+      el.addEventListener('mousemove', move)
+      el.addEventListener('mouseleave', leave)
+      cleanups.push(() => { el.removeEventListener('mousemove', move); el.removeEventListener('mouseleave', leave) })
+    })
+
+    // PERJALANAN — garis masa isi ikut scroll
+    const fill = document.querySelector('.timeline-fill')
+    if (fill) {
+      const st = ScrollTrigger.create({
+        trigger: '.timeline-wrap', start: 'top 68%', end: 'bottom 62%', scrub: true,
+        onUpdate: (self) => gsap.set(fill, { scaleY: self.progress }),
+      })
+      cleanups.push(() => st.kill())
+    }
+
+    return () => cleanups.forEach((fn) => fn())
+  }, [introDone])
+
   return (
     <div ref={rootRef} className="min-h-screen bg-void text-white font-sans relative overflow-x-clip">
       <SeaStorm />
@@ -271,7 +337,8 @@ export default function Landing() {
 
       {/* ======== HERO ======== */}
       <section id="top" className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
-        <div className="relative text-center max-w-4xl mx-auto pt-20 pb-16 will-change-transform" data-parallax="-8">
+        <div className="hero-spotlight" aria-hidden="true" />
+        <div className="relative z-[2] text-center max-w-4xl mx-auto pt-20 pb-16 will-change-transform" data-parallax="-8">
           <p className="hero-sub font-mono text-[11px] tracking-[0.28em] text-white/55 uppercase mb-6">
             Cyberjaya, Malaysia
           </p>
@@ -300,14 +367,14 @@ export default function Landing() {
           <div className="hero-sub flex flex-wrap items-center justify-center gap-4 mt-11">
             <a
               href="#projek"
-              className="btn-pad btn-light inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white text-black text-sm font-bold"
+              className="btn-pad btn-light magnetic inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white text-black text-sm font-bold"
             >
               Lihat portfolio
               <span aria-hidden="true">↓</span>
             </a>
             <a
               href="#hubungi"
-              className="btn-pad inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/20 text-white/90 text-sm font-semibold hover:bg-white/[0.07]"
+              className="btn-pad magnetic inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/20 text-white/90 text-sm font-semibold hover:bg-white/[0.07]"
             >
               Hubungi saya
             </a>
@@ -320,7 +387,7 @@ export default function Landing() {
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="font-display font-bold text-3xl md:text-5xl leading-snug tracking-tight reveal">
             Daripada peruncitan vape kepada peralatan kembara — satu prinsip kekal:{' '}
-            <span className="text-accent">jika sistemnya tiada, bina sendiri.</span>
+            <span className="text-accent stmt-accent">jika sistemnya tiada, bina sendiri.</span>
           </h2>
         </div>
       </section>
@@ -350,7 +417,7 @@ export default function Landing() {
               {STATS.map((s) => (
                 <div
                   key={s.label}
-                  className="rounded-2xl border border-white/12 bg-white/[0.03] px-6 py-5 flex items-baseline gap-4 reveal"
+                  className="tilt relative rounded-2xl border border-white/12 bg-white/[0.03] px-6 py-5 flex items-baseline gap-4 reveal"
                 >
                   <span
                     className="font-display font-bold text-4xl md:text-5xl text-white tabular-nums"
@@ -386,20 +453,20 @@ export default function Landing() {
       <section className="relative px-6 py-20 md:py-28">
         <div className="max-w-3xl mx-auto">
           <SectionLabel>Perjalanan</SectionLabel>
-          <div className="mt-10 space-y-0">
-            {JOURNEY.map((j, i) => (
-              <div key={j.title} className="relative pl-8 pb-12 last:pb-0 reveal">
-                {i < JOURNEY.length - 1 && (
-                  <span className="absolute left-[5px] top-4 bottom-0 w-px bg-white/12" aria-hidden="true" />
-                )}
+          <div className="timeline-wrap relative mt-10">
+            {/* spine berterusan + fill ikut scroll */}
+            <span className="timeline-track" aria-hidden="true" />
+            <span className="timeline-fill" aria-hidden="true" />
+            {JOURNEY.map((j) => (
+              <div key={j.title} className="journey-item group relative pl-8 pb-12 last:pb-0 reveal">
                 <span
-                  className="absolute left-0 top-2 w-[11px] h-[11px] rounded-full border-2 border-accent bg-void"
+                  className="journey-dot absolute left-0 top-2 w-[11px] h-[11px] rounded-full border-2 border-accent bg-void"
                   aria-hidden="true"
                 />
-                <p className="font-mono text-[11px] tracking-[0.2em] text-white/55 uppercase">
+                <p className="journey-year font-mono text-[11px] tracking-[0.2em] text-white/55 uppercase">
                   {j.year}
                 </p>
-                <h4 className="font-sans font-bold text-xl md:text-2xl mt-1.5">{j.title}</h4>
+                <h4 className="font-sans font-bold text-xl md:text-2xl mt-1.5 transition-colors group-hover:text-white">{j.title}</h4>
                 <p className="text-white/70 leading-relaxed text-base mt-2 max-w-xl">{j.desc}</p>
               </div>
             ))}
@@ -427,12 +494,7 @@ export default function Landing() {
             sistem — hubungi saya melalui e-mel atau media sosial.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 mt-9 reveal">
-            <a
-              href="mailto:zaid@todak.com"
-              className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-white text-black text-sm font-bold hover:bg-white/85 transition"
-            >
-              zaid@todak.com
-            </a>
+            <EmailCopy />
             <div className="flex items-center gap-3">
               <SocialIcon href="https://instagram.com/brozaidtodak" label="Instagram">
                 <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
@@ -633,7 +695,7 @@ function SectionLabel({ children }) {
 function ProjectCard({ project }) {
   const inner = (
     <div
-      className="card-pad h-full rounded-2xl border border-white/12 bg-white/[0.03] p-6 flex flex-col gap-3 transition-colors hover:border-accent/40"
+      className="card-pad tilt relative h-full rounded-2xl border border-white/12 bg-white/[0.03] p-6 flex flex-col gap-3 hover:border-accent/40"
     >
       <div className="flex items-center justify-between">
         <span className="font-mono text-[10px] tracking-[0.18em] uppercase font-medium text-accent">
@@ -661,6 +723,36 @@ function ProjectCard({ project }) {
   )
 }
 
+function EmailCopy() {
+  const [copied, setCopied] = useState(false)
+  const email = 'zaid@todak.com'
+  const copy = () => {
+    navigator.clipboard?.writeText(email).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1600)
+    }).catch(() => { window.location.href = 'mailto:' + email })
+  }
+  return (
+    <button
+      onClick={copy}
+      title="Klik untuk salin"
+      className="magnetic inline-flex items-center gap-2 px-7 py-3 rounded-full bg-white text-black text-sm font-bold hover:bg-white/85 transition"
+    >
+      {copied ? (
+        <>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+          Disalin!
+        </>
+      ) : (
+        <>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
+          {email}
+        </>
+      )}
+    </button>
+  )
+}
+
 function SocialIcon({ href, label, children }) {
   return (
     <a
@@ -668,7 +760,7 @@ function SocialIcon({ href, label, children }) {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      className="w-11 h-11 rounded-full bg-white/[0.05] border border-white/12 flex items-center justify-center text-white/75 hover:text-white hover:border-white/40 transition"
+      className="magnetic w-11 h-11 rounded-full bg-white/[0.05] border border-white/12 flex items-center justify-center text-white/75 hover:text-white hover:border-white/40 transition"
     >
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         {children}

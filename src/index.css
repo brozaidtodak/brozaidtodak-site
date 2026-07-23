@@ -153,3 +153,62 @@ body {
 
 /* garis masa perjalanan — dot glow (art direction bara) */
 .journey-dot { box-shadow: 0 0 0 0 rgba(255,77,0,.5); }
+
+/* ============ INTERAKSI SETIAP SECTION ============ */
+
+/* HERO — spotlight oren ikut kursor */
+.hero-spotlight {
+  position: absolute; inset: 0; z-index: 1; opacity: 0;
+  transition: opacity .4s ease; pointer-events: none;
+  background: radial-gradient(320px circle at var(--sx, 50%) var(--sy, 50%),
+              rgba(255,77,0,.14), transparent 62%);
+}
+
+/* TILT 3D + glow ikut kursor (kad stat + kad projek) */
+.tilt {
+  transition: transform .35s cubic-bezier(.22,1,.36,1);
+  transform-style: preserve-3d; will-change: transform;
+}
+.tilt::after {
+  content: ''; position: absolute; inset: 0; border-radius: inherit;
+  background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%),
+              rgba(255,77,0,.16), transparent 60%);
+  opacity: 0; transition: opacity .3s ease; pointer-events: none;
+}
+.tilt:hover::after { opacity: 1; }
+
+/* MAGNETIK — butang/ikon tertarik ke kursor */
+.magnetic { transition: transform .25s cubic-bezier(.22,1,.36,1); will-change: transform; }
+
+/* STATEMENT — garis bawah melukis bila hover frasa oren */
+.stmt-accent { position: relative; cursor: default; transition: text-shadow .3s ease; }
+.stmt-accent::after {
+  content: ''; position: absolute; left: 0; bottom: -.08em; height: 3px; width: 100%;
+  background: var(--color-accent); border-radius: 99px;
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .5s cubic-bezier(.22,1,.36,1);
+}
+.stmt-accent:hover { text-shadow: 0 0 26px rgba(255,77,0,.45); }
+.stmt-accent:hover::after { transform: scaleX(1); }
+
+/* PERJALANAN — garis masa isi ikut scroll + hover highlight */
+.timeline-track, .timeline-fill {
+  position: absolute; left: 5px; top: .5rem; width: 2px; border-radius: 99px;
+}
+.timeline-track { bottom: .5rem; background: rgba(255,255,255,.12); }
+.timeline-fill { background: var(--color-accent); transform-origin: top; transform: scaleY(0); }
+.journey-item .journey-dot {
+  transition: transform .3s ease, background .3s ease, box-shadow .3s ease;
+}
+.journey-item:hover .journey-dot {
+  transform: scale(1.4); background: var(--color-accent);
+  box-shadow: 0 0 16px rgba(255,77,0,.6);
+}
+.journey-item .journey-year { transition: color .3s ease, letter-spacing .3s ease; }
+.journey-item:hover .journey-year { color: var(--color-accent); letter-spacing: .26em; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tilt, .magnetic, .hero-spotlight, .stmt-accent::after,
+  .journey-item .journey-dot, .journey-item .journey-year { transition: none; }
+  .hero-spotlight { display: none; }
+}
