@@ -187,7 +187,7 @@ export default function Landing() {
         data-parallax="12"
         style={{
           background:
-            'radial-gradient(circle at 50% 8%, rgba(255,255,255,0.05), transparent 45%), radial-gradient(circle at 12% 35%, rgba(255,255,255,0.03), transparent 40%), linear-gradient(180deg, rgba(255,255,255,0.02) 0%, transparent 50%, rgba(255,255,255,0.025) 100%)',
+            'radial-gradient(circle at 50% 8%, rgba(255,255,255,0.05), transparent 45%), radial-gradient(circle at 12% 35%, rgba(255,255,255,0.03), transparent 40%), linear-gradient(180deg, rgba(255,255,255,0.02) 0%, transparent 40%, rgba(255,77,0,0.04) 80%, rgba(255,77,0,0.09) 100%)',
         }}
       />
       {/* sinar utama kat kaki hero */}
@@ -368,7 +368,7 @@ export default function Landing() {
           data-parallax="16"
           style={{
             background:
-              'radial-gradient(ellipse 75% 55% at 50% 115%, rgba(255,255,255,0.06), transparent 70%)',
+              'radial-gradient(ellipse 75% 55% at 50% 115%, rgba(255,77,0,0.12), transparent 70%)',
           }}
         />
         <div className="relative max-w-3xl mx-auto text-center">
