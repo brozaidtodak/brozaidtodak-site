@@ -156,12 +156,24 @@ body {
 
 /* ============ INTERAKSI SETIAP SECTION ============ */
 
-/* HERO — spotlight oren ikut kursor */
-.hero-spotlight {
-  position: absolute; inset: 0; z-index: 1; opacity: 0;
-  transition: opacity .4s ease; pointer-events: none;
-  background: radial-gradient(320px circle at var(--sx, 50%) var(--sy, 50%),
-              rgba(255,77,0,.14), transparent 62%);
+/* HERO — jejak bara ikut kursor (ember trail) */
+.hero-embers {
+  position: absolute; inset: 0; z-index: 1;
+  pointer-events: none; overflow: hidden;
+}
+.hero-ember {
+  position: absolute; border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0; will-change: transform, opacity;
+  background: radial-gradient(circle, #ffd27a 0%, var(--color-accent) 55%, transparent 75%);
+  box-shadow: 0 0 6px 1px rgba(255,120,20,.55);
+  animation: heroEmberRise var(--dur, 1200ms) cubic-bezier(.25,.6,.3,1) forwards;
+}
+@keyframes heroEmberRise {
+  0%   { opacity: 0;   transform: translate(-50%, -50%) scale(.35); }
+  14%  { opacity: .95; }
+  100% { opacity: 0;
+         transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% + var(--rise, -100px))) scale(.18); }
 }
 
 /* TILT 3D + glow ikut kursor (kad stat + kad projek) */
@@ -208,9 +220,9 @@ body {
 .journey-item:hover .journey-year { color: var(--color-accent); letter-spacing: .26em; }
 
 @media (prefers-reduced-motion: reduce) {
-  .tilt, .magnetic, .hero-spotlight, .stmt-accent::after,
+  .tilt, .magnetic, .hero-embers, .stmt-accent::after,
   .journey-item .journey-dot, .journey-item .journey-year { transition: none; }
-  .hero-spotlight { display: none; }
+  .hero-embers { display: none; }
 }
 
 /* HERO — penunjuk skrol (isi ruang bawah + pandu mata) */

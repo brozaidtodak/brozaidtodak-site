@@ -159,20 +159,41 @@ export default function Landing() {
     if (!window.matchMedia('(pointer: fine)').matches) return
     const cleanups = []
 
-    // HERO — spotlight oren ikut kursor
+    // HERO — jejak bara ikut kursor (ember trail)
+    // Setiap gerakan spawn 1-2 zarah bara yang naik + hanyut + pudar,
+    // kemudian dibuang dari DOM. Throttle supaya tak lahir beribu.
     const hero = document.getElementById('top')
-    const spot = hero && hero.querySelector('.hero-spotlight')
-    if (hero && spot) {
-      const move = (e) => {
-        const r = hero.getBoundingClientRect()
-        spot.style.setProperty('--sx', e.clientX - r.left + 'px')
-        spot.style.setProperty('--sy', e.clientY - r.top + 'px')
-        spot.style.opacity = '1'
+    const layer = hero && hero.querySelector('.hero-embers')
+    if (hero && layer) {
+      let last = 0
+      const spawn = (x, y) => {
+        const el = document.createElement('span')
+        el.className = 'hero-ember'
+        const size = 3 + Math.random() * 4          // 3-7px
+        const dur = 900 + Math.random() * 900        // 0.9-1.8s
+        const dx = (Math.random() - 0.5) * 60        // hanyut kiri/kanan
+        const rise = -(60 + Math.random() * 80)      // naik 60-140px
+        el.style.left = x + 'px'
+        el.style.top = y + 'px'
+        el.style.width = el.style.height = size + 'px'
+        el.style.setProperty('--dx', dx + 'px')
+        el.style.setProperty('--rise', rise + 'px')
+        el.style.setProperty('--dur', dur + 'ms')
+        layer.appendChild(el)
+        setTimeout(() => el.remove(), dur + 80)
       }
-      const leave = () => { spot.style.opacity = '0' }
+      const move = (e) => {
+        const now = performance.now()
+        if (now - last < 45) return                  // throttle ~22/saat
+        last = now
+        const r = hero.getBoundingClientRect()
+        const x = e.clientX - r.left
+        const y = e.clientY - r.top
+        spawn(x + (Math.random() - 0.5) * 10, y + (Math.random() - 0.5) * 10)
+        if (Math.random() > 0.5) spawn(x + (Math.random() - 0.5) * 16, y + (Math.random() - 0.5) * 16)
+      }
       hero.addEventListener('mousemove', move)
-      hero.addEventListener('mouseleave', leave)
-      cleanups.push(() => { hero.removeEventListener('mousemove', move); hero.removeEventListener('mouseleave', leave) })
+      cleanups.push(() => { hero.removeEventListener('mousemove', move); layer.innerHTML = '' })
     }
 
     // TILT 3D + glow (kad stat + kad projek)
@@ -290,7 +311,7 @@ export default function Landing() {
 
       {/* ======== HERO ======== */}
       <section id="top" className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
-        <div className="hero-spotlight" aria-hidden="true" />
+        <div className="hero-embers" aria-hidden="true" />
         <div className="relative z-[2] text-center max-w-4xl mx-auto pt-20 pb-16 will-change-transform" data-parallax="-8">
           <p className="hero-sub font-mono text-[11px] tracking-[0.28em] text-white/55 uppercase mb-6">
             {c.hero.location}
