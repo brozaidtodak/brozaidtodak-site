@@ -180,15 +180,16 @@ body {
 /* MAGNETIK — butang/ikon tertarik ke kursor */
 .magnetic { transition: transform .25s cubic-bezier(.22,1,.36,1); will-change: transform; }
 
-/* STATEMENT — glow halus bila hover frasa oren (selamat utk teks 2-baris) */
-.stmt-accent {
-  cursor: default;
-  transition: text-shadow .35s ease, filter .35s ease;
+/* STATEMENT — garis bawah melukis bila hover frasa oren (restore) */
+.stmt-accent { position: relative; cursor: default; transition: text-shadow .3s ease; }
+.stmt-accent::after {
+  content: ''; position: absolute; left: 0; bottom: -.08em; height: 3px; width: 100%;
+  background: var(--color-accent); border-radius: 99px;
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .5s cubic-bezier(.22,1,.36,1);
 }
-.stmt-accent:hover {
-  text-shadow: 0 0 30px rgba(255,77,0,.5);
-  filter: brightness(1.12);
-}
+.stmt-accent:hover { text-shadow: 0 0 26px rgba(255,77,0,.45); }
+.stmt-accent:hover::after { transform: scaleX(1); }
 
 /* PERJALANAN — garis masa isi ikut scroll + hover highlight */
 .timeline-track, .timeline-fill {
@@ -210,4 +211,25 @@ body {
   .tilt, .magnetic, .hero-spotlight, .stmt-accent::after,
   .journey-item .journey-dot, .journey-item .journey-year { transition: none; }
   .hero-spotlight { display: none; }
+}
+
+/* HERO — penunjuk skrol (isi ruang bawah + pandu mata) */
+.scroll-mouse {
+  width: 24px; height: 38px; border: 2px solid currentColor; border-radius: 14px;
+  display: block; position: relative; opacity: .8;
+}
+.scroll-wheel {
+  position: absolute; left: 50%; top: 7px; width: 4px; height: 8px;
+  background: var(--color-accent); border-radius: 2px; transform: translateX(-50%);
+  animation: scrollWheel 1.7s cubic-bezier(.22,1,.36,1) infinite;
+}
+@keyframes scrollWheel {
+  0%   { opacity: 0; transform: translate(-50%, 0); }
+  30%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, 14px); }
+}
+.scroll-cue { animation: scrollBob 2.4s ease-in-out infinite; }
+@keyframes scrollBob { 0%,100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 6px); } }
+@media (prefers-reduced-motion: reduce) {
+  .scroll-wheel, .scroll-cue { animation: none; }
 }

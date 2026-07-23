@@ -380,6 +380,13 @@ export default function Landing() {
             </a>
           </div>
         </div>
+
+        {/* penunjuk skrol — isi ruang bawah hero + pandu mata turun */}
+        <a href="#projek" aria-label="Skrol ke bawah"
+           className="scroll-cue absolute bottom-8 left-1/2 -translate-x-1/2 z-[2] flex flex-col items-center gap-3 text-white/45 hover:text-white/80 transition-colors">
+          <span className="font-mono text-[10px] tracking-[0.32em] uppercase">Skrol</span>
+          <span className="scroll-mouse"><span className="scroll-wheel" /></span>
+        </a>
       </section>
 
       {/* ======== BIG STATEMENT ======== */}
