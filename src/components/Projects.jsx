@@ -269,12 +269,12 @@ function MilestoneRow({ milestone: m, onToggle, onDelete }) {
         aria-label={done ? 'Mark pending' : 'Mark done'}
         className="shrink-0 w-4 h-4 rounded-full border-2 flex items-center justify-center transition"
         style={{
-          borderColor: done ? '#d6b36a' : inProgress ? '#d6b36a' : 'rgba(245,241,232,0.25)',
-          background: done ? '#d6b36a' : inProgress ? 'rgba(214,179,106,0.4)' : 'transparent',
+          borderColor: done ? '#ff4d00' : inProgress ? '#ff4d00' : 'rgba(244,244,245,0.25)',
+          background: done ? '#ff4d00' : inProgress ? 'rgba(255,77,0,0.4)' : 'transparent',
         }}
       >
         {done && (
-          <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#0c1812" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#08080a" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="20 6 9 17 4 12" />
           </svg>
         )}
@@ -347,7 +347,7 @@ function ProjectFormModal({ initial, onCancel, onSave }) {
       <form
         onClick={(e) => e.stopPropagation()}
         onSubmit={handleSubmit}
-        className="bg-[#0f221a] border border-white/10 rounded-2xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto"
+        className="bg-[#111113] border border-white/10 rounded-2xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto"
       >
         <h3 className="font-display text-xl text-cream mb-5">
           {initial ? 'Edit project' : 'Add project'}
@@ -380,7 +380,7 @@ function ProjectFormModal({ initial, onCancel, onSave }) {
           <Field label={`Progress (${form.progress_percent}%)`}>
             <input type="range" min="0" max="100" step="5" value={form.progress_percent}
               onChange={(e) => set('progress_percent', e.target.value)}
-              className="w-full accent-[#d6b36a]" />
+              className="w-full accent-[#ff4d00]" />
           </Field>
           <Field label="Next milestone (one-liner)">
             <input type="text" value={form.next_milestone}
@@ -410,16 +410,16 @@ function ProjectFormModal({ initial, onCancel, onSave }) {
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 10px;
             padding: 10px 14px;
-            color: #f5f1e8;
+            color: #f4f4f5;
             font-size: 14px;
             font-family: inherit;
           }
           .form-input:focus {
             outline: none;
-            border-color: #d6b36a;
+            border-color: #ff4d00;
             background: rgba(255,255,255,0.06);
           }
-          .form-input option { background: #0f221a; color: #f5f1e8; }
+          .form-input option { background: #111113; color: #f4f4f5; }
         `}</style>
       </form>
     </div>

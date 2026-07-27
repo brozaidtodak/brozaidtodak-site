@@ -23,7 +23,7 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0c1812] text-cream flex items-center justify-center px-6">
+    <div className="min-h-screen bg-[#08080a] text-cream flex items-center justify-center px-6">
       <div className="w-full max-w-md">
         <div className="text-center mb-10">
           <a href="/" className="font-display text-2xl text-cream font-semibold">Bro Zaid Todak</a>

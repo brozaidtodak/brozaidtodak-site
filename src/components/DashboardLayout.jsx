@@ -63,10 +63,10 @@ export default function DashboardLayout() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0c1812] text-cream">
+    <div className="min-h-screen bg-[#08080a] text-cream">
       <div className="flex">
         {/* Sidebar */}
-        <aside className="hidden md:flex w-56 shrink-0 min-h-screen border-r border-white/8 bg-[#0a1610] flex-col">
+        <aside className="hidden md:flex w-56 shrink-0 min-h-screen border-r border-white/8 bg-[#050505] flex-col">
           <div className="px-5 py-5 border-b border-white/8">
             <Link to="/" className="font-display text-lg text-cream font-semibold leading-tight block">
               Bro Zaid Todak
@@ -119,7 +119,7 @@ export default function DashboardLayout() {
         {/* Main */}
         <div className="flex-1 min-w-0">
           {/* Mobile top bar */}
-          <header className="md:hidden border-b border-white/8 px-5 py-3 flex items-center justify-between bg-[#0a1610] sticky top-0 z-10">
+          <header className="md:hidden border-b border-white/8 px-5 py-3 flex items-center justify-between bg-[#050505] sticky top-0 z-10">
             <Link to="/" className="font-display text-lg text-cream font-semibold">
               Bro Zaid Todak
             </Link>

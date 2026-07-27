@@ -217,7 +217,7 @@ function PortfolioFormModal({ initial, onCancel, onSave }) {
       <form
         onClick={(e) => e.stopPropagation()}
         onSubmit={handleSubmit}
-        className="bg-[#0f221a] border border-white/10 rounded-2xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto"
+        className="bg-[#111113] border border-white/10 rounded-2xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto"
       >
         <h3 className="font-display text-xl text-cream mb-5">
           {initial ? 'Edit portfolio item' : 'Add portfolio item'}
@@ -291,16 +291,16 @@ function PortfolioFormModal({ initial, onCancel, onSave }) {
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 10px;
             padding: 10px 14px;
-            color: #f5f1e8;
+            color: #f4f4f5;
             font-size: 14px;
             font-family: inherit;
           }
           .form-input:focus {
             outline: none;
-            border-color: #d6b36a;
+            border-color: #ff4d00;
             background: rgba(255,255,255,0.06);
           }
-          .form-input option { background: #0f221a; color: #f5f1e8; }
+          .form-input option { background: #111113; color: #f4f4f5; }
         `}</style>
       </form>
     </div>

@@ -26,7 +26,7 @@ export default function ProtectedRoute({ children }) {
 
   if (status === 'checking') {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0c1812]">
+      <div className="min-h-screen flex items-center justify-center bg-[#08080a]">
         <p className="text-cream/50 text-sm font-mono">checking session…</p>
       </div>
     )

@@ -23,7 +23,7 @@ export async function loadRoadmap() {
 }
 
 export const PROJECT_META = {
-  pos: { label: '10 CAMP POS', subtitle: 'Staff-facing POS · pos.10camp.com', accent: '#d6b36a' },
+  pos: { label: '10 CAMP POS', subtitle: 'Staff-facing POS · pos.10camp.com', accent: '#ff4d00' },
   '10cc': { label: '10cc Command Centre', subtitle: 'Owner back-office · 10cc.10camp.com', accent: '#7fb88a' },
   kk: { label: 'Keluarga Kita', subtitle: 'Family tree app', accent: '#e08a5b' },
   broz: { label: 'brozaidtodak.com', subtitle: 'This Command Centre', accent: '#9fb5d8' },

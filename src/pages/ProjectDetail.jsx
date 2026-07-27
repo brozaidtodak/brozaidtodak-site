@@ -169,11 +169,11 @@ function MilestoneRow({ milestone: m, onToggle, onDelete }) {
         aria-label={done ? 'Mark pending' : 'Mark done'}
         className="shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center transition"
         style={{
-          borderColor: done || inProgress ? '#d6b36a' : 'rgba(245,241,232,0.25)',
-          background: done ? '#d6b36a' : inProgress ? 'rgba(214,179,106,0.4)' : 'transparent',
+          borderColor: done || inProgress ? '#ff4d00' : 'rgba(244,244,245,0.25)',
+          background: done ? '#ff4d00' : inProgress ? 'rgba(255,77,0,0.4)' : 'transparent',
         }}>
         {done && (
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#0c1812" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#08080a" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="20 6 9 17 4 12" />
           </svg>
         )}
@@ -258,7 +258,7 @@ function ProjectEditModal({ project, onCancel, onSave }) {
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
       onClick={onCancel}>
       <form onClick={(e) => e.stopPropagation()} onSubmit={handleSubmit}
-        className="bg-[#0f221a] border border-white/10 rounded-2xl p-6 w-full max-w-lg">
+        className="bg-[#111113] border border-white/10 rounded-2xl p-6 w-full max-w-lg">
         <h3 className="font-display text-xl text-cream mb-5">Edit project</h3>
 
         <div className="space-y-4">
@@ -285,7 +285,7 @@ function ProjectEditModal({ project, onCancel, onSave }) {
           <label className="block">
             <span className="text-[11px] uppercase tracking-wider text-cream/50 font-medium block mb-1.5">Progress ({form.progress_percent}%)</span>
             <input type="range" min="0" max="100" step="5" value={form.progress_percent}
-              onChange={(e) => set('progress_percent', e.target.value)} className="w-full accent-[#d6b36a]" />
+              onChange={(e) => set('progress_percent', e.target.value)} className="w-full accent-[#ff4d00]" />
           </label>
         </div>
 
@@ -303,10 +303,10 @@ function ProjectEditModal({ project, onCancel, onSave }) {
             width: 100%; background: rgba(255,255,255,0.04);
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 10px; padding: 10px 14px;
-            color: #f5f1e8; font-size: 14px; font-family: inherit;
+            color: #f4f4f5; font-size: 14px; font-family: inherit;
           }
-          .cc-input:focus { outline: none; border-color: #d6b36a; background: rgba(255,255,255,0.06); }
-          .cc-input option { background: #0f221a; color: #f5f1e8; }
+          .cc-input:focus { outline: none; border-color: #ff4d00; background: rgba(255,255,255,0.06); }
+          .cc-input option { background: #111113; color: #f4f4f5; }
         `}</style>
       </form>
     </div>

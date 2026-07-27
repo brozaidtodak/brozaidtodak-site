@@ -359,7 +359,7 @@ function TransactionModal({ projectSlug, mode, initial, onCancel, onSave }) {
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
       onClick={onCancel}>
       <form onClick={(e) => e.stopPropagation()} onSubmit={handleSubmit}
-        className="bg-[#0f221a] border border-white/10 rounded-2xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+        className="bg-[#111113] border border-white/10 rounded-2xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
         <h3 className="font-display text-xl text-cream mb-1">{title}</h3>
         <p className="text-xs text-cream/45 mb-5 font-mono">{form.direction === 'in' ? '↘ inflow' : '↗ outflow'}</p>
 
@@ -458,10 +458,10 @@ function TransactionModal({ projectSlug, mode, initial, onCancel, onSave }) {
             width: 100%; background: rgba(255,255,255,0.04);
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 10px; padding: 10px 14px;
-            color: #f5f1e8; font-size: 14px; font-family: inherit;
+            color: #f4f4f5; font-size: 14px; font-family: inherit;
           }
-          .cc-input:focus { outline: none; border-color: #d6b36a; background: rgba(255,255,255,0.06); }
-          .cc-input option { background: #0f221a; color: #f5f1e8; }
+          .cc-input:focus { outline: none; border-color: #ff4d00; background: rgba(255,255,255,0.06); }
+          .cc-input option { background: #111113; color: #f4f4f5; }
         `}</style>
       </form>
     </div>

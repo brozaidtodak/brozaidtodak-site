@@ -1,18 +1,23 @@
 @import "tailwindcss";
 
 @theme {
-  --color-forest: #1f3b2d;
-  --color-forest-deep: #152a20;
-  --color-moss: #2d5240;
-  --color-cream: #f5f1e8;
-  --color-cream-dark: #ebe5d4;
-  --color-bark: #6b4f35;
-  --color-gold: #d6b36a;
-  --color-gold-dark: #b8965a;
+  /* p1 (2026-07-27) — dashboard diselaraskan ke "Todak monokrom" (hitam+oren)
+     supaya padan landing awam. Nama token KEKAL (forest/gold/cream) untuk elak
+     tulis semula ~243 rujukan kelas, tapi NILAI kini hitam/oren/putih:
+       forest* = latar gelap · gold* = aksen OREN (bukan emas lagi) · cream* = teks putih.
+     Landing guna void/white/accent — tak terjejas. */
+  --color-forest: #101012;       /* panel gelap (dulu hijau) */
+  --color-forest-deep: #08080a;  /* latar terdalam */
+  --color-moss: #26262b;         /* sempadan / hover / naik halus */
+  --color-cream: #f4f4f5;        /* teks utama (putih neutral) */
+  --color-cream-dark: #c9c9ce;   /* teks sekunder */
+  --color-bark: #71717a;         /* teks kelabu pudar (dulu coklat) */
+  --color-gold: #ff4d00;         /* AKSEN OREN (dulu emas) */
+  --color-gold-dark: #cc3d00;
   --color-ember: #ff8c42;
   --color-ember-bright: #ffa262;
-  --color-gold-bright: #e8c07d;
-  --color-night: #0a1410;
+  --color-gold-bright: #ff6a2b;
+  --color-night: #08080a;
   --color-void: #050505;
   --color-accent: #ff4d00;
   --color-ink: #1a1a1a;
