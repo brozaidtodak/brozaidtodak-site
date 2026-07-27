@@ -75,6 +75,7 @@ const ms = {
   },
   journey: {
     label: 'Perjalanan',
+    cta: 'Terokai pokok kerjaya penuh',
     items: [
       { year: '2021 – 2023', title: 'Peruncitan vape', desc: 'Permulaan dalam dunia peruncitan — pengurusan jualan, inventori dan aliran tunai. Perniagaan telah ditutup; pengalamannya kekal menjadi asas.' },
       { year: 'Berterusan', title: 'Pembaikan telefon', desc: 'Kemahiran teknikal yang dikekalkan sehingga kini — diagnosis, pembaikan dan pemasangan semula. Disiplin yang sama diterapkan dalam pembinaan sistem.' },
@@ -142,6 +143,7 @@ const en = {
   },
   journey: {
     label: 'Journey',
+    cta: 'Explore the full career tree',
     items: [
       { year: '2021 – 2023', title: 'Vape retail', desc: 'Started out in retail — managing sales, inventory and cash flow. The business has since closed; the experience remains the foundation.' },
       { year: 'Ongoing', title: 'Phone repair', desc: 'Technical skills kept alive to this day — diagnosis, repair and reassembly. The same discipline carries into building systems.' },

@@ -453,6 +453,14 @@ export default function Landing() {
               </div>
             ))}
           </div>
+          <Link
+            to="/journey"
+            className="reveal inline-flex items-center gap-2 mt-4 ml-8 px-5 py-2.5 rounded-full border border-white/20 text-white/90 text-sm font-semibold hover:bg-white/[0.07] transition"
+          >
+            <MapIcon />
+            {c.journey.cta}
+            <span className="text-accent" aria-hidden="true">→</span>
+          </Link>
         </div>
       </section>
 

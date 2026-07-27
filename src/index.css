@@ -161,6 +161,12 @@ body {
 
 /* ============ INTERAKSI SETIAP SECTION ============ */
 
+/* Pokok Kerjaya — panel cerita slide masuk */
+@keyframes slideup {
+  from { transform: translateY(16px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
 /* ROADMAP gate — goyang bila kata laluan salah */
 .gate-shake { animation: gateShake .4s cubic-bezier(.36,.07,.19,.97); }
 @keyframes gateShake {
