@@ -251,6 +251,13 @@ export default function Landing() {
         </a>
         <div className="flex items-center gap-2 md:gap-3">
           <LangSwitcher lang={lang} setLang={setLang} />
+          {/* p2 — pintu masuk halaman servis (jualan) */}
+          <Link
+            to="/servis"
+            className="inline-flex items-center px-4 py-2 rounded-full border border-accent/45 text-accent hover:bg-accent hover:text-black text-xs font-semibold transition"
+          >
+            {c.nav.servis || 'Servis'}
+          </Link>
           <Link
             to="/login"
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/15 text-white/75 hover:text-white hover:border-white/40 text-xs font-semibold transition"

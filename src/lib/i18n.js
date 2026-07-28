@@ -29,6 +29,7 @@ const ms = {
   nav: {
     commandCentre: 'Command Centre',
     enterCommandCentre: 'Enter Command Centre',
+    servis: 'Servis',
   },
   hero: {
     location: 'Cyberjaya, Malaysia',
@@ -97,6 +98,7 @@ const en = {
   nav: {
     commandCentre: 'Command Centre',
     enterCommandCentre: 'Enter Command Centre',
+    servis: 'Services',
   },
   hero: {
     location: 'Cyberjaya, Malaysia',
