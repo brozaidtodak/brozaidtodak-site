@@ -9,6 +9,7 @@ import SiteRoadmap from './pages/SiteRoadmap.jsx'
 import Journey from './pages/Journey.jsx'
 import Portfolio from './pages/Portfolio.jsx'
 import Servis from './pages/Servis.jsx'
+import ServisPakej from './pages/ServisPakej.jsx'
 import DashboardLayout from './components/DashboardLayout.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 
@@ -17,6 +18,7 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Landing />} />
       <Route path="/servis" element={<Servis />} />
+      <Route path="/servis/:slug" element={<ServisPakej />} />
       <Route path="/roadmap" element={<SiteRoadmap />} />
       <Route path="/journey" element={<Journey />} />
       <Route path="/login" element={<Login />} />

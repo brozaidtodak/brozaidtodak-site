@@ -87,6 +87,7 @@ const ms = {
     forWho: 'Untuk siapa',
     excludes: 'Tak termasuk',
     from: 'dari',
+    detail: 'Butiran & demo',
     footnote: 'Harga dalam USD. Client Malaysia bayar dalam Ringgit ikut kadar pada tarikh invois. Deposit 50% sebelum mula. Hosting & domain atas nama awak sendiri — saya tak mark-up.',
     diagnosis: {
       title: 'Sesi Diagnosis',
@@ -255,6 +256,7 @@ const en = {
     forWho: 'Who it\'s for',
     excludes: 'Not included',
     from: 'from',
+    detail: 'Details & demo',
     footnote: 'Prices in USD. Malaysian clients pay in Ringgit at the rate on the invoice date. 50% deposit before work starts. Hosting & domain stay in your own name — I don\'t mark them up.',
     diagnosis: {
       title: 'Diagnostic Session',
