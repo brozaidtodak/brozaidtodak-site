@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+/* p2 — Tailwind v4 auto-imbas SELURUH projek termasuk .md. Fail dalam plans/
+   memetik kelas sebenar sebagai contoh kod, jadi Tailwind menjana utiliti untuk
+   kelas yang dah TIADA dalam app (cth animate-[slideup] yang kita buang) —
+   CSS mati dalam bundle produksi, dan lebih teruk, ia boleh "hidupkan semula"
+   utiliti yang sengaja dibuang. Kecualikan folder dokumen dari pengimbasan. */
+@source not "../plans";
+
 @theme {
   /* p1 (2026-07-27) — dashboard diselaraskan ke "Todak monokrom" (hitam+oren)
      supaya padan landing awam. Nama token KEKAL (forest/gold/cream) untuk elak
