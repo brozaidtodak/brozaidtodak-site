@@ -194,7 +194,7 @@ function RoadmapView() {
             </span>
           </div>
           <div className="h-2 rounded-full bg-white/10 overflow-hidden">
-            <div className="h-full rounded-full bg-accent transition-all" style={{ width: `${percent}%` }} />
+            <div className="h-full w-full rounded-full bg-accent origin-left transition-transform duration-500 ease-[var(--ease-out)]" style={{ transform: `scaleX(${(percent || 0) / 100})` }} />
           </div>
         </div>
 

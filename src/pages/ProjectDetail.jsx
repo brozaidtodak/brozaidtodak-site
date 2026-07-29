@@ -123,8 +123,8 @@ export default function ProjectDetail() {
             <span className="font-mono text-sm text-cream/80">{project.progress_percent}%</span>
           </div>
           <div className="w-full h-2 bg-white/8 rounded-full overflow-hidden">
-            <div className="h-full bg-gold rounded-full transition-all"
-              style={{ width: `${project.progress_percent}%` }} />
+            <div className="h-full w-full bg-gold rounded-full origin-left transition-transform duration-500 ease-[var(--ease-out)]"
+              style={{ transform: `scaleX(${(project.progress_percent || 0) / 100})` }} />
           </div>
         </div>
 

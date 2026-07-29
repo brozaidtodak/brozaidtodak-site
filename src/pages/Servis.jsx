@@ -428,7 +428,15 @@ function Faq({ q, a }) {
         <span className="font-sans font-semibold text-white group-hover:text-accent transition">{q}</span>
         <span className={`text-accent text-xl shrink-0 transition-transform ${open ? 'rotate-45' : ''}`} aria-hidden="true">+</span>
       </button>
-      {open && <p className="text-white/70 text-sm leading-relaxed pb-5 -mt-1 max-w-prose">{a}</p>}
+      <div
+        className={`grid transition-[grid-template-rows,opacity] duration-200 ease-[var(--ease-out)] ${
+          open ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+        }`}
+      >
+        <div className="overflow-hidden">
+          <p className="text-white/70 text-sm leading-relaxed pb-5 -mt-1 max-w-prose">{a}</p>
+        </div>
+      </div>
     </div>
   )
 }

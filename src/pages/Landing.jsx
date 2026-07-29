@@ -196,34 +196,58 @@ export default function Landing() {
       cleanups.push(() => { hero.removeEventListener('mousemove', move); layer.innerHTML = '' })
     }
 
-    // TILT 3D + glow (kad stat + kad projek)
-    document.querySelectorAll('.tilt').forEach((el) => {
+    // p2 — mousemove menyala sampai 1000Hz pada trackpad/tetikus polling tinggi.
+    // Dulu tiap event terus tulis gaya = pengiraan semula gaya jauh lebih kerap
+    // dari kadar frame. Sekarang event cuma SIMPAN sasaran; satu tulisan sahaja
+    // per frame dalam rAF — corak sama macam gelung parallax di atas.
+    // Kelas *-tracking mematikan transisi CSS semasa menjejak supaya kad melekat
+    // pada kursor, bukan meluncur 350ms di belakangnya.
+    const trackPointer = (el, trackingClass, computeTransform) => {
+      let raf = null
+      let pending = null
       const move = (e) => {
-        const r = el.getBoundingClientRect()
-        const px = (e.clientX - r.left) / r.width
-        const py = (e.clientY - r.top) / r.height
-        el.style.setProperty('--mx', px * 100 + '%')
-        el.style.setProperty('--my', py * 100 + '%')
-        el.style.transform = `perspective(900px) rotateY(${(px - 0.5) * 7}deg) rotateX(${(0.5 - py) * 7}deg) translateY(-5px)`
+        pending = e
+        if (raf) return
+        raf = requestAnimationFrame(() => {
+          raf = null
+          const r = el.getBoundingClientRect()
+          el.classList.add(trackingClass)
+          computeTransform(el, pending, r)
+        })
       }
-      const leave = () => { el.style.transform = '' }
+      const leave = () => {
+        if (raf) { cancelAnimationFrame(raf); raf = null }
+        el.classList.remove(trackingClass) // transisi hidup semula → pulang licin
+        el.style.transform = ''
+      }
       el.addEventListener('mousemove', move)
       el.addEventListener('mouseleave', leave)
-      cleanups.push(() => { el.removeEventListener('mousemove', move); el.removeEventListener('mouseleave', leave) })
+      cleanups.push(() => {
+        if (raf) cancelAnimationFrame(raf)
+        el.classList.remove(trackingClass)
+        el.removeEventListener('mousemove', move)
+        el.removeEventListener('mouseleave', leave)
+      })
+    }
+
+    // TILT 3D + glow (kad stat + kad projek)
+    document.querySelectorAll('.tilt').forEach((el) => {
+      trackPointer(el, 'tilt-tracking', (node, e, r) => {
+        const px = (e.clientX - r.left) / r.width
+        const py = (e.clientY - r.top) / r.height
+        node.style.setProperty('--mx', px * 100 + '%')
+        node.style.setProperty('--my', py * 100 + '%')
+        node.style.transform = `perspective(900px) rotateY(${(px - 0.5) * 7}deg) rotateX(${(0.5 - py) * 7}deg) translateY(-5px)`
+      })
     })
 
     // MAGNETIK — butang/ikon tertarik ke kursor
     document.querySelectorAll('.magnetic').forEach((el) => {
-      const move = (e) => {
-        const r = el.getBoundingClientRect()
+      trackPointer(el, 'magnetic-tracking', (node, e, r) => {
         const mx = e.clientX - (r.left + r.width / 2)
         const my = e.clientY - (r.top + r.height / 2)
-        el.style.transform = `translate(${mx * 0.3}px, ${my * 0.45}px)`
-      }
-      const leave = () => { el.style.transform = '' }
-      el.addEventListener('mousemove', move)
-      el.addEventListener('mouseleave', leave)
-      cleanups.push(() => { el.removeEventListener('mousemove', move); el.removeEventListener('mouseleave', leave) })
+        node.style.transform = `translate(${mx * 0.3}px, ${my * 0.45}px)`
+      })
     })
 
     // PERJALANAN — garis masa isi ikut scroll

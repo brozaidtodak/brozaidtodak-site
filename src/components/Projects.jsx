@@ -166,8 +166,8 @@ function ProjectCard({
         </div>
         <div className="w-full h-1.5 bg-white/8 rounded-full overflow-hidden">
           <div
-            className="h-full bg-gold rounded-full transition-all"
-            style={{ width: `${p.progress_percent}%` }}
+            className="h-full w-full bg-gold rounded-full origin-left transition-transform duration-500 ease-[var(--ease-out)]"
+            style={{ transform: `scaleX(${(p.progress_percent || 0) / 100})` }}
           />
         </div>
       </div>

@@ -265,9 +265,9 @@ export function DemoOperasi({ t, lang, fallbackName }) {
             <div className="text-[10px] uppercase tracking-wider text-white/45 mb-4">{t.demoChart}</div>
             <div className="flex items-end gap-2 h-28">
               {DEMO_DASH.bars.map((b, i) => (
-                <div key={i} className="flex-1 rounded-t transition-all"
+                <div key={i} className="flex-1 h-full rounded-t origin-bottom transition-transform duration-500 ease-[var(--ease-out)]"
                   style={{
-                    height: `${(b / max) * 100}%`,
+                    transform: `scaleY(${(b || 0) / max})`,
                     background: i === DEMO_DASH.bars.length - 1 ? '#ff4d00' : 'rgba(255,255,255,0.16)',
                   }} />
               ))}

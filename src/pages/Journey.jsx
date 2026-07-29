@@ -228,11 +228,18 @@ export default function Journey() {
 
 function DetailPanel({ node, onClose }) {
   const c = CATEGORIES[node.cat]
+  // p2 — kelas .is-open dipasang SATU frame selepas mount supaya transisi CSS
+  // benar-benar berjalan (set kelas dalam render yang sama = tiada animasi).
+  const [shown, setShown] = useState(false)
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setShown(true))
+    return () => cancelAnimationFrame(id)
+  }, [])
   return (
-    <div className="fixed z-30 inset-x-0 bottom-0 md:inset-y-0 md:right-0 md:left-auto md:w-96
+    <div className={`detail-panel${shown ? ' is-open' : ''}
+                    fixed z-30 inset-x-0 bottom-0 md:inset-y-0 md:right-0 md:left-auto md:w-96
                     bg-[#0a0a0b] border-t md:border-t-0 md:border-l border-white/12 p-6 md:p-8
-                    shadow-[0_-10px_40px_rgba(0,0,0,0.5)] md:shadow-[-10px_0_40px_rgba(0,0,0,0.5)]
-                    animate-[slideup_.25s_ease]">
+                    shadow-[0_-10px_40px_rgba(0,0,0,0.5)] md:shadow-[-10px_0_40px_rgba(0,0,0,0.5)]`}>
       <button onClick={onClose} aria-label="Tutup"
         className="absolute top-4 right-4 w-8 h-8 rounded-full border border-white/15 text-white/60 hover:text-white hover:border-white/40 transition flex items-center justify-center">✕</button>
       <div className="inline-flex items-center gap-2 mb-4">
