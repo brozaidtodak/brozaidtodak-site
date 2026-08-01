@@ -15,6 +15,28 @@
   to = "/finance/"
   status = 301
 
+# Pintasan senang ingat — 301 ke subdomain. Kekal site berasingan
+# (origin asing, gate sendiri); path cuma jadi jalan masuk.
+[[redirects]]
+  from = "/prompt"
+  to = "https://prompt.brozaidtodak.com"
+  status = 301
+
+[[redirects]]
+  from = "/prompt/*"
+  to = "https://prompt.brozaidtodak.com/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/training"
+  to = "https://training.brozaidtodak.com"
+  status = 301
+
+[[redirects]]
+  from = "/training/*"
+  to = "https://training.brozaidtodak.com/:splat"
+  status = 301
+
 # SPA catch-all untuk command centre (mesti PALING BAWAH)
 [[redirects]]
   from = "/*"
