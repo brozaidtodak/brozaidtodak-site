@@ -533,7 +533,16 @@ export default function Landing() {
           </div>
 
           <div className="mt-20 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/60">
-            <span>{c.contact.footer}</span>
+            <span
+              onClick={(e) => {
+                const now = Date.now()
+                const el = e.currentTarget
+                if (!el._taps || now - el._t0 > 2500) { el._taps = 0; el._t0 = now }
+                el._taps += 1
+                if (el._taps >= 5) { el._taps = 0; window.dispatchEvent(new Event('bzt:reveal')) }
+              }}
+              className="select-none"
+            >{c.contact.footer}</span>
             <Link
               to="/roadmap"
               className="group inline-flex items-center gap-2 hover:text-white/90 transition"

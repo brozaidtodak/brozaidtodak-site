@@ -12,9 +12,12 @@ import Servis from './pages/Servis.jsx'
 import ServisPakej from './pages/ServisPakej.jsx'
 import DashboardLayout from './components/DashboardLayout.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
+import SecretPanel from './components/SecretPanel.jsx'
 
 export default function App() {
   return (
+    <>
+    <SecretPanel />
     <Routes>
       <Route path="/" element={<Landing />} />
       <Route path="/servis" element={<Servis />} />
@@ -37,5 +40,6 @@ export default function App() {
         <Route path="projects/:slug" element={<ProjectDetail />} />
       </Route>
     </Routes>
+    </>
   )
 }
