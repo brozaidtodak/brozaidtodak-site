@@ -9,6 +9,7 @@ const LINKS = [
   { n: 'Training', d: 'Buku TikTok 10 bab', href: 'https://training.brozaidtodak.com' },
   { n: 'Finance', d: 'Kewangan peribadi', href: '/finance/' },
   { n: 'Command Centre', d: 'Dashboard dalaman', href: '/login' },
+  { n: 'Rujukan Skill', d: 'Senarai skill Claude Code Zaid', href: '/skills' },
 ]
 
 export default function SecretPanel() {

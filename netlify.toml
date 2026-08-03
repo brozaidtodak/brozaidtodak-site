@@ -37,6 +37,12 @@
   to = "https://training.brozaidtodak.com/:splat"
   status = 301
 
+# Rujukan skill Claude Code — fail statik public/skills.html
+[[redirects]]
+  from = "/skills"
+  to = "/skills.html"
+  status = 200
+
 # SPA catch-all untuk command centre (mesti PALING BAWAH)
 [[redirects]]
   from = "/*"
