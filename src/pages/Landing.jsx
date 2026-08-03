@@ -385,6 +385,15 @@ export default function Landing() {
             >
               {c.hero.ctaContact}
             </a>
+            <a
+              href="https://training.brozaidtodak.com"
+              target="_blank"
+              rel="noopener"
+              className="btn-pad magnetic inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-accent/50 text-accent text-sm font-semibold hover:bg-accent/10"
+            >
+              {c.hero.ctaTraining}
+              <span aria-hidden="true">↗</span>
+            </a>
           </div>
         </div>
 
