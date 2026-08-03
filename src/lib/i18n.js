@@ -74,6 +74,13 @@ const ms = {
       { tag: 'Perniagaan keluarga', desc: 'Sistem POS dan back office untuk perniagaan batik keluarga — dibangunkan dengan standard yang sama seperti operasi utama.' },
     ],
   },
+  skills: {
+    label: 'Skill Claude Code',
+    heading: 'Semua sistem ini dibina dengan Claude Code.',
+    body: 'Di belakang setiap sistem di atas ada Claude Code dengan koleksi 259 skill: plan, design, QA, ship, kewangan, marketing. Sebahagiannya saya bina sendiri untuk kegunaan bisnes sebenar, dan ia terbuka untuk sesiapa muat turun.',
+    ctaGithub: 'Muat turun di GitHub',
+    ctaRef: 'Rujukan penuh 259 skill',
+  },
   journey: {
     label: 'Perjalanan',
     cta: 'Terokai pokok kerjaya penuh',
@@ -142,6 +149,13 @@ const en = {
       { tag: 'Family business', desc: 'Brand identity and official website development for a handmade beaded-flower brand.' },
       { tag: 'Family business', desc: 'A POS and back office for a family batik business — built to the same standard as the main operation.' },
     ],
+  },
+  skills: {
+    label: 'Claude Code Skills',
+    heading: 'This entire stack is built with Claude Code.',
+    body: 'Behind every system above is Claude Code with a loadout of 259 skills: planning, design, QA, shipping, finance, marketing. Some I built myself for real business use, and they are open for anyone to download.',
+    ctaGithub: 'Download on GitHub',
+    ctaRef: 'Full 259-skill reference',
   },
   journey: {
     label: 'Journey',

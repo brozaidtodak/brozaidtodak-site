@@ -462,6 +462,39 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* ======== SKILL CLAUDE CODE ======== */}
+      <section className="relative px-6 py-20 md:py-28">
+        <div className="max-w-3xl mx-auto">
+          <SectionLabel>{c.skills.label}</SectionLabel>
+          <h3 className="font-display font-bold text-3xl md:text-4xl tracking-tight mt-4 reveal">
+            {c.skills.heading}
+          </h3>
+          <p className="text-white/70 leading-relaxed text-base mt-4 max-w-xl reveal">{c.skills.body}</p>
+          <div className="reveal mt-6 max-w-xl font-mono text-[12.5px] text-white/55 bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 overflow-x-auto whitespace-nowrap">
+            git clone https://github.com/brozaidtodak/claude-skills.git
+          </div>
+          <div className="flex flex-wrap gap-3 mt-6 reveal">
+            <a
+              href="https://github.com/brozaidtodak/claude-skills"
+              target="_blank"
+              rel="noreferrer"
+              className="btn-pad btn-light magnetic inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-black text-sm font-bold"
+            >
+              <GithubIcon />
+              {c.skills.ctaGithub}
+            </a>
+            <a
+              href="/skills"
+              className="btn-pad magnetic inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/20 text-white/90 text-sm font-semibold hover:bg-white/[0.07]"
+            >
+              <BoltIcon />
+              {c.skills.ctaRef}
+              <span className="text-accent" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* ======== PERJALANAN ======== */}
       <section className="relative px-6 py-20 md:py-28">
         <div className="max-w-3xl mx-auto">
@@ -846,6 +879,14 @@ function LockIcon() {
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
       <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+    </svg>
+  )
+}
+
+function GithubIcon() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.55v-2.17c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.75 2.69 1.25 3.34.95.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.73.81 1.18 1.83 1.18 3.09 0 4.41-2.7 5.38-5.26 5.67.41.35.77 1.05.77 2.12v3.14c0 .3.21.66.8.55A11.52 11.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/>
     </svg>
   )
 }
