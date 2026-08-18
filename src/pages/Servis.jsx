@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom'
-import { useEffect, useRef, useState } from 'react'
+import { Suspense, lazy, useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { COPY, EMAIL, PRICES, SERVIS_LANGS, WHATSAPP, copyFor, langFor, rm } from '../lib/servis.js'
 
 gsap.registerPlugin(ScrollTrigger)
+
+// three.js berat — muat hanya bila pengguna hampir sampai ke seksyen demo
+const Servis3D = lazy(() => import('../components/Servis3D.jsx'))
 
 // ============================================================
 // SERVIS — halaman jualan servis bina sistem.
@@ -184,6 +187,21 @@ export default function Servis() {
         </div>
       </section>
 
+      {/* ======== DEMO 3D ======== */}
+      <section id="demo3d" className="relative px-6 py-16 md:py-24 scroll-mt-24">
+        <div className="max-w-5xl mx-auto">
+          <SectionLabel>{c.demo3d.label}</SectionLabel>
+          <h2 className="font-display font-bold text-3xl md:text-4xl tracking-tight mt-4 reveal">
+            {c.demo3d.heading}
+          </h2>
+          <p className="text-white/70 leading-relaxed mt-4 max-w-2xl reveal">{c.demo3d.sub}</p>
+          <div className="mt-9 reveal">
+            <Demo3DHolder t={c.demo3d} />
+          </div>
+          <p className="text-white/40 text-xs mt-4 reveal">{c.demo3d.note}</p>
+        </div>
+      </section>
+
       {/* ======== PAKEJ ======== */}
       <section id="pakej" className="relative px-6 py-16 md:py-24 scroll-mt-24">
         <div className="max-w-5xl mx-auto">
@@ -317,6 +335,34 @@ export default function Servis() {
 }
 
 /* ---------- komponen kecil ---------- */
+
+// muat komponen 3D hanya bila seksyen hampir masuk viewport (jimat bundle utama)
+function Demo3DHolder({ t }) {
+  const holderRef = useRef(null)
+  const [ready, setReady] = useState(false)
+  useEffect(() => {
+    const el = holderRef.current
+    if (!el || typeof IntersectionObserver === 'undefined') { setReady(true); return }
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) { setReady(true); io.disconnect() }
+      },
+      { rootMargin: '500px 0px' },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+  const skeleton = (
+    <div className="rounded-2xl border border-white/12 bg-white/[0.02] min-h-[380px] md:min-h-[460px] flex items-center justify-center">
+      <span className="font-mono text-[11px] tracking-[0.25em] uppercase text-white/30">3D</span>
+    </div>
+  )
+  return (
+    <div ref={holderRef}>
+      {ready ? <Suspense fallback={skeleton}><Servis3D t={t} /></Suspense> : skeleton}
+    </div>
+  )
+}
 
 function SectionLabel({ children }) {
   return (
