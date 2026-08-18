@@ -182,6 +182,47 @@ export default function ServisPakej() {
         </div>
       </section>
 
+      {/* ======== KAJIAN KES ======== */}
+      {p.cases && (
+        <section id="kes" className="relative px-6 py-14 md:py-20 scroll-mt-20">
+          <div className="max-w-5xl mx-auto">
+            <SectionLabel>{p.casesLabel}</SectionLabel>
+            <h2 className="font-display font-bold text-3xl md:text-4xl tracking-tight mt-4 reveal">
+              {p.casesHeading}
+            </h2>
+            <p className="text-white/65 leading-relaxed mt-4 max-w-2xl reveal">{p.casesSub}</p>
+            <div className="space-y-5 mt-9">
+              {p.cases.map((k, i) => (
+                <article key={k.name}
+                  className="rounded-2xl border border-white/12 bg-white/[0.03] p-6 md:p-8 reveal">
+                  <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                    <span className="font-mono text-[11px] tracking-[0.2em] text-white/40">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <h3 className="font-display font-bold text-2xl tracking-tight">{k.name}</h3>
+                    <span className="font-mono text-[11px] tracking-wider text-accent uppercase">{k.tag}</span>
+                  </div>
+                  <div className="grid md:grid-cols-3 gap-6 md:gap-7 mt-6">
+                    <div>
+                      <p className="font-mono text-[10px] tracking-[0.2em] text-white/40 uppercase">{p.caseEls.pain}</p>
+                      <p className="text-white/70 text-sm leading-relaxed mt-2.5">{k.pain}</p>
+                    </div>
+                    <div>
+                      <p className="font-mono text-[10px] tracking-[0.2em] text-white/40 uppercase">{p.caseEls.fix}</p>
+                      <p className="text-white/70 text-sm leading-relaxed mt-2.5">{k.fix}</p>
+                    </div>
+                    <div className="md:border-l md:border-accent/25 md:pl-6">
+                      <p className="font-mono text-[10px] tracking-[0.2em] text-accent uppercase">{p.caseEls.result}</p>
+                      <p className="text-white/80 text-sm leading-relaxed mt-2.5">{k.result}</p>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ======== GARIS MASA ======== */}
       <section className="relative px-6 py-14 md:py-20">
         <div className="max-w-4xl mx-auto">
