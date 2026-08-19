@@ -130,8 +130,13 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-sans);
-  background: var(--color-cream);
-  color: var(--color-ink);
+  /* p3 — dulu latar body ialah --color-cream. Selepas retheme hitam/oren,
+     --color-cream jadi warna TEKS (#f4f4f5), bukan latar; barisan ni tertinggal
+     dari tema terang lama. Kesannya: kelipan putih setiap kali muat, sebelum
+     React sempat lukis. Setiap halaman (awam dan dashboard) dah cat latar
+     gelapnya sendiri, jadi tiada apa bergantung pada krim tu. */
+  background: var(--color-void);
+  color: var(--color-cream);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -315,4 +320,15 @@ body {
 @keyframes scrollBob { 0%,100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 6px); } }
 @media (prefers-reduced-motion: reduce) {
   .scroll-wheel, .scroll-cue { animation: none; }
+}
+
+/* p3 — label fallback route: sengaja lambat muncul supaya sambungan laju
+   tak nampak kelipan teks langsung. Hormat reduced-motion. */
+.route-fallback__label {
+  opacity: 0;
+  animation: route-fallback-in .3s ease-out .4s forwards;
+}
+@keyframes route-fallback-in { to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .route-fallback__label { opacity: 1; animation: none; }
 }
