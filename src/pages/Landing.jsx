@@ -30,9 +30,46 @@ const PROJECT_META = [
   { name: 'Empayar Sabrina', status: 'LIVE' },
 ]
 
+// ============================================================
+// p2 — SPLASH: siling masa keras + laluan langkau.
+//
+// Masalah asal: splash didorong GSAP, dan GSAP guna requestAnimationFrame.
+// Chrome throttle rAF dalam tab latar sampai hampir henti, jadi sesiapa yang
+// cmd-click link ni dan datang balik kemudian jumpa skrin hitam berpuluh
+// saat. Timeline pun main semula setiap lawatan.
+//
+// INTRO_BUDGET_S ialah siling sebenar, bukan cadangan. Timeline dipercepat
+// (timeScale) supaya koreografi HABIS dalam siling tu, bukan dikerat separuh
+// jalan. Nak intro lebih perlahan semula: naikkan nombor ni, itu sahaja.
+const INTRO_BUDGET_S = 1.5
+
+// Kunci sesi: sekali tengok sudah, lawatan seterusnya dalam sesi sama terus
+// masuk kandungan.
+const INTRO_SEEN_KEY = 'bzt-intro'
+
+const prefersReducedMotion = () => {
+  try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches } catch { return false }
+}
+
+// Tiga sebab sah untuk langkau splash sepenuhnya.
+function skipIntroReason() {
+  try {
+    if (document.visibilityState === 'hidden') return 'hidden'
+    if (sessionStorage.getItem(INTRO_SEEN_KEY) === '1') return 'seen'
+  } catch { /* storage disekat */ }
+  if (prefersReducedMotion()) return 'reduce'
+  return null
+}
+
 export default function Landing() {
-  // montaj main SETIAP lawatan (bukan sekali sesi)
-  const [introDone, setIntroDone] = useState(false)
+  // Sebab langkau dikira SEKALI masa mount, sebelum render pertama, supaya
+  // splash tak sempat berkelip pun bila ia patut dilangkau.
+  const skipReason = useRef(skipIntroReason())
+  const [introDone, setIntroDone] = useState(() => skipReason.current !== null)
+
+  // Tab pernah tersembunyi sebelum splash habis? Kalau ya, kandungan kena
+  // TERUS berada di tempatnya bila pengguna kembali, bukan baru nak animasi.
+  const wasHidden = useRef(skipReason.current === 'hidden')
   const rootRef = useRef(null)
 
   // bahasa terpilih — pulih dari simpanan / auto-kesan pelayar / default BM
@@ -48,6 +85,22 @@ export default function Landing() {
   useEffect(() => {
     try { localStorage.setItem('bzt-lang', lang) } catch { /* abai */ }
   }, [lang])
+
+  // p2 — tanda sesi sebaik sahaja landing dimuat, jadi lawatan kedua dalam
+  // sesi yang sama terus masuk kandungan tanpa splash.
+  useEffect(() => {
+    try { sessionStorage.setItem(INTRO_SEEN_KEY, '1') } catch { /* abai */ }
+  }, [])
+
+  // p2 — kalau tab jadi tersembunyi masa splash masih naik, rekod fakta tu.
+  // Effect koreografi di bawah baca bendera ni dan terus letak kandungan
+  // pada keadaan akhir, bukan main animasi kepada bilik kosong.
+  useEffect(() => {
+    if (introDone) return
+    const onVis = () => { if (document.visibilityState === 'hidden') wasHidden.current = true }
+    document.addEventListener('visibilitychange', onVis)
+    return () => document.removeEventListener('visibilitychange', onVis)
+  }, [introDone])
   // <html lang>, tajuk, OG dan JSON-LD Person semuanya dipegang useHead.
   useHead('/', lang, [jsonLdPerson()])
   const c = copyFor(lang)
@@ -90,10 +143,21 @@ export default function Landing() {
   // stats count-up, kad stagger, sea storm parallax. Hormat reduced-motion.
   useEffect(() => {
     if (!introDone) return
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const reduce = prefersReducedMotion()
+    // p2 — "settle" = letak semua terus pada keadaan akhir, tiada animasi.
+    // Dua sebab: pengguna minta kurang gerakan, ATAU halaman dimuat dalam tab
+    // latar. Untuk kes kedua, animasi masuk akan berjalan kepada skrin yang
+    // tiada sesiapa tengok, dan bila pengguna kembali dia akan jumpa elemen
+    // .reveal masih opacity 0. Skrin hitam bertukar jadi skrin separuh kosong,
+    // bukan pembaikan.
+    const settle = reduce || wasHidden.current
     const ctx = gsap.context(() => {
-      if (reduce) {
+      if (settle) {
+        // .reveal dan .hero-sub mula pada opacity 0 dalam CSS. Media query
+        // reduced-motion dalam index.css dah paksa dua-dua jadi 1, TAPI ia
+        // tak terpakai pada laluan tab-tersembunyi, jadi kita set di sini juga.
         gsap.set('.reveal', { opacity: 1, y: 0 })
+        gsap.set('.hero-sub', { opacity: 1, y: 0 })
         document.querySelectorAll('[data-count]').forEach((el) => {
           el.textContent = el.dataset.count + (el.dataset.suffix || '')
         })
@@ -702,14 +766,33 @@ function Intro({ onDone }) {
       if (actx) actx.close().catch(() => {})
     }
 
+    // p2 — finish() ialah SATU-SATUNYA jalan keluar, dan ia idempotent.
+    // Tiga benda boleh mencetuskannya: timeline habis, siling masa cukup,
+    // atau tab jadi tersembunyi. Mana-mana yang sampai dulu, menang.
+    let done = false
+    let guard = null
+    const finish = () => {
+      if (done) return
+      done = true
+      if (guard) clearTimeout(guard)
+      document.removeEventListener('visibilitychange', onVis)
+      cleanupAudio()
+      onDone()
+    }
+    function onVis() {
+      // Tab hilang dari pandangan masa splash masih naik: tiada gunanya
+      // teruskan. rAF dah di-throttle pun, jadi timeline takkan habis sendiri.
+      if (document.visibilityState === 'hidden') finish()
+    }
+    document.addEventListener('visibilitychange', onVis)
+
     if (reduce) {
-      // hormat reduced-motion — terus tunjuk, fade cepat
-      const t = setTimeout(onDone, 400)
-      gsap.to(root, { opacity: 0, duration: 0.35, delay: 0.4 })
-      return () => { clearTimeout(t); cleanupAudio() }
+      // Pengguna minta kurang gerakan: tiada splash langsung, bukan fade cepat.
+      finish()
+      return () => { document.removeEventListener('visibilitychange', onVis); cleanupAudio() }
     }
 
-    const tl = gsap.timeline({ onComplete: () => { cleanupAudio(); onDone() } })
+    const tl = gsap.timeline({ onComplete: finish })
 
     // 1) tiga perkataan naik dari mask, satu demi satu
     tl.from(q('.iw'), {
@@ -734,7 +817,25 @@ function Intro({ onDone }) {
     }, '+=0.45')
     tl.to(root, { opacity: 0, duration: 0.5, ease: 'power2.inOut' }, '<0.12')
 
-    return () => { tl.kill(); cleanupAudio() }
+    // ---- siling masa keras ----
+    // (1) Percepatkan timeline supaya koreografi PENUH habis dalam bajet.
+    //     Guna timeScale, bukan potong di tengah: setiap beat masih main,
+    //     cuma lebih pantas. Kalau kemudian ada langkah baru ditambah pada
+    //     timeline, nisbah ni kira sendiri, tiada nombor perlu dikemas.
+    const dur = tl.duration()
+    if (dur > INTRO_BUDGET_S) tl.timeScale(dur / INTRO_BUDGET_S)
+
+    // (2) Jaring keselamatan yang TIDAK bergantung pada rAF. setTimeout terus
+    //     dari jam sistem, jadi walaupun GSAP tersekat sepenuhnya (tab latar,
+    //     mod jimat kuasa, tab dipulihkan), splash tetap keluar.
+    guard = setTimeout(finish, INTRO_BUDGET_S * 1000 + 250)
+
+    return () => {
+      if (guard) clearTimeout(guard)
+      document.removeEventListener('visibilitychange', onVis)
+      tl.kill()
+      cleanupAudio()
+    }
   }, [onDone])
 
   return (
