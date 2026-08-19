@@ -1,0 +1,10 @@
+# brozaidtodak.com
+User-agent: *
+Allow: /
+
+# Halaman peribadi / bergate — tiada nilai untuk carian.
+Disallow: /login
+Disallow: /roadmap
+Disallow: /dashboard
+
+Sitemap: https://brozaidtodak.com/sitemap.xml

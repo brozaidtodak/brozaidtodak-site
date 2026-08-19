@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { COPY, EMAIL, PRICES, SERVIS_LANGS, WHATSAPP, copyFor, langFor, rm } from '../lib/servis.js'
 import { PAGES, SLUGS, pageFor } from '../lib/servisPages.js'
 import { DemoAsas, DemoKilat, DemoOperasi } from '../components/ServisDemo.jsx'
+import { useHead } from '../lib/useHead.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -34,7 +35,6 @@ export default function ServisPakej() {
   })
   useEffect(() => {
     try { localStorage.setItem('bzt-lang', lang) } catch { /* abai */ }
-    document.documentElement.lang = lang
   }, [lang])
 
   const valid = SLUGS.includes(slug)
@@ -42,9 +42,9 @@ export default function ServisPakej() {
   const p = valid ? pageFor(slug, lang) : null
 
   useEffect(() => { window.scrollTo(0, 0) }, [slug])
-  useEffect(() => {
-    if (p) document.title = `${p.name} — brozaidtodak`
-  }, [p, lang])
+  // Tajuk + OG per pakej datang dari lib/seo.js (sumber sama dengan
+  // prerender), bukan document.title tersendiri di sini lagi.
+  useHead(valid ? `/servis/${slug}` : '/servis', lang)
 
   useEffect(() => {
     if (!p) return

@@ -3,6 +3,8 @@ import { Suspense, lazy, useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { COPY, EMAIL, PRICES, SERVIS_LANGS, WHATSAPP, copyFor, langFor, rm } from '../lib/servis.js'
+import { useHead } from '../lib/useHead.js'
+import { jsonLdService, jsonLdFaq } from '../lib/seo.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -35,14 +37,22 @@ export default function Servis() {
   })
   useEffect(() => {
     try { localStorage.setItem('bzt-lang', lang) } catch { /* abai */ }
-    document.documentElement.lang = lang
   }, [lang])
 
   const c = copyFor(lang)
 
-  useEffect(() => {
-    document.title = lang === 'en' ? 'Services — brozaidtodak' : 'Servis — brozaidtodak'
-  }, [lang])
+  // Service + FAQPage dibina dari kandungan halaman yang SAMA dipaparkan,
+  // jadi schema tak boleh lari dari apa yang pelawat baca.
+  useHead('/servis', lang, [
+    jsonLdService(c.pkg.items.map((p) => ({
+      slug: p.id,
+      name: `${p.name} · ${p.tagline}`,
+      desc: p.for,
+      price: PRICES[p.id],
+      from: !!p.from,
+    }))),
+    jsonLdFaq(c.faq.items),
+  ])
 
   useEffect(() => { window.scrollTo(0, 0) }, [])
 

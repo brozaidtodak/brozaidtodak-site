@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
+import { useHead } from '../lib/useHead.js'
+import { jsonLdPerson } from '../lib/seo.js'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { SplitText } from 'gsap/SplitText'
@@ -45,8 +47,9 @@ export default function Landing() {
   })
   useEffect(() => {
     try { localStorage.setItem('bzt-lang', lang) } catch { /* abai */ }
-    document.documentElement.lang = lang
   }, [lang])
+  // <html lang>, tajuk, OG dan JSON-LD Person semuanya dipegang useHead.
+  useHead('/', lang, [jsonLdPerson()])
   const c = copyFor(lang)
 
   // mouse parallax — layer background gerak lawan arah mouse, depth ikut data-parallax

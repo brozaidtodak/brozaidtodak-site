@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#222; }
+  .og {
+    width:1200px; height:630px; background:#050505; color:#fff;
+    padding:74px 80px; display:flex; flex-direction:column; justify-content:space-between;
+    font-family:'General Sans', -apple-system, sans-serif; position:relative; overflow:hidden;
+  }
+  .kicker {
+    font-family:'JetBrains Mono', monospace; font-size:17px; letter-spacing:3.5px;
+    text-transform:uppercase; color:#8a8a8a;
+  }
+  .mark {
+    font-family:'Clash Display', sans-serif; font-weight:700; letter-spacing:-2px;
+    font-size:118px; line-height:1; text-transform:lowercase;
+  }
+  .mark em { color:#ff4d00; font-style:normal; }
+  .lines { font-family:'Clash Display', sans-serif; font-weight:700; letter-spacing:-1px;
+           word-spacing:.1em; font-size:66px; line-height:1.12; text-transform:uppercase; }
+  .lines .hot { color:#ff4d00; }
+  .sub { font-size:26px; line-height:1.45; color:#c8c8c8; max-width:880px; margin-top:22px; }
+  .sub b { color:#fff; font-weight:600; }
+  .foot { display:flex; align-items:flex-end; justify-content:space-between; gap:24px; }
+  .roles { display:flex; gap:10px; flex-wrap:wrap; }
+  .pill {
+    font-family:'JetBrains Mono', monospace; font-size:15px; letter-spacing:1.4px;
+    text-transform:uppercase; padding:9px 16px; border:1.5px solid #333; border-radius:999px; color:#b4b4b4;
+  }
+  .pill.on { border-color:#ff4d00; color:#ff4d00; }
+  .url {
+    font-family:'JetBrains Mono', monospace; font-size:20px; letter-spacing:1px;
+    background:#ff4d00; color:#050505; font-weight:500; padding:13px 22px; border-radius:8px; white-space:nowrap;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ OG 1: laman utama ============ -->
+<div class="og" id="og-main">
+  <div class="kicker">Cyberjaya, Malaysia</div>
+  <div>
+    <div class="mark">bro<em>zaid</em>todak</div>
+    <p class="sub">Peruncit yang bina sistem sendiri. Pengasas <b>10 CAMP</b>. POS, kewangan dan HR semuanya dibina dari asas.</p>
+  </div>
+  <div class="foot">
+    <div class="roles">
+      <span class="pill on">Retailer</span>
+      <span class="pill">Builder</span>
+      <span class="pill">Naturalist</span>
+    </div>
+    <div class="url">brozaidtodak.com</div>
+  </div>
+</div>
+
+<!-- ============ OG 2: servis ============ -->
+<div class="og" id="og-servis">
+  <div class="kicker">Servis &middot; Bina sistem bisnes</div>
+  <div>
+    <div class="lines">
+      Stok dalam Excel.<br>
+      Order dalam WhatsApp.<br>
+      <span class="hot">Saya buang kerja tu.</span>
+    </div>
+    <p class="sub">Tiga pakej, harga terbuka, kod jadi milik awak.</p>
+  </div>
+  <div class="foot">
+    <div class="roles">
+      <span class="pill on">Kilat &middot; 7 hari</span>
+      <span class="pill">Asas &middot; 3&ndash;4 minggu</span>
+      <span class="pill">Operasi &middot; 2&ndash;3 bulan</span>
+    </div>
+    <div class="url">brozaidtodak.com/servis</div>
+  </div>
+</div>
+
+</body>
+</html>

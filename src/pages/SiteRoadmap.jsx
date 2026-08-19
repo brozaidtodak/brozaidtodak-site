@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { useHead } from '../lib/useHead.js'
 
 // ============================================================
 // ROADMAP AWAM — peta jalan pembangunan brozaidtodak.com sendiri.
@@ -81,6 +82,7 @@ function phaseStatus(items) {
 }
 
 export default function SiteRoadmap() {
+  useHead('/roadmap', 'ms')
   const [unlocked, setUnlocked] = useState(
     () => {
       try { return sessionStorage.getItem(UNLOCK_KEY) === '1' } catch { return false }

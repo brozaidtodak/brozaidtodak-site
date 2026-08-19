@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase.js'
+import { useHead } from '../lib/useHead.js'
 
 export default function Login() {
+  useHead('/login', 'ms')
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { CATEGORIES, NODES, layoutTree } from '../lib/journeyTree.js'
+import { useHead } from '../lib/useHead.js'
 
 // ============================================================
 // POKOK KERJAYA — skill/tech tree interaktif (tema Todak hitam/oren).
@@ -13,6 +14,9 @@ const NODE_W = 158
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v))
 
 export default function Journey() {
+  // Halaman ini 100% Bahasa Melayu, jadi lang dikunci 'ms' (bukan 'en'
+  // yang diwarisi dari HTML shell).
+  useHead('/journey', 'ms')
   const { nodes, edges, width, height } = useMemo(() => layoutTree(), [])
   const wrapRef = useRef(null)
   const canvasRef = useRef(null)
