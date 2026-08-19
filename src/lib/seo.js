@@ -34,21 +34,21 @@ export const SAMEAS = [
 // ------------------------------------------------------------
 const PAKEJ = {
   kilat: {
-    ms: { t: 'Pakej KILAT — satu sistem siap dalam 7 hari',
+    ms: { t: 'Pakej KILAT: satu sistem siap dalam 7 hari',
           d: 'Satu masalah, satu sistem, siap seminggu. Sesuai untuk peniaga yang nak buang satu kerja manual dengan cepat sebelum komit projek besar.' },
-    en: { t: 'KILAT package — one system shipped in 7 days',
+    en: { t: 'KILAT package: one system shipped in 7 days',
           d: 'One problem, one system, delivered in a week. For owners who want a single manual task gone quickly before committing to a bigger build.' },
   },
   asas: {
-    ms: { t: 'Pakej ASAS — sistem operasi kedai, 3 hingga 4 minggu',
+    ms: { t: 'Pakej ASAS: sistem operasi kedai, 3 hingga 4 minggu',
           d: 'Stok, jualan dan kos dalam satu tempat. Untuk kedai yang dah jalan tapi masih bergantung pada Excel dan WhatsApp.' },
-    en: { t: 'ASAS package — shop operating system, 3 to 4 weeks',
+    en: { t: 'ASAS package: shop operating system, 3 to 4 weeks',
           d: 'Stock, sales and costs in one place. For shops already running but still leaning on Excel and WhatsApp.' },
   },
   operasi: {
-    ms: { t: 'Pakej OPERASI — pindah operasi penuh, 2 hingga 3 bulan',
+    ms: { t: 'Pakej OPERASI: pindah operasi penuh, 2 hingga 3 bulan',
           d: 'Operasi penuh dipindahkan ke sistem sendiri: POS, stok, kewangan, sambungan marketplace. Untuk bisnes yang dah terlalu besar untuk kerja manual.' },
-    en: { t: 'OPERASI package — full operations migration, 2 to 3 months',
+    en: { t: 'OPERASI package: full operations migration, 2 to 3 months',
           d: 'Your whole operation moved onto systems you own: POS, stock, finance, marketplace links. For businesses that have outgrown manual work.' },
   },
 }
@@ -70,11 +70,11 @@ export const ROUTES = {
   '/servis': {
     langs: ['ms', 'en'],
     ms: {
-      title: 'Servis bina sistem bisnes — brozaidtodak',
+      title: 'Servis bina sistem bisnes · brozaidtodak',
       desc: 'Stok dalam Excel, order dalam WhatsApp, laporan dalam kepala. Saya bina sistem yang buang kerja tu. Tiga pakej, harga terbuka, kod jadi milik awak.',
     },
     en: {
-      title: 'Business systems, built for you — brozaidtodak',
+      title: 'Business systems, built for you · brozaidtodak',
       desc: 'Stock in Excel, orders in WhatsApp, reports in your head. I build the systems that remove that work. Three packages, open pricing, you own the code.',
     },
     og: OG_SERVIS,
@@ -84,7 +84,7 @@ export const ROUTES = {
   '/journey': {
     langs: ['ms'],
     ms: {
-      title: 'Pokok kerjaya — Bro Zaid Todak',
+      title: 'Pokok kerjaya · Bro Zaid Todak',
       desc: 'Peta perjalanan dari sekolah ke peruncitan vape, ke 10 CAMP, ke membina sistem sendiri. Pokok interaktif: klik mana-mana nod untuk baca ceritanya.',
     },
   },
@@ -93,7 +93,7 @@ export const ROUTES = {
     langs: ['ms'],
     noindex: true,
     ms: {
-      title: 'Roadmap laman — brozaidtodak',
+      title: 'Roadmap laman · brozaidtodak',
       desc: 'Peta pembangunan brozaidtodak.com.',
     },
   },
@@ -102,7 +102,7 @@ export const ROUTES = {
     langs: ['ms'],
     noindex: true,
     ms: {
-      title: 'Command Centre — brozaidtodak',
+      title: 'Command Centre · brozaidtodak',
       desc: 'Log masuk Command Centre.',
     },
   },
@@ -112,8 +112,8 @@ export const ROUTES = {
 for (const slug of Object.keys(PAKEJ)) {
   ROUTES[`/servis/${slug}`] = {
     langs: ['ms', 'en'],
-    ms: { title: `${PAKEJ[slug].ms.t} — brozaidtodak`, desc: PAKEJ[slug].ms.d },
-    en: { title: `${PAKEJ[slug].en.t} — brozaidtodak`, desc: PAKEJ[slug].en.d },
+    ms: { title: `${PAKEJ[slug].ms.t} · brozaidtodak`, desc: PAKEJ[slug].ms.d },
+    en: { title: `${PAKEJ[slug].en.t} · brozaidtodak`, desc: PAKEJ[slug].en.d },
     og: OG_SERVIS,
   }
 }
@@ -178,7 +178,7 @@ export function jsonLdService(pakej) {
   return {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
-    name: 'brozaidtodak — bina sistem bisnes',
+    name: 'brozaidtodak · bina sistem bisnes',
     url: `${SITE}/servis`,
     image: OG_SERVIS,
     provider: {

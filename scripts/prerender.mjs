@@ -141,11 +141,17 @@ for (const path of Object.keys(ROUTES)) {
     .replace(/\s*<meta name="description"[^>]*>/, '')
     .replace('</head>', headFor(m) + '\n  </head>')
 
-  const outDir = path === '/' ? DIST : join(DIST, path)
-  mkdirSync(outDir, { recursive: true })
-  writeFileSync(join(outDir, 'index.html'), html)
+  // Tulis sebagai FAIL .html, bukan folder/index.html.
+  // Sebabnya: bila dist/servis/index.html wujud, Netlify (Pretty URLs)
+  // pulangkan 301 dari /servis ke /servis/. Itu tukar URL laman yang
+  // dah dikongsi orang, dan canonical kita akan menunjuk ke alamat yang
+  // redirect. Dengan dist/servis.html, /servis dilayan terus 200.
+  // Corak sama dengan public/skills.html yang dah wujud.
+  const outFile = path === '/' ? join(DIST, 'index.html') : join(DIST, `${path.slice(1)}.html`)
+  mkdirSync(dirname(outFile), { recursive: true })
+  writeFileSync(outFile, html)
   written++
-  console.log(`  ${path.padEnd(16)} -> ${path === '/' ? 'index.html' : path.slice(1) + '/index.html'}  (lang=${m.lang}${m.noindex ? ', noindex' : ''})`)
+  console.log(`  ${path.padEnd(16)} -> ${outFile.replace(DIST + '/', '')}  (lang=${m.lang}${m.noindex ? ', noindex' : ''})`)
 }
 
 // ---- sitemap dijana dari senarai route yang sama, jadi tak boleh lari ----
