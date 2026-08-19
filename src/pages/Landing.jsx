@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
 import { useHead } from '../lib/useHead.js'
 import { jsonLdPerson } from '../lib/seo.js'
+// p4 — bilangan skill dikira dari public/skills.html masa build
+// (scripts/skills-stats.mjs). Jangan taip nombor ni di mana-mana lagi.
+import SKILLS from '../lib/skillsStats.json'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { SplitText } from 'gsap/SplitText'
@@ -60,6 +63,33 @@ function skipIntroReason() {
   if (prefersReducedMotion()) return 'reduce'
   return null
 }
+
+// p5 — LIPUTAN BAHASA.
+//
+// Semakan sebenar: TIADA toggle bahasa pada mana-mana halaman BM sahaja.
+// Toggle cuma wujud di Landing, /servis dan /servis/:slug, dan ketiga-tiga
+// itu memang dwibahasa penuh. Jadi "sorok toggle pada halaman BM sahaja"
+// tiada apa nak disorok.
+//
+// Yang benar-benar terlebih janji ialah dari sini: bila pelawat tukar ke EN,
+// dua pautan dalam halaman EN ni bawa dia ke halaman yang 100% Bahasa Melayu
+// (/skills dan /journey) tanpa sebarang amaran. Penanda kecil ni menutup
+// lubang itu — antara muka EN berhenti berjanji sesuatu yang halaman
+// destinasi tak boleh tunaikan. Ia tak muncul langsung dalam mod BM.
+function BmOnly({ lang }) {
+  if (lang === 'ms') return null
+  return (
+    <span
+      title="This page is in Bahasa Melayu only"
+      className="font-mono text-[9px] leading-none tracking-[0.18em] uppercase border border-white/25 rounded px-1.5 py-1 text-white/50"
+    >
+      BM
+    </span>
+  )
+}
+
+// p4 — satu tempat sahaja tukar {n} kepada bilangan skill sebenar.
+const nSkill = (teks) => String(teks).replace('{n}', SKILLS.count)
 
 export default function Landing() {
   // Sebab langkau dikira SEKALI masa mount, sebelum render pertama, supaya
@@ -545,7 +575,7 @@ export default function Landing() {
           <h3 className="font-display font-bold text-3xl md:text-4xl tracking-tight mt-4 reveal">
             {c.skills.heading}
           </h3>
-          <p className="text-white/70 leading-relaxed text-base mt-4 max-w-xl reveal">{c.skills.body}</p>
+          <p className="text-white/70 leading-relaxed text-base mt-4 max-w-xl reveal">{nSkill(c.skills.body)}</p>
           <div className="reveal mt-6 max-w-xl font-mono text-[12.5px] text-white/55 bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 overflow-x-auto whitespace-nowrap">
             git clone https://github.com/brozaidtodak/claude-skills.git
           </div>
@@ -564,7 +594,8 @@ export default function Landing() {
               className="btn-pad magnetic inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/20 text-white/90 text-sm font-semibold hover:bg-white/[0.07]"
             >
               <BoltIcon />
-              {c.skills.ctaRef}
+              {nSkill(c.skills.ctaRef)}
+              <BmOnly lang={lang} />
               <span className="text-accent" aria-hidden="true">→</span>
             </a>
           </div>
@@ -599,6 +630,7 @@ export default function Landing() {
           >
             <MapIcon />
             {c.journey.cta}
+            <BmOnly lang={lang} />
             <span className="text-accent" aria-hidden="true">→</span>
           </Link>
         </div>

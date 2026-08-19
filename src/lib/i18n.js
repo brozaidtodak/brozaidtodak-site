@@ -78,9 +78,9 @@ const ms = {
   skills: {
     label: 'Skill Claude Code',
     heading: 'Semua sistem ini dibina dengan Claude Code.',
-    body: 'Di belakang setiap sistem di atas ada Claude Code dengan koleksi 259 skill: plan, design, QA, ship, kewangan, marketing. Sebahagiannya saya bina sendiri untuk kegunaan bisnes sebenar, dan ia terbuka untuk sesiapa muat turun.',
+    body: 'Di belakang setiap sistem di atas ada Claude Code dengan koleksi {n} skill: plan, design, QA, ship, kewangan, marketing. Sebahagiannya saya bina sendiri untuk kegunaan bisnes sebenar, dan ia terbuka untuk sesiapa muat turun.',
     ctaGithub: 'Muat turun di GitHub',
-    ctaRef: 'Rujukan penuh 259 skill',
+    ctaRef: 'Rujukan penuh {n} skill',
   },
   journey: {
     label: 'Perjalanan',
@@ -155,9 +155,9 @@ const en = {
   skills: {
     label: 'Claude Code Skills',
     heading: 'This entire stack is built with Claude Code.',
-    body: 'Behind every system above is Claude Code with a loadout of 259 skills: planning, design, QA, shipping, finance, marketing. Some I built myself for real business use, and they are open for anyone to download.',
+    body: 'Behind every system above is Claude Code with a loadout of {n} skills: planning, design, QA, shipping, finance, marketing. Some I built myself for real business use, and they are open for anyone to download.',
     ctaGithub: 'Download on GitHub',
-    ctaRef: 'Full 259-skill reference',
+    ctaRef: 'Full {n}-skill reference',
   },
   journey: {
     label: 'Journey',
