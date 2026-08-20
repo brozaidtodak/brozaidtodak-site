@@ -102,7 +102,8 @@
   left: 14px;
   bottom: 12px;
   font-family: var(--font-mono);
-  font-size: 10px;
+  /* lantai mobile: kelas tersuai, jadi media query utiliti tak sentuh dia */
+  font-size: 11px;
   letter-spacing: .22em;
   text-transform: uppercase;
   color: rgba(255,255,255,.72);
@@ -413,4 +414,24 @@ body {
   outline: 3px solid var(--color-ink);
   outline-offset: 3px;
   border-radius: 2px;
+}
+
+/* ============================================================
+   p-font-floor (2026-08-20) — LANTAI SAIZ TEKS PADA MOBILE.
+   Diukur pada laman live: font terkecil 10px, dan 24 daripada 75 nod
+   teks bawah 12px. Pada desktop label mono 10px dgn letter-spacing
+   lebar tu berfungsi sebagai butiran editorial. Pada telefon ia
+   sekadar kecil.
+
+   Kaedah: naikkan LANTAI pada mobile sahaja. Rupa desktop tak berubah
+   satu piksel pun. 45 tempat guna text-[10px]; semuanya label mono,
+   kicker dan kapsyen, jadi satu peraturan cukup.
+   ============================================================ */
+@media (max-width: 640px) {
+  .text-\[10px\] { font-size: 11px; }
+  .text-\[11px\] { font-size: 11.5px; }
+}
+@media (min-width: 641px) {
+  /* desktop kekal 10px seperti asal, butiran editorial tak berubah */
+  .seastorm__cap { font-size: 10px; }
 }

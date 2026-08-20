@@ -81,7 +81,7 @@ function BmOnly({ lang }) {
   return (
     <span
       title="This page is in Bahasa Melayu only"
-      className="font-mono text-[9px] leading-none tracking-[0.18em] uppercase border border-line rounded px-1.5 py-1 text-ink-3"
+      className="font-mono text-[10px] leading-none tracking-[0.18em] uppercase border border-line rounded px-1.5 py-1 text-ink-3"
     >
       BM
     </span>

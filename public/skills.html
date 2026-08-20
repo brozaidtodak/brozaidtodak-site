@@ -20,6 +20,26 @@
   body { background:var(--bg); color:var(--ink); font-family:'Archivo',sans-serif; padding:40px 24px 80px;
         background-image:repeating-radial-gradient(circle at 85% 8%, transparent 0 46px, rgba(20,20,20,.035) 46px 47px); }
   .wrap { max-width:1050px; margin:0 auto; }
+  /* p-nav (2026-08-20) — halaman ni JALAN MATI sebelum ni: tiada satu pun
+     pautan balik ke laman utama, sedangkan kad OG menjemput orang kongsi
+     URL ni. Pelawat mendarat, baca 260 skill, dan buntu. */
+  .navbar { display:flex; align-items:center; justify-content:space-between;
+            gap:16px; flex-wrap:wrap; margin-bottom:26px; }
+  .navbar a.balik { display:inline-flex; align-items:center; gap:8px;
+            min-height:44px; padding:0 4px; text-decoration:none; color:var(--ink);
+            font-weight:700; font-size:19px; letter-spacing:-.5px; }
+  /* WAJIB: tanpa bungkusan ni, gap flex 8px masuk ANTARA bro / zaid / todak
+     sebab setiap nod teks jadi item flex berasingan. Wordmark pecah tiga. */
+  .navbar a.balik .wm { white-space:nowrap; }
+  .navbar a.balik em { color:var(--oren-teks); font-style:normal; }
+  .navbar a.balik:hover { text-decoration:underline; text-underline-offset:4px; }
+  .navbar .pautan { display:flex; gap:6px; flex-wrap:wrap; }
+  .navbar .pautan a { display:inline-flex; align-items:center; min-height:44px;
+            padding:0 14px; border:1.5px solid var(--garis); border-radius:999px;
+            text-decoration:none; color:var(--ink); font-size:13px; font-weight:600; }
+  .navbar .pautan a:hover { border-color:var(--ink); }
+  .navbar .pautan a.utama { border-color:var(--oren-teks); color:var(--oren-teks); }
+  a:focus-visible, input:focus-visible { outline:3px solid var(--ink); outline-offset:3px; }
   h1 { font-family:'Archivo Black'; text-transform:uppercase; font-size:clamp(28px,5vw,46px); letter-spacing:-1px; }
   h1 em { color:var(--oren-teks); font-style:normal; }
   .sub { font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--kabus); margin:10px 0 6px; letter-spacing:1px; }
@@ -66,6 +86,15 @@
 </head>
 <body>
 <div class="wrap">
+  <nav class="navbar">
+    <a class="balik" href="/" aria-label="Kembali ke brozaidtodak.com">
+      <span aria-hidden="true">&larr;</span><span class="wm">bro<em>zaid</em>todak</span>
+    </a>
+    <span class="pautan">
+      <a class="utama" href="/servis">Servis</a>
+      <a href="/journey">Pokok kerjaya</a>
+    </span>
+  </nav>
   <h1>Rujukan Skill <em>Claude</em></h1>
   <div class="sub">260 SKILL &amp; MCP · KEMASKINI 3 OGO 2026 · TAIP /NAMA-SKILL DALAM CLAUDE UNTUK GUNA</div>
 <div class="sub" style="margin-top:2px">SKILL BUATAN SENDIRI BOLEH DIMUAT TURUN DI <a href="https://github.com/brozaidtodak/claude-skills" style="color:var(--oren-teks);font-weight:600">GITHUB.COM/BROZAIDTODAK/CLAUDE-SKILLS</a></div>
