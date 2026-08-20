@@ -59,8 +59,8 @@ export function portfolioStatusColor(status) {
   switch (status) {
     case 'live':    return 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'
     case 'shipped': return 'bg-gold/15 text-gold border-gold/30'
-    case 'past':    return 'bg-white/5 text-cream/40 border-white/10'
-    default:        return 'bg-white/5 text-cream/60 border-white/15'
+    case 'past':    return 'bg-panel text-ink-3 border-line'
+    default:        return 'bg-card text-ink-2 border-line'
   }
 }
 

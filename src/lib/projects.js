@@ -51,8 +51,8 @@ export function statusColor(status) {
     case 'in_progress': return 'bg-gold/15 text-gold border-gold/30'
     case 'shipped':     return 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'
     case 'paused':      return 'bg-amber-500/15 text-amber-400 border-amber-500/30'
-    case 'archived':    return 'bg-white/5 text-cream/40 border-white/10'
-    default:            return 'bg-white/5 text-cream/60 border-white/15'
+    case 'archived':    return 'bg-panel text-ink-3 border-line'
+    default:            return 'bg-card text-ink-2 border-line'
   }
 }
 

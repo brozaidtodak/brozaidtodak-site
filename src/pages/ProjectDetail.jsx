@@ -94,7 +94,7 @@ export default function ProjectDetail() {
           </div>
           <div className="flex gap-2 shrink-0 pt-3">
             <button onClick={() => setEditing(true)}
-              className="text-sm text-cream/70 hover:text-cream px-3 py-1.5 rounded-md hover:bg-white/8 transition">
+              className="text-sm text-cream/70 hover:text-cream px-3 py-1.5 rounded-md hover:bg-card transition">
               Edit
             </button>
             <button onClick={handleDeleteProject}
@@ -122,13 +122,13 @@ export default function ProjectDetail() {
             <span className="text-[11px] uppercase tracking-wider text-cream/45 font-medium">Progress</span>
             <span className="font-mono text-sm text-cream/80">{project.progress_percent}%</span>
           </div>
-          <div className="w-full h-2 bg-white/8 rounded-full overflow-hidden">
+          <div className="w-full h-2 bg-card rounded-full overflow-hidden">
             <div className="h-full w-full bg-gold rounded-full origin-left transition-transform duration-500 ease-[var(--ease-out)]"
               style={{ transform: `scaleX(${(project.progress_percent || 0) / 100})` }} />
           </div>
         </div>
 
-        <section className="border-t border-white/8 pt-8">
+        <section className="border-t border-ink/12 pt-8">
           <div className="flex items-center justify-between mb-5">
             <div>
               <p className="font-mono text-[11px] uppercase tracking-widest text-gold mb-1">Milestones</p>
@@ -164,7 +164,7 @@ function MilestoneRow({ milestone: m, onToggle, onDelete }) {
   const done = m.status === 'done'
   const inProgress = m.status === 'in_progress'
   return (
-    <li className="flex items-center gap-3 group bg-white/[0.02] border border-white/6 rounded-lg px-3.5 py-2.5">
+    <li className="flex items-center gap-3 group bg-card border border-ink/12 rounded-lg px-3.5 py-2.5">
       <button onClick={onToggle}
         aria-label={done ? 'Mark pending' : 'Mark done'}
         className="shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center transition"
@@ -173,7 +173,7 @@ function MilestoneRow({ milestone: m, onToggle, onDelete }) {
           background: done ? '#ff4d00' : inProgress ? 'rgba(255,77,0,0.4)' : 'transparent',
         }}>
         {done && (
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#08080a" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--color-paper)" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="20 6 9 17 4 12" />
           </svg>
         )}
@@ -222,7 +222,7 @@ function AddMilestoneInline({ onAdd }) {
       <input autoFocus type="text" value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Milestone name"
-        className="flex-1 bg-white/[0.04] border border-white/10 rounded-lg px-4 py-2.5 text-sm text-cream focus:outline-none focus:border-gold" />
+        className="flex-1 bg-card border border-ink/12 rounded-lg px-4 py-2.5 text-sm text-cream focus:outline-none focus:border-gold" />
       <button type="submit"
         className="text-sm font-semibold bg-gold text-forest-deep px-4 py-2.5 rounded-lg hover:bg-gold-dark transition">
         Add
@@ -258,7 +258,7 @@ function ProjectEditModal({ project, onCancel, onSave }) {
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
       onClick={onCancel}>
       <form onClick={(e) => e.stopPropagation()} onSubmit={handleSubmit}
-        className="bg-[#111113] border border-white/10 rounded-2xl p-6 w-full max-w-lg">
+        className="bg-[var(--color-card)] border border-ink/12 rounded-2xl p-6 w-full max-w-lg">
         <h3 className="font-display text-xl text-cream mb-5">Edit project</h3>
 
         <div className="space-y-4">
@@ -306,7 +306,7 @@ function ProjectEditModal({ project, onCancel, onSave }) {
             color: #f4f4f5; font-size: 14px; font-family: inherit;
           }
           .cc-input:focus { outline: none; border-color: #ff4d00; background: rgba(255,255,255,0.06); }
-          .cc-input option { background: #111113; color: #f4f4f5; }
+          .cc-input option { background: var(--color-card); color: #f4f4f5; }
         `}</style>
       </form>
     </div>

@@ -23,7 +23,7 @@ function ProjectTab({ slug, active, onClick, summary }) {
       className={`text-left px-4 py-3 rounded-xl border transition shrink-0 min-w-[180px] ${
         active
           ? 'border-gold/40 bg-gold/5'
-          : 'border-white/10 bg-white/[0.02] hover:border-white/20'
+          : 'border-ink/12 bg-card hover:border-line'
       }`}
     >
       <div className="flex items-center gap-2 mb-1">
@@ -61,7 +61,7 @@ function Phase({ phase }) {
         <p className="text-cream/50 text-sm mb-4 max-w-2xl">{phase.description}</p>
       )}
       {phase.items.length > 0 && (
-        <ul className="border-l border-white/8 pl-5 space-y-3">
+        <ul className="border-l border-ink/12 pl-5 space-y-3">
           {phase.items.map((item) => (
             <li key={item.id} className="flex items-start gap-3">
               <span className="mt-0.5 shrink-0"><StatusPill status={item.status} /></span>
@@ -171,7 +171,7 @@ export default function Roadmap() {
           </div>
 
           {meta && (
-            <div className="mb-6 pb-4 border-b border-white/8">
+            <div className="mb-6 pb-4 border-b border-ink/12">
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full" style={{ background: meta.accent }} />
                 <h2 className="font-display text-xl text-cream">{meta.label}</h2>

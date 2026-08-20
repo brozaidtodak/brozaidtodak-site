@@ -130,7 +130,7 @@ function ProjectCard({
   return (
     <article
       onClick={() => p.slug && navigate(`/dashboard/projects/${p.slug}`)}
-      className="group bg-white/[0.03] border border-white/8 rounded-2xl p-5 flex flex-col gap-3 h-full hover:border-gold/40 transition cursor-pointer"
+      className="group bg-card border border-ink/12 rounded-2xl p-5 flex flex-col gap-3 h-full hover:border-gold/40 transition cursor-pointer"
     >
       <div className="flex items-start justify-between gap-3">
         <h3 className="font-display text-lg text-cream group-hover:text-gold leading-tight flex-1 transition">{p.name}</h3>
@@ -164,7 +164,7 @@ function ProjectCard({
           <span className="text-[11px] uppercase tracking-wider text-cream/40 font-medium">Progress</span>
           <span className="font-mono text-xs text-cream/70">{p.progress_percent}%</span>
         </div>
-        <div className="w-full h-1.5 bg-white/8 rounded-full overflow-hidden">
+        <div className="w-full h-1.5 bg-card rounded-full overflow-hidden">
           <div
             className="h-full w-full bg-gold rounded-full origin-left transition-transform duration-500 ease-[var(--ease-out)]"
             style={{ transform: `scaleX(${(p.progress_percent || 0) / 100})` }}
@@ -200,7 +200,7 @@ function MilestoneList({ milestones, doneCount, onToggle, onAdd, onDelete }) {
   }
 
   return (
-    <div className="pt-3 border-t border-white/8" onClick={(e) => e.stopPropagation()}>
+    <div className="pt-3 border-t border-ink/12" onClick={(e) => e.stopPropagation()}>
       <div className="flex items-center justify-between mb-2">
         <span className="text-[11px] uppercase tracking-wider text-cream/40 font-medium">
           Milestones
@@ -235,7 +235,7 @@ function MilestoneList({ milestones, doneCount, onToggle, onAdd, onDelete }) {
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
             placeholder="Milestone name"
-            className="flex-1 bg-white/[0.04] border border-white/10 rounded-md px-2.5 py-1 text-xs text-cream focus:outline-none focus:border-gold"
+            className="flex-1 bg-card border border-ink/12 rounded-md px-2.5 py-1 text-xs text-cream focus:outline-none focus:border-gold"
           />
           <button type="submit" className="text-xs text-gold font-medium px-2">Save</button>
           <button
@@ -274,7 +274,7 @@ function MilestoneRow({ milestone: m, onToggle, onDelete }) {
         }}
       >
         {done && (
-          <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#08080a" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="var(--color-paper)" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="20 6 9 17 4 12" />
           </svg>
         )}
@@ -303,7 +303,7 @@ function IconButton({ onClick, label, danger, children }) {
       aria-label={label}
       className={`p-1.5 rounded-md transition ${danger
         ? 'text-cream/40 hover:text-red-400 hover:bg-red-500/10'
-        : 'text-cream/40 hover:text-cream hover:bg-white/8'}`}
+        : 'text-cream/40 hover:text-cream hover:bg-card'}`}
     >
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         {children}
@@ -347,7 +347,7 @@ function ProjectFormModal({ initial, onCancel, onSave }) {
       <form
         onClick={(e) => e.stopPropagation()}
         onSubmit={handleSubmit}
-        className="bg-[#111113] border border-white/10 rounded-2xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto"
+        className="bg-[var(--color-card)] border border-ink/12 rounded-2xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto"
       >
         <h3 className="font-display text-xl text-cream mb-5">
           {initial ? 'Edit project' : 'Add project'}
@@ -419,7 +419,7 @@ function ProjectFormModal({ initial, onCancel, onSave }) {
             border-color: #ff4d00;
             background: rgba(255,255,255,0.06);
           }
-          .form-input option { background: #111113; color: #f4f4f5; }
+          .form-input option { background: var(--color-card); color: #f4f4f5; }
         `}</style>
       </form>
     </div>

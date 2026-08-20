@@ -8,27 +8,43 @@
 @source not "../plans";
 
 @theme {
-  /* p1 (2026-07-27) — dashboard diselaraskan ke "Todak monokrom" (hitam+oren)
-     supaya padan landing awam. Nama token KEKAL (forest/gold/cream) untuk elak
-     tulis semula ~243 rujukan kelas, tapi NILAI kini hitam/oren/putih:
-       forest* = latar gelap · gold* = aksen OREN (bukan emas lagi) · cream* = teks putih.
-     Landing guna void/white/accent — tak terjejas. */
-  --color-forest: #101012;       /* panel gelap (dulu hijau) */
-  --color-forest-deep: #08080a;  /* latar terdalam */
-  --color-moss: #26262b;         /* sempadan / hover / naik halus */
-  --color-cream: #f4f4f5;        /* teks utama (putih neutral) */
-  --color-cream-dark: #c9c9ce;   /* teks sekunder */
-  --color-bark: #71717a;         /* teks kelabu pudar (dulu coklat) */
-  --color-gold: #ff4d00;         /* AKSEN OREN (dulu emas) */
-  --color-gold-dark: #cc3d00;
-  --color-ember: #ff8c42;
-  --color-ember-bright: #ffa262;
-  --color-gold-bright: #ff6a2b;
-  --color-night: #08080a;
-  --color-void: #050505;
-  --color-accent: #ff4d00;
-  --color-ink: #1a1a1a;
-  --color-muted: #6b6b6b;
+  /* ============================================================
+     KERTAS TODAK (2026-08-20) — laman bertukar dari hitam ke kertas.
+     Setiap pasangan warna di bawah DIUKUR, bukan diagak. Nisbah dicatat
+     supaya sesiapa yang ubah nilai ni tahu apa yang dia pecahkan.
+
+     PERATURAN TUNGGAL YANG MEMEGANG SEMUANYA:
+       Oren tulen #FF4D00 TAK PERNAH jadi teks di atas kertas (2.97:1).
+       Dia isian sahaja, dengan teks ink di atasnya (5.54:1).
+       Teks oren guna --color-accent-ink #C23800 (4.86:1).
+     ============================================================ */
+  --color-paper:      #F4F2EC;   /* latar utama */
+  --color-card:       #FFFDF6;   /* permukaan naik  · garis 3.62:1 */
+  --color-panel:      #EDEAE1;   /* panel tenggelam · garis 3.06:1 */
+  --color-ink:        #141414;   /* teks utama      · 16.46:1 */
+  --color-ink-2:      #3E3A30;   /* teks sekunder   · 10.12:1 */
+  --color-ink-3:      #6E6A5E;   /* label mono      ·  4.83:1 (lantai) */
+  --color-line:       #8A8578;   /* sempadan bermakna · 3.29:1 */
+  --color-accent:     #FF4D00;   /* ISIAN jenama, teks ink di atasnya · 5.54:1 */
+  --color-accent-ink: #C23800;   /* TEKS oren · 4.86:1 · isian dgn teks kertas · 5.35:1 */
+
+  /* Nama token lama dipetakan ke nilai terang. Ini JARING KESELAMATAN:
+     kalau ada rujukan tertinggal semasa migrasi, ia mendarat terang dan
+     boleh dibaca, bukan hitam-atas-putih yang tak nampak langsung. */
+  --color-void:        var(--color-paper);
+  --color-night:       var(--color-paper);
+  --color-forest-deep: var(--color-paper);
+  --color-forest:      var(--color-card);
+  --color-moss:        var(--color-line);
+  --color-cream:       var(--color-ink);
+  --color-cream-dark:  var(--color-ink-2);
+  --color-bark:        var(--color-ink-3);
+  --color-gold:        var(--color-accent-ink);
+  --color-gold-dark:   #992B00;
+  --color-gold-bright: var(--color-accent);
+  --color-ember:       var(--color-accent);
+  --color-ember-bright: var(--color-accent);
+  --color-muted:       var(--color-ink-3);
   /* p1 — font premium (Fontshare) ganti Inter: Clash Display utk tajuk, General Sans utk badan */
   --font-display: "Clash Display", "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "General Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
@@ -42,17 +58,26 @@
 
 /* ---- Landing (hutan malam + bara) ---- */
 
-/* Latar video Sea Storm (getlayers.ai) — fixed di belakang hero, gelung senyap.
-   Scrim gelap + vignette jaga kontras teks putih atas pancaran cahaya emas. */
+/* Sea Storm (getlayers.ai) — KERTAS TODAK 2026-08-20.
+   Dulu ia latar penuh di BELAKANG teks hero, jadi teks terpaksa putih dan
+   header terpaksa hidup dua zon. Atas kertas itu tak boleh jalan: setiap
+   elemen kena tahu dia sedang atas zon gelap atau zon terang, dan itu
+   jahitan yang kena dijaga selamanya.
+   Kini ia OBJEK, bukan lapisan. Satu blok gelap berbingkai ink yang
+   diletak atas kertas. Teks hero duduk atas kertas, bukan atas video. */
 .seastorm {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 100svh;
-  z-index: 0;
+  position: relative;
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  aspect-ratio: 21 / 9;
+  border: 2px solid var(--color-ink);
+  border-radius: 14px;
   overflow: hidden;
-  pointer-events: none;
+  background: #0b0b0d;
+  box-shadow: 10px 10px 0 var(--color-ink);
+}
+@media (max-width: 640px) {
+  .seastorm { aspect-ratio: 4 / 3; border-radius: 10px; box-shadow: 6px 6px 0 var(--color-ink); }
 }
 .seastorm__media {
   position: absolute;
@@ -60,16 +85,27 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 38%;
-  /* sebati dgn tema: gelapkan sikit + naikkan haba supaya cahaya emas condong ke oren jenama */
-  filter: brightness(0.82) contrast(1.06) saturate(1.08);
+  object-position: center 42%;
+  filter: brightness(0.9) contrast(1.05) saturate(1.1);
 }
+/* Scrim kekal, tapi kerjanya berubah: dulu ia jaga kontras teks di atas
+   video. Kini tiada teks di atas video, jadi ia cuma redakan tepi supaya
+   blok tu duduk elok atas kertas, bukan menjerit. */
 .seastorm__scrim {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(ellipse 60% 50% at 50% 34%, transparent 0%, rgba(5,5,5,0.35) 70%),
-    linear-gradient(180deg, rgba(5,5,5,0.55) 0%, rgba(5,5,5,0.2) 34%, rgba(5,5,5,0.45) 62%, var(--color-void) 96%);
+  background: radial-gradient(ellipse 75% 65% at 50% 40%, transparent 0%, rgba(5,5,5,0.28) 100%);
+}
+/* kapsyen mono bawah blok, gaya plat gambar editorial */
+.seastorm__cap {
+  position: absolute;
+  left: 14px;
+  bottom: 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.72);
 }
 /* selepas hero, seluruh page kembali pekat supaya section bawah kekal boleh baca */
 .seastorm__fade {

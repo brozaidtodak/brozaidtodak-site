@@ -25,14 +25,14 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-[#08080a] text-cream flex items-center justify-center px-6">
+    <div className="min-h-screen bg-[var(--color-paper)] text-cream flex items-center justify-center px-6">
       <div className="w-full max-w-md">
         <div className="text-center mb-10">
           <a href="/" className="font-display text-2xl text-cream font-semibold">Bro Zaid Todak</a>
           <p className="font-mono text-[11px] uppercase tracking-widest text-gold mt-2">Command Centre</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-white/[0.03] border border-white/10 rounded-2xl p-8">
+        <form onSubmit={handleSubmit} className="bg-card border border-ink/12 rounded-2xl p-8">
           <h1 className="font-display text-2xl text-cream mb-2">Login</h1>
           <p className="text-sm text-cream/65 mb-6">
             Masuk dengan email + password. Save dalam password manager — autofill terus.
@@ -47,7 +47,7 @@ export default function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
-              className="mt-2 w-full px-4 py-3 rounded-full bg-white/[0.04] border border-white/10 text-cream focus:outline-none focus:border-gold transition"
+              className="mt-2 w-full px-4 py-3 rounded-full bg-card border border-ink/12 text-cream focus:outline-none focus:border-gold transition"
               disabled={status === 'sending'}
             />
           </label>
@@ -61,7 +61,7 @@ export default function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••••••"
-              className="mt-2 w-full px-4 py-3 rounded-full bg-white/[0.04] border border-white/10 text-cream focus:outline-none focus:border-gold transition"
+              className="mt-2 w-full px-4 py-3 rounded-full bg-card border border-ink/12 text-cream focus:outline-none focus:border-gold transition"
               disabled={status === 'sending'}
             />
           </label>

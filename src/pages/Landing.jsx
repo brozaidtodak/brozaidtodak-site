@@ -81,7 +81,7 @@ function BmOnly({ lang }) {
   return (
     <span
       title="This page is in Bahasa Melayu only"
-      className="font-mono text-[9px] leading-none tracking-[0.18em] uppercase border border-white/25 rounded px-1.5 py-1 text-white/50"
+      className="font-mono text-[9px] leading-none tracking-[0.18em] uppercase border border-line rounded px-1.5 py-1 text-ink-3"
     >
       BM
     </span>
@@ -361,8 +361,7 @@ export default function Landing() {
   }, [introDone])
 
   return (
-    <div ref={rootRef} className="min-h-screen bg-void text-white font-sans relative overflow-x-clip">
-      <SeaStorm />
+    <div ref={rootRef} className="min-h-screen bg-void text-ink font-sans relative overflow-x-clip">
       {!introDone && <Intro onDone={() => setIntroDone(true)} />}
 
       {/* top nav */}
@@ -375,13 +374,13 @@ export default function Landing() {
           {/* p2 — pintu masuk halaman servis (jualan) */}
           <Link
             to="/servis"
-            className="inline-flex items-center px-4 py-2 rounded-full border border-accent/45 text-accent hover:bg-accent hover:text-black text-xs font-semibold transition"
+            className="inline-flex items-center px-4 py-2 rounded-full border border-accent-ink/45 text-accent-ink hover:bg-accent hover:text-ink text-xs font-semibold transition"
           >
             {c.nav.servis || 'Servis'}
           </Link>
           <Link
             to="/login"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/15 text-white/75 hover:text-white hover:border-white/40 text-xs font-semibold transition"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-line text-ink-2 hover:text-ink hover:border-line text-xs font-semibold transition"
           >
             <LockIcon />
             <span className="hidden sm:inline">{c.nav.commandCentre}</span>
@@ -438,10 +437,10 @@ export default function Landing() {
       </div>
 
       {/* ======== HERO ======== */}
-      <section id="top" className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
+      <section id="top" className="relative flex flex-col items-center justify-center px-6 pb-24 overflow-hidden">
         <div className="hero-embers" aria-hidden="true" />
         <div className="relative z-[2] text-center max-w-4xl mx-auto pt-20 pb-16 will-change-transform" data-parallax="-8">
-          <p className="hero-sub font-mono text-[11px] tracking-[0.28em] text-white/55 uppercase mb-6">
+          <p className="hero-sub font-mono text-[11px] tracking-[0.28em] text-ink-3 uppercase mb-6">
             {c.hero.location}
           </p>
           {/* key={lang} — bina semula segar bila tukar bahasa supaya SplitText
@@ -451,18 +450,18 @@ export default function Landing() {
             <br />
             {c.hero.titleL2}
             <br />
-            <span className="text-accent">{c.hero.titleAccent}</span>
+            <span className="text-accent-ink">{c.hero.titleAccent}</span>
           </h1>
-          <p className="hero-sub text-white/75 text-base md:text-lg leading-relaxed mt-9 max-w-xl mx-auto">
+          <p className="hero-sub text-ink-2 text-base md:text-lg leading-relaxed mt-9 max-w-xl mx-auto">
             {c.hero.subPre}
-            <span className="text-white font-semibold">{c.hero.subBrand}</span>
+            <span className="text-ink font-semibold">{c.hero.subBrand}</span>
             {c.hero.subPost}
           </p>
           <div className="hero-sub flex flex-wrap items-center justify-center gap-2 mt-9">
             {c.hero.roles.map((label, i) => (
               <span
                 key={label}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold border border-white/12 bg-white/[0.04] ${ROLE_TONES[i] || 'text-white'}`}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold border border-ink/12 bg-card ${ROLE_TONES[i] || 'text-ink'}`}
               >
                 {label}
               </span>
@@ -471,14 +470,14 @@ export default function Landing() {
           <div className="hero-sub flex flex-wrap items-center justify-center gap-4 mt-11">
             <a
               href="#projek"
-              className="btn-pad btn-light magnetic inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white text-black text-sm font-bold"
+              className="btn-pad btn-light magnetic inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-ink text-paper text-sm font-bold"
             >
               {c.hero.ctaPortfolio}
               <span aria-hidden="true">↓</span>
             </a>
             <a
               href="#hubungi"
-              className="btn-pad magnetic inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/20 text-white/90 text-sm font-semibold hover:bg-white/[0.07]"
+              className="btn-pad magnetic inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-line text-ink text-sm font-semibold hover:bg-card"
             >
               {c.hero.ctaContact}
             </a>
@@ -486,7 +485,7 @@ export default function Landing() {
               href="https://training.brozaidtodak.com"
               target="_blank"
               rel="noopener"
-              className="btn-pad magnetic inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-accent/50 text-accent text-sm font-semibold hover:bg-accent/10"
+              className="btn-pad magnetic inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-accent-ink/50 text-accent-ink text-sm font-semibold hover:bg-accent-ink/10"
             >
               {c.hero.ctaTraining}
               <span aria-hidden="true">↗</span>
@@ -494,9 +493,16 @@ export default function Landing() {
           </div>
         </div>
 
+        {/* p-kertas: blok gelap berbingkai. Ia OBJEK atas kertas, bukan
+            lapisan di belakang teks. Tiada teks duduk di atasnya, jadi
+            tiada zon kedua untuk dijaga. */}
+        <div className="relative z-[2] w-full px-2 md:px-6 mt-14 mb-4">
+          <SeaStorm />
+        </div>
+
         {/* penunjuk skrol — isi ruang bawah hero + pandu mata turun */}
         <a href="#projek" aria-label={c.hero.scrollAria}
-           className="scroll-cue absolute bottom-8 left-1/2 -translate-x-1/2 z-[2] flex flex-col items-center gap-3 text-white/45 hover:text-white/80 transition-colors">
+           className="scroll-cue absolute bottom-8 left-1/2 -translate-x-1/2 z-[2] flex flex-col items-center gap-3 text-ink-3 hover:text-ink transition-colors">
           <span className="font-mono text-[10px] tracking-[0.32em] uppercase">{c.hero.scroll}</span>
           <span className="scroll-mouse"><span className="scroll-wheel" /></span>
         </a>
@@ -507,7 +513,7 @@ export default function Landing() {
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="font-display font-bold text-3xl md:text-5xl leading-snug tracking-tight reveal">
             {c.statement.pre}
-            <span className="text-accent stmt-accent">{c.statement.accent}</span>
+            <span className="text-accent-ink stmt-accent">{c.statement.accent}</span>
           </h2>
         </div>
       </section>
@@ -521,10 +527,10 @@ export default function Landing() {
               <h3 className="font-sans font-extrabold text-2xl md:text-3xl leading-snug tracking-tight">
                 {c.focus.heading}
               </h3>
-              <p className="text-white/75 leading-relaxed mt-5">
+              <p className="text-ink-2 leading-relaxed mt-5">
                 {c.focus.p1}
               </p>
-              <p className="text-white/75 leading-relaxed mt-4">
+              <p className="text-ink-2 leading-relaxed mt-4">
                 {c.focus.p2}
               </p>
             </div>
@@ -532,16 +538,16 @@ export default function Landing() {
               {c.focus.stats.map((s) => (
                 <div
                   key={s.label}
-                  className="tilt relative rounded-2xl border border-white/12 bg-white/[0.03] px-6 py-5 flex items-baseline gap-4 reveal"
+                  className="tilt relative rounded-2xl border border-ink/12 bg-card px-6 py-5 flex items-baseline gap-4 reveal"
                 >
                   <span
-                    className="font-display font-bold text-4xl md:text-5xl text-white tabular-nums"
+                    className="font-display font-bold text-4xl md:text-5xl text-ink tabular-nums"
                     data-count={s.count}
                     data-suffix={s.suffix}
                   >
                     0{s.suffix}
                   </span>
-                  <span className="text-xs text-white/60 uppercase tracking-wider font-medium">{s.label}</span>
+                  <span className="text-xs text-ink-2 uppercase tracking-wider font-medium">{s.label}</span>
                 </div>
               ))}
             </div>
@@ -575,8 +581,8 @@ export default function Landing() {
           <h3 className="font-display font-bold text-3xl md:text-4xl tracking-tight mt-4 reveal">
             {c.skills.heading}
           </h3>
-          <p className="text-white/70 leading-relaxed text-base mt-4 max-w-xl reveal">{nSkill(c.skills.body)}</p>
-          <div className="reveal mt-6 max-w-xl font-mono text-[12.5px] text-white/55 bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 overflow-x-auto whitespace-nowrap">
+          <p className="text-ink-2 leading-relaxed text-base mt-4 max-w-xl reveal">{nSkill(c.skills.body)}</p>
+          <div className="reveal mt-6 max-w-xl font-mono text-[12.5px] text-ink-3 bg-card border border-ink/12 rounded-xl px-4 py-3 overflow-x-auto whitespace-nowrap">
             git clone https://github.com/brozaidtodak/claude-skills.git
           </div>
           <div className="flex flex-wrap gap-3 mt-6 reveal">
@@ -584,19 +590,19 @@ export default function Landing() {
               href="https://github.com/brozaidtodak/claude-skills"
               target="_blank"
               rel="noreferrer"
-              className="btn-pad btn-light magnetic inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-black text-sm font-bold"
+              className="btn-pad btn-light magnetic inline-flex items-center gap-2 px-6 py-3 rounded-full bg-ink text-paper text-sm font-bold"
             >
               <GithubIcon />
               {c.skills.ctaGithub}
             </a>
             <a
               href="/skills"
-              className="btn-pad magnetic inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/20 text-white/90 text-sm font-semibold hover:bg-white/[0.07]"
+              className="btn-pad magnetic inline-flex items-center gap-2 px-6 py-3 rounded-full border border-line text-ink text-sm font-semibold hover:bg-card"
             >
               <BoltIcon />
               {nSkill(c.skills.ctaRef)}
               <BmOnly lang={lang} />
-              <span className="text-accent" aria-hidden="true">→</span>
+              <span className="text-accent-ink" aria-hidden="true">→</span>
             </a>
           </div>
         </div>
@@ -613,25 +619,25 @@ export default function Landing() {
             {c.journey.items.map((j) => (
               <div key={j.title} className="journey-item group relative pl-8 pb-12 last:pb-0 reveal">
                 <span
-                  className="journey-dot absolute left-0 top-2 w-[11px] h-[11px] rounded-full border-2 border-accent bg-void"
+                  className="journey-dot absolute left-0 top-2 w-[11px] h-[11px] rounded-full border-2 border-accent-ink bg-void"
                   aria-hidden="true"
                 />
-                <p className="journey-year font-mono text-[11px] tracking-[0.2em] text-white/55 uppercase">
+                <p className="journey-year font-mono text-[11px] tracking-[0.2em] text-ink-3 uppercase">
                   {j.year}
                 </p>
-                <h4 className="font-sans font-bold text-xl md:text-2xl mt-1.5 transition-colors group-hover:text-white">{j.title}</h4>
-                <p className="text-white/70 leading-relaxed text-base mt-2 max-w-xl">{j.desc}</p>
+                <h4 className="font-sans font-bold text-xl md:text-2xl mt-1.5 transition-colors group-hover:text-ink">{j.title}</h4>
+                <p className="text-ink-2 leading-relaxed text-base mt-2 max-w-xl">{j.desc}</p>
               </div>
             ))}
           </div>
           <Link
             to="/journey"
-            className="reveal inline-flex items-center gap-2 mt-4 ml-8 px-5 py-2.5 rounded-full border border-white/20 text-white/90 text-sm font-semibold hover:bg-white/[0.07] transition"
+            className="reveal inline-flex items-center gap-2 mt-4 ml-8 px-5 py-2.5 rounded-full border border-line text-ink text-sm font-semibold hover:bg-card transition"
           >
             <MapIcon />
             {c.journey.cta}
             <BmOnly lang={lang} />
-            <span className="text-accent" aria-hidden="true">→</span>
+            <span className="text-accent-ink" aria-hidden="true">→</span>
           </Link>
         </div>
       </section>
@@ -651,7 +657,7 @@ export default function Landing() {
           <h2 className="font-display font-bold text-4xl md:text-6xl tracking-tight uppercase reveal">
             {c.contact.heading}
           </h2>
-          <p className="text-white/70 mt-5 max-w-md mx-auto reveal">
+          <p className="text-ink-2 mt-5 max-w-md mx-auto reveal">
             {c.contact.body}
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 mt-9 reveal">
@@ -673,7 +679,7 @@ export default function Landing() {
             </div>
           </div>
 
-          <div className="mt-20 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/60">
+          <div className="mt-20 pt-8 border-t border-ink/12 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-ink-2">
             <span
               onClick={(e) => {
                 const now = Date.now()
@@ -686,25 +692,25 @@ export default function Landing() {
             >{c.contact.footer}</span>
             <Link
               to="/roadmap"
-              className="group inline-flex items-center gap-2 hover:text-white/90 transition"
+              className="group inline-flex items-center gap-2 hover:text-ink transition"
             >
               <MapIcon />
               <span>Roadmap</span>
             </Link>
             <a
               href="/skills"
-              className="group inline-flex items-center gap-2 hover:text-white/90 transition"
+              className="group inline-flex items-center gap-2 hover:text-ink transition"
             >
               <BoltIcon />
               <span>Skill Claude</span>
             </a>
             <Link
               to="/login"
-              className="group inline-flex items-center gap-2 hover:text-white/90 transition"
+              className="group inline-flex items-center gap-2 hover:text-ink transition"
             >
               <LockIcon />
               <span>{c.nav.enterCommandCentre}</span>
-              <span className="text-accent transition-transform group-hover:translate-x-0.5">→</span>
+              <span className="text-accent-ink transition-transform group-hover:translate-x-0.5">→</span>
             </Link>
           </div>
         </div>
@@ -723,6 +729,7 @@ function SeaStorm() {
   }, [])
   return (
     <div className="seastorm" aria-hidden="true">
+      <span className="seastorm__cap">Sea Storm · 2.9188° N, 101.6520° E</span>
       {motionOK ? (
         <video
           className="seastorm__media"
@@ -878,16 +885,16 @@ function Intro({ onDone }) {
       <div className="iw-mark relative flex flex-col items-center gap-4">
         <div className="relative">
           <span className="flex font-sans font-black lowercase tracking-tight leading-none text-5xl md:text-7xl">
-            <span className="overflow-hidden inline-flex"><span className="iw inline-block text-white">bro</span></span>
+            <span className="overflow-hidden inline-flex"><span className="iw inline-block text-ink">bro</span></span>
             <span className="overflow-hidden inline-flex relative">
-              <span className="iw inline-block text-accent">zaid</span>
-              <span className="iw-sweep pointer-events-none absolute inset-y-0 -inset-x-2 bg-white/35 blur-md" />
+              <span className="iw inline-block text-accent-ink">zaid</span>
+              <span className="iw-sweep pointer-events-none absolute inset-y-0 -inset-x-2 bg-ink/35 blur-md" />
             </span>
-            <span className="overflow-hidden inline-flex"><span className="iw inline-block text-white">todak</span></span>
+            <span className="overflow-hidden inline-flex"><span className="iw inline-block text-ink">todak</span></span>
           </span>
           <span className="iw-line absolute left-0 -bottom-2.5 h-[4px] w-full bg-accent rounded-full" />
         </div>
-        <span className="iw-tag font-mono text-[11px] tracking-[0.4em] text-white/45 uppercase">
+        <span className="iw-tag font-mono text-[11px] tracking-[0.4em] text-ink-3 uppercase">
           Cyberjaya · Builder
         </span>
       </div>
@@ -898,16 +905,16 @@ function Intro({ onDone }) {
 function Wordmark({ className = '' }) {
   return (
     <span className={`font-sans font-black lowercase tracking-tight leading-none ${className}`}>
-      <span className="text-white">bro</span>
-      <span className="text-accent">zaid</span>
-      <span className="text-white">todak</span>
+      <span className="text-ink">bro</span>
+      <span className="text-accent-ink">zaid</span>
+      <span className="text-ink">todak</span>
     </span>
   )
 }
 
 function SectionLabel({ children }) {
   return (
-    <p className="font-mono text-[11px] tracking-[0.28em] text-white/55 uppercase reveal">
+    <p className="font-mono text-[11px] tracking-[0.28em] text-ink-3 uppercase reveal">
       — {children}
     </p>
   )
@@ -918,7 +925,7 @@ function SectionLabel({ children }) {
 function LangSwitcher({ lang, setLang }) {
   return (
     <div
-      className="flex items-center gap-0.5 p-0.5 rounded-full border border-white/12 bg-white/[0.03]"
+      className="flex items-center gap-0.5 p-0.5 rounded-full border border-ink/12 bg-card"
       role="group"
       aria-label="Pilih bahasa"
     >
@@ -931,8 +938,8 @@ function LangSwitcher({ lang, setLang }) {
           title={l.label}
           className={`px-2.5 py-1 rounded-full text-[11px] font-bold leading-none transition ${
             lang === l.code
-              ? 'bg-white text-black'
-              : 'text-white/55 hover:text-white'
+              ? 'bg-ink text-paper'
+              : 'text-ink-3 hover:text-ink'
           }`}
         >
           {l.short}
@@ -945,20 +952,20 @@ function LangSwitcher({ lang, setLang }) {
 function ProjectCard({ project, visitLabel }) {
   const inner = (
     <div
-      className="card-pad tilt relative h-full rounded-2xl border border-white/12 bg-white/[0.03] p-6 flex flex-col gap-3 hover:border-accent/40"
+      className="card-pad tilt relative h-full rounded-2xl border border-ink/12 bg-card p-6 flex flex-col gap-3 hover:border-accent-ink/40"
     >
       <div className="flex items-center justify-between">
-        <span className="font-mono text-[10px] tracking-[0.18em] uppercase font-medium text-accent">
+        <span className="font-mono text-[10px] tracking-[0.18em] uppercase font-medium text-accent-ink">
           {project.tag}
         </span>
-        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/[0.07] text-white/85 border border-white/15">
+        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-card text-ink/85 border border-line">
           {project.status}
         </span>
       </div>
-      <h4 className="font-sans font-bold text-xl text-white">{project.name}</h4>
-      <p className="text-white/70 text-[15px] leading-relaxed">{project.desc}</p>
+      <h4 className="font-sans font-bold text-xl text-ink">{project.name}</h4>
+      <p className="text-ink-2 text-[15px] leading-relaxed">{project.desc}</p>
       {project.url && (
-        <span className="text-xs font-semibold mt-auto pt-2 text-accent">
+        <span className="text-xs font-semibold mt-auto pt-2 text-accent-ink">
           {visitLabel}
         </span>
       )}
@@ -986,7 +993,7 @@ function EmailCopy({ copyTitle = 'Klik untuk salin', copiedLabel = 'Disalin!' })
     <button
       onClick={copy}
       title={copyTitle}
-      className="magnetic inline-flex items-center gap-2 px-7 py-3 rounded-full bg-white text-black text-sm font-bold hover:bg-white/85 transition"
+      className="magnetic inline-flex items-center gap-2 px-7 py-3 rounded-full bg-ink text-paper text-sm font-bold hover:bg-ink/85 transition"
     >
       {copied ? (
         <>
@@ -1010,7 +1017,7 @@ function SocialIcon({ href, label, children }) {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      className="magnetic w-11 h-11 rounded-full bg-white/[0.05] border border-white/12 flex items-center justify-center text-white/75 hover:text-white hover:border-white/40 transition"
+      className="magnetic w-11 h-11 rounded-full bg-card border border-ink/12 flex items-center justify-center text-ink-2 hover:text-ink hover:border-line transition"
     >
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         {children}

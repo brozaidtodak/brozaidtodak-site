@@ -107,37 +107,37 @@ export default function Journey() {
   const depthOf = (id) => nodes.find((n) => n.id === id)?.depth ?? 0
 
   return (
-    <div className="min-h-screen bg-void text-white font-sans flex flex-col overflow-hidden">
+    <div className="min-h-screen bg-void text-ink font-sans flex flex-col overflow-hidden">
       {/* top bar */}
-      <header className="relative z-20 flex items-center justify-between px-6 md:px-10 py-5 border-b border-white/8 shrink-0">
+      <header className="relative z-20 flex items-center justify-between px-6 md:px-10 py-5 border-b border-ink/12 shrink-0">
         <div>
           <Link to="/" className="font-sans font-black lowercase tracking-tight text-lg">
-            <span className="text-white">bro</span><span className="text-accent">zaid</span><span className="text-white">todak</span>
+            <span className="text-ink">bro</span><span className="text-accent-ink">zaid</span><span className="text-ink">todak</span>
           </Link>
-          <p className="font-mono text-[10px] tracking-[0.28em] text-white/50 uppercase mt-0.5">— Pokok Kerjaya</p>
+          <p className="font-mono text-[10px] tracking-[0.28em] text-ink-3 uppercase mt-0.5">— Pokok Kerjaya</p>
         </div>
         <div className="flex items-center gap-4">
-          <button onClick={fit} className="text-xs text-white/55 hover:text-white transition font-mono">↺ reset</button>
-          <Link to="/" className="text-xs text-white/55 hover:text-white transition">← Laman utama</Link>
+          <button onClick={fit} className="text-xs text-ink-3 hover:text-ink transition font-mono">↺ reset</button>
+          <Link to="/" className="text-xs text-ink-3 hover:text-ink transition">← Laman utama</Link>
         </div>
       </header>
 
       {/* legend + hint */}
-      <div className="relative z-20 flex flex-wrap items-center gap-2 px-6 md:px-10 py-3 border-b border-white/8 shrink-0">
+      <div className="relative z-20 flex flex-wrap items-center gap-2 px-6 md:px-10 py-3 border-b border-ink/12 shrink-0">
         {Object.entries(CATEGORIES).map(([key, c]) => (
           <button
             key={key}
             onClick={() => toggleCat(key)}
             className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[11px] font-semibold transition ${
               activeCats.size === 0 || activeCats.has(key)
-                ? 'border-white/20 text-white/85' : 'border-white/8 text-white/35'
+                ? 'border-line text-ink/85' : 'border-ink/12 text-ink-3'
             }`}
           >
             <span className="w-2 h-2 rounded-full" style={{ background: c.color }} />
             {c.label}
           </button>
         ))}
-        <span className="ml-auto hidden sm:block font-mono text-[10px] text-white/35 uppercase tracking-wider">
+        <span className="ml-auto hidden sm:block font-mono text-[10px] text-ink-3 uppercase tracking-wider">
           scroll = zoom · seret = gerak · klik node = cerita
         </span>
       </div>
@@ -199,7 +199,7 @@ export default function Journey() {
                 }}
               >
                 <div
-                  className="rounded-xl border bg-white/[0.03] backdrop-blur-sm px-3 py-2.5 hover:bg-white/[0.06] transition"
+                  className="rounded-xl border bg-card backdrop-blur-sm px-3 py-2.5 hover:bg-card transition"
                   style={{
                     borderColor: sel ? c : 'rgba(255,255,255,0.14)',
                     boxShadow: sel ? `0 0 0 1px ${c}, 0 8px 30px -8px ${c}` : 'none',
@@ -207,14 +207,14 @@ export default function Journey() {
                 >
                   <div className="flex items-center gap-1.5 mb-1">
                     <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: c }} />
-                    {n.year && <span className="font-mono text-[9px] text-white/45 tracking-wider">{n.year}</span>}
+                    {n.year && <span className="font-mono text-[9px] text-ink-3 tracking-wider">{n.year}</span>}
                     {n.status && (
-                      <span className="ml-auto font-mono text-[8px] uppercase tracking-wider px-1.5 py-0.5 rounded-full border border-white/15 text-white/70">
+                      <span className="ml-auto font-mono text-[8px] uppercase tracking-wider px-1.5 py-0.5 rounded-full border border-line text-ink-2">
                         {n.status}
                       </span>
                     )}
                   </div>
-                  <div className="font-sans font-bold text-[13px] leading-tight text-white">{n.title}</div>
+                  <div className="font-sans font-bold text-[13px] leading-tight text-ink">{n.title}</div>
                 </div>
               </button>
             )
@@ -242,25 +242,25 @@ function DetailPanel({ node, onClose }) {
   return (
     <div className={`detail-panel${shown ? ' is-open' : ''}
                     fixed z-30 inset-x-0 bottom-0 md:inset-y-0 md:right-0 md:left-auto md:w-96
-                    bg-[#0a0a0b] border-t md:border-t-0 md:border-l border-white/12 p-6 md:p-8
-                    shadow-[0_-10px_40px_rgba(0,0,0,0.5)] md:shadow-[-10px_0_40px_rgba(0,0,0,0.5)]`}>
+                    bg-[var(--color-paper)] border-t md:border-t-0 md:border-l border-ink/12 p-6 md:p-8
+                    shadow-[0_10px_30px_rgba(20,20,20,0.10)] md:shadow-[-10px_0_40px_rgba(0,0,0,0.5)]`}>
       <button onClick={onClose} aria-label="Tutup"
-        className="absolute top-4 right-4 w-8 h-8 rounded-full border border-white/15 text-white/60 hover:text-white hover:border-white/40 transition flex items-center justify-center">✕</button>
+        className="absolute top-4 right-4 w-8 h-8 rounded-full border border-line text-ink-2 hover:text-ink hover:border-line transition flex items-center justify-center">✕</button>
       <div className="inline-flex items-center gap-2 mb-4">
         <span className="w-2.5 h-2.5 rounded-full" style={{ background: c.color }} />
         <span className="font-mono text-[10px] uppercase tracking-[0.2em]" style={{ color: c.color }}>{c.label}</span>
-        {node.year && <span className="font-mono text-[10px] text-white/40">· {node.year}</span>}
+        {node.year && <span className="font-mono text-[10px] text-ink-3">· {node.year}</span>}
       </div>
       <h2 className="font-display font-bold text-2xl md:text-3xl tracking-tight mb-1">{node.title}</h2>
       {node.status && (
-        <span className="inline-block mb-4 font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full border border-white/15 text-white/70">
+        <span className="inline-block mb-4 font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full border border-line text-ink-2">
           {node.status}
         </span>
       )}
-      <p className="text-white/70 leading-relaxed text-[15px] mt-3">{node.blurb}</p>
+      <p className="text-ink-2 leading-relaxed text-[15px] mt-3">{node.blurb}</p>
       {node.url && (
         <a href={node.url} target="_blank" rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 mt-6 px-5 py-2.5 rounded-full bg-white text-black text-sm font-bold hover:bg-white/85 transition">
+          className="inline-flex items-center gap-2 mt-6 px-5 py-2.5 rounded-full bg-ink text-paper text-sm font-bold hover:bg-ink/85 transition">
           Lawati laman <span aria-hidden="true">↗</span>
         </a>
       )}

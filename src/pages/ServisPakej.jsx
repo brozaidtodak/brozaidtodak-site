@@ -76,27 +76,27 @@ export default function ServisPakej() {
   const others = SLUGS.filter((s) => s !== slug)
 
   return (
-    <div ref={rootRef} className="min-h-screen bg-void text-white font-sans relative overflow-x-clip">
+    <div ref={rootRef} className="min-h-screen bg-void text-ink font-sans relative overflow-x-clip">
       <div className="absolute inset-x-0 top-0 h-[60vh] pointer-events-none" aria-hidden="true"
         style={{ background: 'radial-gradient(ellipse 70% 60% at 50% 0%, rgba(255,77,0,0.10), transparent 65%)' }} />
 
       {/* nav */}
       <header className="absolute top-0 inset-x-0 z-20 flex items-center justify-between px-6 md:px-12 py-6">
         <Link to="/" className="font-sans font-black lowercase tracking-tight leading-none text-xl md:text-2xl">
-          <span className="text-white">bro</span><span className="text-accent">zaid</span><span className="text-white">todak</span>
+          <span className="text-ink">bro</span><span className="text-accent-ink">zaid</span><span className="text-ink">todak</span>
         </Link>
         <div className="flex items-center gap-2 md:gap-3">
-          <div className="flex items-center gap-0.5 p-0.5 rounded-full border border-white/12 bg-white/[0.03]" role="group">
+          <div className="flex items-center gap-0.5 p-0.5 rounded-full border border-ink/12 bg-card" role="group">
             {SERVIS_LANGS.map((l) => (
               <button key={l} onClick={() => setLang(l)} aria-pressed={lang === l}
                 className={`px-2.5 py-1 rounded-full text-[11px] font-semibold transition ${
-                  lang === l ? 'bg-white text-black' : 'text-white/60 hover:text-white'}`}>
+                  lang === l ? 'bg-ink text-paper' : 'text-ink-2 hover:text-ink'}`}>
                 {LANG_LABEL[l]}
               </button>
             ))}
           </div>
           <Link to="/servis"
-            className="inline-flex items-center px-4 py-2 rounded-full border border-white/15 text-white/75 hover:text-white hover:border-white/40 text-xs font-semibold transition">
+            className="inline-flex items-center px-4 py-2 rounded-full border border-line text-ink-2 hover:text-ink hover:border-line text-xs font-semibold transition">
             {c.pkg.label}
           </Link>
         </div>
@@ -105,23 +105,23 @@ export default function ServisPakej() {
       {/* ======== HERO ======== */}
       <section className="relative px-6 pt-28 md:pt-36 pb-14">
         <div className="max-w-4xl mx-auto">
-          <Link to="/servis" className="font-mono text-[11px] tracking-[0.2em] text-white/45 hover:text-accent transition">
+          <Link to="/servis" className="font-mono text-[11px] tracking-[0.2em] text-ink-3 hover:text-accent-ink transition">
             ← {p.kicker}
           </Link>
           <h1 className="font-display font-bold text-5xl md:text-7xl tracking-tight mt-4 reveal">{p.name}</h1>
-          <p className="text-xl md:text-2xl text-white/85 leading-snug mt-5 max-w-2xl reveal">{p.promise}</p>
-          <p className="text-white/60 leading-relaxed mt-4 max-w-2xl reveal">{p.sub}</p>
+          <p className="text-xl md:text-2xl text-ink/85 leading-snug mt-5 max-w-2xl reveal">{p.promise}</p>
+          <p className="text-ink-2 leading-relaxed mt-4 max-w-2xl reveal">{p.sub}</p>
 
-          <div className="flex flex-wrap items-center gap-x-10 gap-y-4 mt-9 pt-7 border-t border-white/10 reveal">
+          <div className="flex flex-wrap items-center gap-x-10 gap-y-4 mt-9 pt-7 border-t border-ink/12 reveal">
             <div>
-              <div className="font-display font-bold text-4xl text-accent">
-                {from && <span className="text-lg text-white/50 font-sans font-normal mr-1.5">{c.pkg.from}</span>}
+              <div className="font-display font-bold text-4xl text-accent-ink">
+                {from && <span className="text-lg text-ink-3 font-sans font-normal mr-1.5">{c.pkg.from}</span>}
                 ${price.toLocaleString('en-US')}
               </div>
-              <div className="text-white/40 text-xs mt-1">≈ {rm(price)}</div>
+              <div className="text-ink-3 text-xs mt-1">≈ {rm(price)}</div>
             </div>
             <div>
-              <div className="text-[11px] uppercase tracking-wider text-white/45">{lang === 'en' ? 'Timeline' : 'Tempoh'}</div>
+              <div className="text-[11px] uppercase tracking-wider text-ink-3">{lang === 'en' ? 'Timeline' : 'Tempoh'}</div>
               <div className="font-semibold mt-1">{duration}</div>
             </div>
             {waHref && <CTA href={waHref} primary external>{c.contact.wa}</CTA>}
@@ -135,9 +135,9 @@ export default function ServisPakej() {
           <SectionLabel>{p.signsLabel}</SectionLabel>
           <div className="grid md:grid-cols-2 gap-3 mt-7">
             {p.signs.map((s) => (
-              <div key={s} className="flex gap-3 rounded-xl border border-white/10 bg-white/[0.02] p-4 reveal">
-                <span className="text-accent shrink-0" aria-hidden="true">›</span>
-                <span className="text-white/75 text-sm leading-relaxed">{s}</span>
+              <div key={s} className="flex gap-3 rounded-xl border border-ink/12 bg-card p-4 reveal">
+                <span className="text-accent-ink shrink-0" aria-hidden="true">›</span>
+                <span className="text-ink-2 text-sm leading-relaxed">{s}</span>
               </div>
             ))}
           </div>
@@ -150,12 +150,12 @@ export default function ServisPakej() {
           <SectionLabel>{p.getsLabel}</SectionLabel>
           <div className="grid md:grid-cols-2 gap-5 mt-8">
             {p.getsGroups.map((g) => (
-              <div key={g.title} className="rounded-2xl border border-white/12 bg-white/[0.03] p-6 reveal">
+              <div key={g.title} className="rounded-2xl border border-ink/12 bg-card p-6 reveal">
                 <h3 className="font-sans font-extrabold text-lg">{g.title}</h3>
                 <ul className="mt-4 space-y-2.5">
                   {g.items.map((i) => (
-                    <li key={i} className="flex gap-2.5 text-sm text-white/75 leading-relaxed">
-                      <span className="text-accent mt-0.5 shrink-0" aria-hidden="true">✓</span>
+                    <li key={i} className="flex gap-2.5 text-sm text-ink-2 leading-relaxed">
+                      <span className="text-accent-ink mt-0.5 shrink-0" aria-hidden="true">✓</span>
                       <span>{i}</span>
                     </li>
                   ))}
@@ -173,7 +173,7 @@ export default function ServisPakej() {
         <div className="relative max-w-5xl mx-auto">
           <SectionLabel>{p.demoLabel}</SectionLabel>
           <h2 className="font-display font-bold text-3xl md:text-4xl tracking-tight mt-4 reveal">{p.demoHeading}</h2>
-          <p className="text-white/65 mt-3 max-w-2xl reveal">{p.demoSub}</p>
+          <p className="text-ink-2 mt-3 max-w-2xl reveal">{p.demoSub}</p>
           <div className="mt-9">
             {slug === 'kilat' && <DemoKilat t={p} lang={lang} fallbackName={FALLBACK[lang]} />}
             {slug === 'asas' && <DemoAsas t={p} fallbackName={FALLBACK[lang]} />}
@@ -190,30 +190,30 @@ export default function ServisPakej() {
             <h2 className="font-display font-bold text-3xl md:text-4xl tracking-tight mt-4 reveal">
               {p.casesHeading}
             </h2>
-            <p className="text-white/65 leading-relaxed mt-4 max-w-2xl reveal">{p.casesSub}</p>
+            <p className="text-ink-2 leading-relaxed mt-4 max-w-2xl reveal">{p.casesSub}</p>
             <div className="space-y-5 mt-9">
               {p.cases.map((k, i) => (
                 <article key={k.name}
-                  className="rounded-2xl border border-white/12 bg-white/[0.03] p-6 md:p-8 reveal">
+                  className="rounded-2xl border border-ink/12 bg-card p-6 md:p-8 reveal">
                   <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-                    <span className="font-mono text-[11px] tracking-[0.2em] text-white/40">
+                    <span className="font-mono text-[11px] tracking-[0.2em] text-ink-3">
                       {String(i + 1).padStart(2, '0')}
                     </span>
                     <h3 className="font-display font-bold text-2xl tracking-tight">{k.name}</h3>
-                    <span className="font-mono text-[11px] tracking-wider text-accent uppercase">{k.tag}</span>
+                    <span className="font-mono text-[11px] tracking-wider text-accent-ink uppercase">{k.tag}</span>
                   </div>
                   <div className="grid md:grid-cols-3 gap-6 md:gap-7 mt-6">
                     <div>
-                      <p className="font-mono text-[10px] tracking-[0.2em] text-white/40 uppercase">{p.caseEls.pain}</p>
-                      <p className="text-white/70 text-sm leading-relaxed mt-2.5">{k.pain}</p>
+                      <p className="font-mono text-[10px] tracking-[0.2em] text-ink-3 uppercase">{p.caseEls.pain}</p>
+                      <p className="text-ink-2 text-sm leading-relaxed mt-2.5">{k.pain}</p>
                     </div>
                     <div>
-                      <p className="font-mono text-[10px] tracking-[0.2em] text-white/40 uppercase">{p.caseEls.fix}</p>
-                      <p className="text-white/70 text-sm leading-relaxed mt-2.5">{k.fix}</p>
+                      <p className="font-mono text-[10px] tracking-[0.2em] text-ink-3 uppercase">{p.caseEls.fix}</p>
+                      <p className="text-ink-2 text-sm leading-relaxed mt-2.5">{k.fix}</p>
                     </div>
-                    <div className="md:border-l md:border-accent/25 md:pl-6">
-                      <p className="font-mono text-[10px] tracking-[0.2em] text-accent uppercase">{p.caseEls.result}</p>
-                      <p className="text-white/80 text-sm leading-relaxed mt-2.5">{k.result}</p>
+                    <div className="md:border-l md:border-accent-ink/25 md:pl-6">
+                      <p className="font-mono text-[10px] tracking-[0.2em] text-accent-ink uppercase">{p.caseEls.result}</p>
+                      <p className="text-ink text-sm leading-relaxed mt-2.5">{k.result}</p>
                     </div>
                   </div>
                 </article>
@@ -229,11 +229,11 @@ export default function ServisPakej() {
           <SectionLabel>{p.timelineLabel}</SectionLabel>
           <div className="mt-8 space-y-px">
             {p.timeline.map((s) => (
-              <div key={s.d} className="grid md:grid-cols-[130px_1fr] gap-3 md:gap-6 py-5 border-t border-white/10 reveal">
-                <div className="font-mono text-[11px] tracking-[0.16em] text-accent uppercase pt-0.5">{s.d}</div>
+              <div key={s.d} className="grid md:grid-cols-[130px_1fr] gap-3 md:gap-6 py-5 border-t border-ink/12 reveal">
+                <div className="font-mono text-[11px] tracking-[0.16em] text-accent-ink uppercase pt-0.5">{s.d}</div>
                 <div>
                   <h3 className="font-sans font-bold">{s.t}</h3>
-                  <p className="text-white/65 text-sm leading-relaxed mt-1.5">{s.b}</p>
+                  <p className="text-ink-2 text-sm leading-relaxed mt-1.5">{s.b}</p>
                 </div>
               </div>
             ))}
@@ -244,17 +244,17 @@ export default function ServisPakej() {
       {/* ======== TAK TERMASUK ======== */}
       <section className="relative px-6 py-14 md:py-20">
         <div className="max-w-4xl mx-auto">
-          <div className="rounded-2xl border border-white/12 bg-white/[0.03] p-7 md:p-8 reveal">
+          <div className="rounded-2xl border border-ink/12 bg-card p-7 md:p-8 reveal">
             <h3 className="font-sans font-extrabold text-lg">{p.exLabel}</h3>
             <ul className="mt-4 space-y-2">
               {p.excludes.map((e) => (
-                <li key={e} className="flex gap-2.5 text-sm text-white/60 leading-relaxed">
-                  <span className="text-white/30 shrink-0" aria-hidden="true">·</span>
+                <li key={e} className="flex gap-2.5 text-sm text-ink-2 leading-relaxed">
+                  <span className="text-ink-3 shrink-0" aria-hidden="true">·</span>
                   <span>{e}</span>
                 </li>
               ))}
             </ul>
-            <p className="text-accent text-sm mt-5">{p.upsell}</p>
+            <p className="text-accent-ink text-sm mt-5">{p.upsell}</p>
           </div>
         </div>
       </section>
@@ -263,7 +263,7 @@ export default function ServisPakej() {
       <section className="relative px-6 py-14 md:py-20">
         <div className="max-w-3xl mx-auto">
           <SectionLabel>{c.faq.label}</SectionLabel>
-          <div className="mt-7 divide-y divide-white/10 border-y border-white/10">
+          <div className="mt-7 divide-y divide-white/10 border-y border-ink/12">
             {p.faq.map((f) => <Faq key={f.q} q={f.q} a={f.a} />)}
           </div>
         </div>
@@ -276,16 +276,16 @@ export default function ServisPakej() {
             const o = PAGES[s][lang] || PAGES[s].ms
             return (
               <Link key={s} to={`/servis/${s}`}
-                className="rounded-2xl border border-white/12 bg-white/[0.03] p-6 hover:border-accent/45 transition group reveal">
-                <div className="font-mono text-[11px] tracking-[0.2em] text-white/40">{o.kicker}</div>
+                className="rounded-2xl border border-ink/12 bg-card p-6 hover:border-accent-ink/45 transition group reveal">
+                <div className="font-mono text-[11px] tracking-[0.2em] text-ink-3">{o.kicker}</div>
                 <div className="flex items-baseline justify-between gap-3 mt-2">
-                  <h3 className="font-display font-bold text-2xl group-hover:text-accent transition">{o.name}</h3>
-                  <span className="font-display font-bold text-accent whitespace-nowrap">
-                    {s === 'operasi' && <span className="text-xs text-white/45 font-sans font-normal mr-1">{c.pkg.from}</span>}
+                  <h3 className="font-display font-bold text-2xl group-hover:text-accent-ink transition">{o.name}</h3>
+                  <span className="font-display font-bold text-accent-ink whitespace-nowrap">
+                    {s === 'operasi' && <span className="text-xs text-ink-3 font-sans font-normal mr-1">{c.pkg.from}</span>}
                     ${PRICES[s].toLocaleString('en-US')}
                   </span>
                 </div>
-                <p className="text-white/60 text-sm mt-2 leading-relaxed">{o.promise}</p>
+                <p className="text-ink-2 text-sm mt-2 leading-relaxed">{o.promise}</p>
               </Link>
             )
           })}
@@ -298,7 +298,7 @@ export default function ServisPakej() {
           style={{ background: 'radial-gradient(ellipse 70% 55% at 50% 110%, rgba(255,77,0,0.14), transparent 70%)' }} />
         <div className="relative max-w-2xl mx-auto text-center">
           <h2 className="font-display font-bold text-3xl md:text-5xl tracking-tight uppercase reveal">{c.contact.heading}</h2>
-          <p className="text-white/70 mt-5 reveal">{c.contact.body(PRICES.diagnosis)}</p>
+          <p className="text-ink-2 mt-5 reveal">{c.contact.body(PRICES.diagnosis)}</p>
           <div className="flex flex-wrap items-center justify-center gap-3 mt-8 reveal">
             {waHref && <CTA href={waHref} primary external>{c.contact.wa}</CTA>}
             <CTA href={`mailto:${EMAIL}`} primary={!waHref} external>{EMAIL}</CTA>
@@ -306,9 +306,9 @@ export default function ServisPakej() {
         </div>
       </section>
 
-      <footer className="relative px-6 py-10 border-t border-white/10">
-        <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-4 text-white/40 text-xs">
-          <Link to="/servis" className="hover:text-white transition">← {c.pkg.label}</Link>
+      <footer className="relative px-6 py-10 border-t border-ink/12">
+        <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-4 text-ink-3 text-xs">
+          <Link to="/servis" className="hover:text-ink transition">← {c.pkg.label}</Link>
           <span>{c.footer.note}</span>
         </div>
       </footer>
@@ -320,7 +320,7 @@ export default function ServisPakej() {
 
 function SectionLabel({ children }) {
   return (
-    <p className="font-mono text-[11px] tracking-[0.28em] text-white/55 uppercase reveal">— {children}</p>
+    <p className="font-mono text-[11px] tracking-[0.28em] text-ink-3 uppercase reveal">— {children}</p>
   )
 }
 
@@ -330,8 +330,8 @@ function Faq({ q, a }) {
     <div className="reveal">
       <button onClick={() => setOpen((v) => !v)} aria-expanded={open}
         className="w-full flex items-center justify-between gap-4 text-left py-5 group">
-        <span className="font-sans font-semibold group-hover:text-accent transition">{q}</span>
-        <span className={`text-accent text-xl shrink-0 transition-transform ${open ? 'rotate-45' : ''}`} aria-hidden="true">+</span>
+        <span className="font-sans font-semibold group-hover:text-accent-ink transition">{q}</span>
+        <span className={`text-accent-ink text-xl shrink-0 transition-transform ${open ? 'rotate-45' : ''}`} aria-hidden="true">+</span>
       </button>
       <div
         className={`grid transition-[grid-template-rows,opacity] duration-200 ease-[var(--ease-out)] ${
@@ -339,7 +339,7 @@ function Faq({ q, a }) {
         }`}
       >
         <div className="overflow-hidden">
-          <p className="text-white/70 text-sm leading-relaxed pb-5 -mt-1 max-w-prose">{a}</p>
+          <p className="text-ink-2 text-sm leading-relaxed pb-5 -mt-1 max-w-prose">{a}</p>
         </div>
       </div>
     </div>
@@ -348,8 +348,8 @@ function Faq({ q, a }) {
 
 function CTA({ href, children, primary, external }) {
   const cls = primary
-    ? 'bg-accent text-black hover:bg-[#ff6a2b]'
-    : 'border border-white/20 text-white/80 hover:text-white hover:border-white/45'
+    ? 'bg-accent text-ink hover:bg-[#ff6a2b]'
+    : 'border border-line text-ink hover:text-ink hover:border-line'
   return (
     <a href={href} {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
       className={`inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold transition ${cls}`}>

@@ -42,18 +42,18 @@ export default function SecretPanel() {
       onClick={() => setOpen(false)}
     >
       <div
-        className="w-full max-w-sm rounded-2xl border border-white/10 bg-forest p-6 shadow-2xl"
+        className="w-full max-w-sm rounded-2xl border border-ink/12 bg-forest p-6 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between mb-5">
           <div>
             <div className="text-[10px] uppercase tracking-[0.25em] text-gold font-bold">Pintu belakang</div>
-            <div className="text-white text-lg font-bold mt-1">Shortcut</div>
+            <div className="text-ink text-lg font-bold mt-1">Shortcut</div>
           </div>
           <button
             onClick={() => setOpen(false)}
             aria-label="Tutup"
-            className="text-white/40 hover:text-white text-xl leading-none px-2"
+            className="text-ink-3 hover:text-ink text-xl leading-none px-2"
           >
             ×
           </button>
@@ -63,17 +63,17 @@ export default function SecretPanel() {
             <a
               key={l.n}
               href={l.href}
-              className="group flex items-center justify-between rounded-xl border border-white/10 px-4 py-3 hover:border-gold/60 hover:bg-white/5 transition"
+              className="group flex items-center justify-between rounded-xl border border-ink/12 px-4 py-3 hover:border-gold/60 hover:bg-card transition"
             >
               <span>
-                <span className="block text-white font-semibold text-sm group-hover:text-gold transition">{l.n}</span>
-                <span className="block text-white/40 text-xs mt-0.5">{l.d}</span>
+                <span className="block text-ink font-semibold text-sm group-hover:text-gold transition">{l.n}</span>
+                <span className="block text-ink-3 text-xs mt-0.5">{l.d}</span>
               </span>
-              <span className="text-white/30 group-hover:text-gold transition">→</span>
+              <span className="text-ink-3 group-hover:text-gold transition">→</span>
             </a>
           ))}
         </div>
-        <div className="text-white/25 text-[10px] mt-5 text-center">Esc untuk tutup</div>
+        <div className="text-ink-3 text-[10px] mt-5 text-center">Esc untuk tutup</div>
       </div>
     </div>
   )

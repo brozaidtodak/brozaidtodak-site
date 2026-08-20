@@ -15,28 +15,28 @@
 <meta name="twitter:image" content="https://brozaidtodak.com/og-skills.png" />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root { --bg:#F4F2EC; --ink:#141414; --oren:#FF4D00; --kabus:#6E6A5E; --garis:#B9B4A6; --surface:#FFFDF6; }
+  :root { --bg:#F4F2EC; --ink:#141414; /* --oren = ISIAN sahaja (teks ink di atasnya, 5.54:1). Teks oren guna --oren-teks #C23800 (4.86:1); #FF4D00 sbg teks atas kertas cuma 2.97:1, gagal walau utk teks besar. */ --oren:#FF4D00; --oren-teks:#C23800; --kabus:#6E6A5E; --garis:#B9B4A6; --surface:#FFFDF6; }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--bg); color:var(--ink); font-family:'Archivo',sans-serif; padding:40px 24px 80px;
         background-image:repeating-radial-gradient(circle at 85% 8%, transparent 0 46px, rgba(20,20,20,.035) 46px 47px); }
   .wrap { max-width:1050px; margin:0 auto; }
   h1 { font-family:'Archivo Black'; text-transform:uppercase; font-size:clamp(28px,5vw,46px); letter-spacing:-1px; }
-  h1 em { color:var(--oren); font-style:normal; }
+  h1 em { color:var(--oren-teks); font-style:normal; }
   .sub { font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--kabus); margin:10px 0 6px; letter-spacing:1px; }
   .cari { width:100%; max-width:480px; margin:20px 0 8px; padding:13px 16px; border:2px solid var(--ink); border-radius:6px; font-family:'Archivo'; font-size:15px; background:var(--surface); }
   h2 { font-family:'Archivo Black'; text-transform:uppercase; font-size:19px; margin:38px 0 14px; border-bottom:2px solid var(--ink); padding-bottom:8px; }
-  h2 span { color:var(--oren); font-size:15px; }
+  h2 span { color:var(--oren-teks); font-size:15px; }
   .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(310px,1fr)); gap:12px; }
   .sk { background:var(--surface); border:1.5px solid var(--garis); border-radius:10px; padding:14px 16px; }
   .sk:hover { border-color:var(--ink); box-shadow:4px 4px 0 var(--ink); }
-  .sk code { font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:13.5px; color:var(--oren); }
+  .sk code { font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:13.5px; color:var(--oren-teks); }
   .sk p { font-size:13.5px; color:#3E3A30; margin-top:6px; line-height:1.5; }
   .tiada { display:none !important; }
   .sk { position:relative; padding-right:56px; }
   .gr { position:absolute; top:10px; right:12px; font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:11px; padding:2px 8px; border-radius:4px; letter-spacing:.5px; }
   .gsp { background:var(--oren); color:#141414; border:1.5px solid var(--ink); font-weight:700; }
   .gs  { background:var(--ink); color:#F4F2EC; }
-  .gap { background:#FFF; color:var(--oren); border:1.5px solid var(--oren); }
+  .gap { background:#FFF; color:var(--oren-teks); border:1.5px solid var(--oren-teks); }
   .ga  { background:#FFF; color:var(--ink); border:1.5px solid var(--ink); }
   .gb  { background:#FFF; color:var(--kabus); border:1.5px solid var(--garis); }
   .gc  { background:transparent; color:var(--garis); border:1.5px dashed var(--garis); }
@@ -68,7 +68,7 @@
 <div class="wrap">
   <h1>Rujukan Skill <em>Claude</em></h1>
   <div class="sub">260 SKILL &amp; MCP · KEMASKINI 3 OGO 2026 · TAIP /NAMA-SKILL DALAM CLAUDE UNTUK GUNA</div>
-<div class="sub" style="margin-top:2px">SKILL BUATAN SENDIRI BOLEH DIMUAT TURUN DI <a href="https://github.com/brozaidtodak/claude-skills" style="color:var(--oren);font-weight:600">GITHUB.COM/BROZAIDTODAK/CLAUDE-SKILLS</a></div>
+<div class="sub" style="margin-top:2px">SKILL BUATAN SENDIRI BOLEH DIMUAT TURUN DI <a href="https://github.com/brozaidtodak/claude-skills" style="color:var(--oren-teks);font-weight:600">GITHUB.COM/BROZAIDTODAK/CLAUDE-SKILLS</a></div>
   <input class="cari" id="cari" placeholder="Cari skill... (contoh: iklan, design, deploy)" oninput="tapis(this.value)"><div class="gchips">
   <button class="gchip on" onclick="tapisGred('semua',this)">SEMUA</button>
   <button class="gchip" onclick="tapisGred('s+',this)">S+</button>

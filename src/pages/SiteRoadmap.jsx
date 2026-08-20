@@ -70,9 +70,9 @@ const ROADMAP = [
 ]
 
 const STATUS = {
-  done:     { label: 'Siap',   dot: 'bg-white',           text: 'text-white/90', pill: 'border-white/25 text-white/80' },
-  progress: { label: 'Sedang', dot: 'bg-accent',          text: 'text-white',    pill: 'border-accent/50 text-accent' },
-  planned:  { label: 'Akan',   dot: 'bg-white/25',        text: 'text-white/55', pill: 'border-white/15 text-white/45' },
+  done:     { label: 'Siap',   dot: 'bg-ink',           text: 'text-ink', pill: 'border-line text-ink' },
+  progress: { label: 'Sedang', dot: 'bg-accent',          text: 'text-ink',    pill: 'border-accent-ink/50 text-accent-ink' },
+  planned:  { label: 'Akan',   dot: 'bg-ink/25',        text: 'text-ink-3', pill: 'border-line text-ink-3' },
 }
 
 function phaseStatus(items) {
@@ -113,19 +113,19 @@ function Gate({ onUnlock }) {
   }
 
   return (
-    <div className="min-h-screen bg-void text-white font-sans flex items-center justify-center px-6">
+    <div className="min-h-screen bg-void text-ink font-sans flex items-center justify-center px-6">
       <form
         onSubmit={submit}
-        className={`w-full max-w-sm rounded-2xl border border-white/12 bg-white/[0.03] p-8 text-center ${error ? 'gate-shake' : ''}`}
+        className={`w-full max-w-sm rounded-2xl border border-ink/12 bg-card p-8 text-center ${error ? 'gate-shake' : ''}`}
       >
-        <div className="w-12 h-12 mx-auto mb-5 rounded-full border border-white/15 bg-white/[0.04] flex items-center justify-center text-accent">
+        <div className="w-12 h-12 mx-auto mb-5 rounded-full border border-line bg-card flex items-center justify-center text-accent-ink">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
             <path d="M7 11V7a5 5 0 0 1 10 0v4" />
           </svg>
         </div>
         <h1 className="font-display font-bold text-2xl tracking-tight">Roadmap</h1>
-        <p className="text-white/55 text-sm mt-2 mb-6">
+        <p className="text-ink-3 text-sm mt-2 mb-6">
           Halaman ini dilindungi. Masukkan kata laluan untuk lihat peta jalan brozaidtodak.com.
         </p>
         <input
@@ -135,20 +135,20 @@ function Gate({ onUnlock }) {
           onChange={(e) => { setValue(e.target.value); setError(false) }}
           placeholder="Kata laluan"
           aria-label="Kata laluan"
-          className={`w-full px-4 py-3 rounded-full bg-white/[0.05] border text-center text-sm outline-none transition placeholder:text-white/30 ${
-            error ? 'border-accent/70' : 'border-white/15 focus:border-white/40'
+          className={`w-full px-4 py-3 rounded-full bg-card border text-center text-sm outline-none transition placeholder:text-ink-3 ${
+            error ? 'border-accent-ink/70' : 'border-line focus:border-line'
           }`}
         />
         {error && (
-          <p className="text-accent text-xs mt-2">Kata laluan salah. Cuba lagi.</p>
+          <p className="text-accent-ink text-xs mt-2">Kata laluan salah. Cuba lagi.</p>
         )}
         <button
           type="submit"
-          className="mt-5 w-full px-6 py-3 rounded-full bg-white text-black text-sm font-bold hover:bg-white/85 transition"
+          className="mt-5 w-full px-6 py-3 rounded-full bg-ink text-paper text-sm font-bold hover:bg-ink/85 transition"
         >
           Buka
         </button>
-        <Link to="/" className="block mt-5 text-xs text-white/40 hover:text-white/70 transition">
+        <Link to="/" className="block mt-5 text-xs text-ink-3 hover:text-ink-2 transition">
           ← Kembali ke laman utama
         </Link>
       </form>
@@ -164,38 +164,38 @@ function RoadmapView() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-void text-white font-sans">
+    <div className="min-h-screen bg-void text-ink font-sans">
       {/* nav */}
-      <header className="flex items-center justify-between px-6 md:px-12 py-6 border-b border-white/8">
+      <header className="flex items-center justify-between px-6 md:px-12 py-6 border-b border-ink/12">
         <Link to="/" className="font-sans font-black lowercase tracking-tight leading-none text-lg">
-          <span className="text-white">bro</span>
-          <span className="text-accent">zaid</span>
-          <span className="text-white">todak</span>
+          <span className="text-ink">bro</span>
+          <span className="text-accent-ink">zaid</span>
+          <span className="text-ink">todak</span>
         </Link>
-        <Link to="/" className="text-xs text-white/55 hover:text-white transition">
+        <Link to="/" className="text-xs text-ink-3 hover:text-ink transition">
           ← Laman utama
         </Link>
       </header>
 
       <main className="max-w-3xl mx-auto px-6 py-14 md:py-20">
-        <p className="font-mono text-[11px] tracking-[0.28em] text-white/55 uppercase">— Roadmap</p>
+        <p className="font-mono text-[11px] tracking-[0.28em] text-ink-3 uppercase">— Roadmap</p>
         <h1 className="font-display font-bold text-4xl md:text-5xl tracking-tight mt-3">
           Peta jalan brozaidtodak.com
         </h1>
-        <p className="text-white/65 leading-relaxed mt-4 max-w-xl">
+        <p className="text-ink-2 leading-relaxed mt-4 max-w-xl">
           Ke mana laman & Command Centre ini menuju — apa yang dah siap, sedang dibina, dan akan datang.
           Dikemas kini bila ada perkembangan.
         </p>
 
         {/* progress keseluruhan */}
-        <div className="mt-8 rounded-2xl border border-white/12 bg-white/[0.03] p-5">
+        <div className="mt-8 rounded-2xl border border-ink/12 bg-card p-5">
           <div className="flex items-baseline justify-between mb-2.5">
-            <span className="font-mono text-[11px] uppercase tracking-wider text-white/55">Kemajuan keseluruhan</span>
+            <span className="font-mono text-[11px] uppercase tracking-wider text-ink-3">Kemajuan keseluruhan</span>
             <span className="font-display font-bold text-lg">
-              {percent}<span className="text-white/40 text-sm">% · {done}/{total}</span>
+              {percent}<span className="text-ink-3 text-sm">% · {done}/{total}</span>
             </span>
           </div>
-          <div className="h-2 rounded-full bg-white/10 overflow-hidden">
+          <div className="h-2 rounded-full bg-card overflow-hidden">
             <div className="h-full w-full rounded-full bg-accent origin-left transition-transform duration-500 ease-[var(--ease-out)]" style={{ transform: `scaleX(${(percent || 0) / 100})` }} />
           </div>
         </div>
@@ -211,9 +211,9 @@ function RoadmapView() {
                   <span className={`font-mono text-[10px] uppercase tracking-widest px-2.5 py-0.5 border rounded-full ${ps.pill}`}>
                     {ps.label}
                   </span>
-                  <span className="font-mono text-[10px] text-white/40 uppercase tracking-wider ml-auto">{phase.eta}</span>
+                  <span className="font-mono text-[10px] text-ink-3 uppercase tracking-wider ml-auto">{phase.eta}</span>
                 </div>
-                <ul className="border-l border-white/10 pl-5 space-y-3.5">
+                <ul className="border-l border-ink/12 pl-5 space-y-3.5">
                   {phase.items.map((item) => {
                     const s = STATUS[item.s]
                     return (
@@ -222,7 +222,7 @@ function RoadmapView() {
                         <div className="flex-1 min-w-0">
                           <p className={`text-[15px] leading-snug ${s.text}`}>{item.t}</p>
                           {item.note && (
-                            <p className="text-white/40 text-xs mt-0.5">{item.note}</p>
+                            <p className="text-ink-3 text-xs mt-0.5">{item.note}</p>
                           )}
                         </div>
                         <span className={`font-mono text-[9px] uppercase tracking-widest px-2 py-0.5 border rounded-full shrink-0 ${s.pill}`}>
@@ -237,9 +237,9 @@ function RoadmapView() {
           })}
         </div>
 
-        <div className="mt-16 pt-8 border-t border-white/10 flex items-center justify-between text-xs text-white/50">
+        <div className="mt-16 pt-8 border-t border-ink/12 flex items-center justify-between text-xs text-ink-3">
           <span>© 2026 Bro Zaid Todak</span>
-          <Link to="/" className="hover:text-white/80 transition">← Laman utama</Link>
+          <Link to="/" className="hover:text-ink transition">← Laman utama</Link>
         </div>
       </main>
     </div>

@@ -107,7 +107,7 @@ export default function Portfolio() {
 
 function PortfolioCard({ item, onEdit, onDelete }) {
   return (
-    <article className="group bg-white/[0.03] border border-white/8 rounded-2xl p-5 flex flex-col gap-3 h-full hover:border-gold/40 transition">
+    <article className="group bg-card border border-ink/12 rounded-2xl p-5 flex flex-col gap-3 h-full hover:border-gold/40 transition">
       <div className="flex items-start justify-between gap-3">
         <h3 className="font-display text-lg text-cream leading-tight flex-1">{item.name}</h3>
         <div className="flex items-center gap-1 -mr-1 opacity-0 group-hover:opacity-100 transition">
@@ -126,7 +126,7 @@ function PortfolioCard({ item, onEdit, onDelete }) {
         <span className={`text-[11px] font-medium px-2.5 py-0.5 rounded-full border ${portfolioStatusColor(item.status)}`}>
           {portfolioStatusLabel(item.status)}
         </span>
-        <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full border bg-white/5 text-cream/55 border-white/12">
+        <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full border bg-card text-cream/55 border-ink/12">
           {categoryLabel(item.category)}
         </span>
         {item.year && (
@@ -170,7 +170,7 @@ function IconButton({ onClick, label, danger, children }) {
       aria-label={label}
       className={`p-1.5 rounded-md transition ${danger
         ? 'text-cream/40 hover:text-red-400 hover:bg-red-500/10'
-        : 'text-cream/40 hover:text-cream hover:bg-white/8'}`}
+        : 'text-cream/40 hover:text-cream hover:bg-card'}`}
     >
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         {children}
@@ -217,7 +217,7 @@ function PortfolioFormModal({ initial, onCancel, onSave }) {
       <form
         onClick={(e) => e.stopPropagation()}
         onSubmit={handleSubmit}
-        className="bg-[#111113] border border-white/10 rounded-2xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto"
+        className="bg-[var(--color-card)] border border-ink/12 rounded-2xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto"
       >
         <h3 className="font-display text-xl text-cream mb-5">
           {initial ? 'Edit portfolio item' : 'Add portfolio item'}
@@ -300,7 +300,7 @@ function PortfolioFormModal({ initial, onCancel, onSave }) {
             border-color: #ff4d00;
             background: rgba(255,255,255,0.06);
           }
-          .form-input option { background: #111113; color: #f4f4f5; }
+          .form-input option { background: var(--color-card); color: #f4f4f5; }
         `}</style>
       </form>
     </div>

@@ -38,7 +38,7 @@ export default function Financial() {
 
       {!loading && projects.length > 0 && (
         <>
-          <div className="flex flex-wrap gap-2 mb-8 pb-4 border-b border-white/8">
+          <div className="flex flex-wrap gap-2 mb-8 pb-4 border-b border-ink/12">
             {projects.map((p) => (
               <button
                 key={p.id}
@@ -46,7 +46,7 @@ export default function Financial() {
                 className={`px-4 py-2 rounded-full text-sm font-medium transition border ${
                   activeId === p.id
                     ? 'bg-gold/12 text-gold border-gold/30'
-                    : 'text-cream/65 border-white/10 hover:text-cream hover:border-white/25'
+                    : 'text-cream/65 border-ink/12 hover:text-cream hover:border-line'
                 }`}
               >
                 {p.name}
@@ -176,7 +176,7 @@ function ProjectFinancialView({ project }) {
 
 function SnapshotCard({ label, value, hint, highlight }) {
   return (
-    <div className={`rounded-2xl p-4 border ${highlight ? 'bg-gold/8 border-gold/25' : 'bg-white/[0.03] border-white/8'}`}>
+    <div className={`rounded-2xl p-4 border ${highlight ? 'bg-gold/8 border-gold/25' : 'bg-card border-ink/12'}`}>
       <p className="font-mono text-[10px] uppercase tracking-wider text-cream/45 mb-2">{label}</p>
       <p className={`font-display text-xl ${highlight ? 'text-gold' : 'text-cream'} truncate`}>{value}</p>
       <p className="text-[11px] text-cream/45 mt-2 leading-snug">{hint}</p>
@@ -188,7 +188,7 @@ function TransactionSection({ title, subtitle, eyebrow, eyebrowColor, addLabel, 
   const eyebrowClass = eyebrowColor === 'gold' ? 'text-gold' : 'text-cream/55'
   const btnClass = addStyle === 'primary'
     ? 'bg-gold text-forest-deep hover:bg-gold-dark'
-    : 'border border-white/15 text-cream/70 hover:text-cream hover:border-white/30'
+    : 'border border-line text-cream/70 hover:text-cream hover:border-line'
 
   return (
     <section>
@@ -220,7 +220,7 @@ function RowShell({ children, onEdit, onDelete, isTemplate }) {
   return (
     <div
       onClick={onEdit}
-      className={`group bg-white/[0.03] border ${isTemplate ? 'border-dashed border-gold/25' : 'border-white/8'} rounded-xl px-4 py-3 flex items-center gap-4 hover:bg-white/[0.05] hover:border-white/20 cursor-pointer transition`}
+      className={`group bg-card border ${isTemplate ? 'border-dashed border-gold/25' : 'border-ink/12'} rounded-xl px-4 py-3 flex items-center gap-4 hover:bg-card hover:border-line cursor-pointer transition`}
     >
       {children}
       <button
@@ -359,7 +359,7 @@ function TransactionModal({ projectSlug, mode, initial, onCancel, onSave }) {
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
       onClick={onCancel}>
       <form onClick={(e) => e.stopPropagation()} onSubmit={handleSubmit}
-        className="bg-[#111113] border border-white/10 rounded-2xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+        className="bg-[var(--color-card)] border border-ink/12 rounded-2xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
         <h3 className="font-display text-xl text-cream mb-1">{title}</h3>
         <p className="text-xs text-cream/45 mb-5 font-mono">{form.direction === 'in' ? '↘ inflow' : '↗ outflow'}</p>
 
@@ -461,7 +461,7 @@ function TransactionModal({ projectSlug, mode, initial, onCancel, onSave }) {
             color: #f4f4f5; font-size: 14px; font-family: inherit;
           }
           .cc-input:focus { outline: none; border-color: #ff4d00; background: rgba(255,255,255,0.06); }
-          .cc-input option { background: #111113; color: #f4f4f5; }
+          .cc-input option { background: var(--color-card); color: #f4f4f5; }
         `}</style>
       </form>
     </div>

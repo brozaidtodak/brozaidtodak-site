@@ -63,11 +63,11 @@ export default function DashboardLayout() {
   }
 
   return (
-    <div className="min-h-screen bg-[#08080a] text-cream">
+    <div className="min-h-screen bg-[var(--color-paper)] text-cream">
       <div className="flex">
         {/* Sidebar */}
-        <aside className="hidden md:flex w-56 shrink-0 min-h-screen border-r border-white/8 bg-[#050505] flex-col">
-          <div className="px-5 py-5 border-b border-white/8">
+        <aside className="hidden md:flex w-56 shrink-0 min-h-screen border-r border-ink/12 bg-[var(--color-paper)] flex-col">
+          <div className="px-5 py-5 border-b border-ink/12">
             <Link to="/" className="font-display text-lg text-cream font-semibold leading-tight block">
               Bro Zaid Todak
             </Link>
@@ -86,7 +86,7 @@ export default function DashboardLayout() {
                   `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition ${
                     isActive
                       ? 'bg-gold/10 text-gold border border-gold/25'
-                      : 'text-cream/65 hover:text-cream hover:bg-white/[0.04] border border-transparent'
+                      : 'text-cream/65 hover:text-cream hover:bg-card border border-transparent'
                   }`
                 }
               >
@@ -98,13 +98,13 @@ export default function DashboardLayout() {
             ))}
           </nav>
 
-          <div className="px-3 py-4 border-t border-white/8 flex flex-col gap-1">
+          <div className="px-3 py-4 border-t border-ink/12 flex flex-col gap-1">
             <div className="px-3 py-2 text-[11px] text-cream/40 font-mono truncate" title={email}>
               {email}
             </div>
             <button
               onClick={handleLogout}
-              className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-cream/60 hover:text-cream hover:bg-white/[0.04] transition"
+              className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-cream/60 hover:text-cream hover:bg-card transition"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
@@ -119,7 +119,7 @@ export default function DashboardLayout() {
         {/* Main */}
         <div className="flex-1 min-w-0">
           {/* Mobile top bar */}
-          <header className="md:hidden border-b border-white/8 px-5 py-3 flex items-center justify-between bg-[#050505] sticky top-0 z-10">
+          <header className="md:hidden border-b border-ink/12 px-5 py-3 flex items-center justify-between bg-[var(--color-paper)] sticky top-0 z-10">
             <Link to="/" className="font-display text-lg text-cream font-semibold">
               Bro Zaid Todak
             </Link>
@@ -132,7 +132,7 @@ export default function DashboardLayout() {
           </header>
 
           {/* Mobile horizontal nav */}
-          <nav className="md:hidden flex gap-2 px-5 py-3 border-b border-white/8 overflow-x-auto">
+          <nav className="md:hidden flex gap-2 px-5 py-3 border-b border-ink/12 overflow-x-auto">
             {NAV_ITEMS.map((item) => (
               <NavLink
                 key={item.to}
@@ -142,7 +142,7 @@ export default function DashboardLayout() {
                   `shrink-0 px-3 py-1.5 rounded-full text-xs font-medium transition ${
                     isActive
                       ? 'bg-gold/15 text-gold border border-gold/30'
-                      : 'text-cream/60 border border-white/10'
+                      : 'text-cream/60 border border-ink/12'
                   }`
                 }
               >

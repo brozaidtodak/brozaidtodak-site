@@ -24,7 +24,7 @@ export default function Dashboard() {
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {PENDING_MODULES.map((m) => (
-            <div key={m.name} className="bg-white/[0.02] border border-dashed border-white/10 rounded-xl p-4">
+            <div key={m.name} className="bg-card border border-dashed border-ink/12 rounded-xl p-4">
               <p className="font-mono text-[10px] uppercase tracking-wider text-cream/35 mb-1">{m.meta}</p>
               <h3 className="font-display text-sm text-cream/55">{m.name}</h3>
             </div>

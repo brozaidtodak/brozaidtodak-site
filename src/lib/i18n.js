@@ -23,7 +23,7 @@ export const DEFAULT_LANG = 'ms'
 
 // Kelas warna untuk role pills — ikut kedudukan (bukan teks), jadi
 // dikongsi semua bahasa.
-export const ROLE_TONES = ['text-accent', 'text-white', 'text-white/70']
+export const ROLE_TONES = ['text-accent-ink', 'text-ink', 'text-ink-2']
 
 const ms = {
   nav: {

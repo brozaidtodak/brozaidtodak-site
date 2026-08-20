@@ -10,11 +10,11 @@
 // ============================================================
 
 export const CATEGORIES = {
-  edu:      { label: 'Pendidikan', color: '#9fb5d8' },  // steel blue
-  past:     { label: 'Venture awal', color: '#8a8a93' }, // gray (lampau)
-  business: { label: 'Bisnes',      color: '#ff4d00' },  // Todak orange (teras)
-  skill:    { label: 'Kemahiran',   color: '#ffb454' },  // amber
-  system:   { label: 'Sistem',      color: '#e4e4e7' },  // near-white (output)
+  edu:      { label: 'Pendidikan', color: '#2F5C8F' },  // steel blue
+  past:     { label: 'Venture awal', color: '#6E6A5E' }, // gray (lampau)
+  business: { label: 'Bisnes',      color: '#C23800' },  // Todak orange (teras)
+  skill:    { label: 'Kemahiran',   color: '#8C5800' },  // amber
+  system:   { label: 'Sistem',      color: '#141414' },  // near-white (output)
 }
 
 export const NODES = [
