@@ -366,7 +366,7 @@ export default function Landing() {
 
       {/* top nav */}
       <header className="absolute top-0 inset-x-0 z-20 flex items-center justify-between px-6 md:px-12 py-6">
-        <a href="#top" className="flex items-center gap-3">
+        <a href="#top" className="tap flex items-center gap-3">
           <Wordmark className="text-xl md:text-2xl" />
         </a>
         <div className="flex items-center gap-2 md:gap-3">
@@ -374,13 +374,13 @@ export default function Landing() {
           {/* p2 — pintu masuk halaman servis (jualan) */}
           <Link
             to="/servis"
-            className="inline-flex items-center px-4 py-2 rounded-full border border-accent-ink/45 text-accent-ink hover:bg-accent hover:text-ink text-xs font-semibold transition"
+            className="tap inline-flex items-center px-4 py-2 rounded-full border border-accent-ink/45 text-accent-ink hover:bg-accent hover:text-ink text-xs font-semibold transition"
           >
             {c.nav.servis || 'Servis'}
           </Link>
           <Link
             to="/login"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-line text-ink-2 hover:text-ink hover:border-line text-xs font-semibold transition"
+            className="tap inline-flex items-center gap-2 px-4 py-2 rounded-full border border-line text-ink-2 hover:text-ink hover:border-line text-xs font-semibold transition"
           >
             <LockIcon />
             <span className="hidden sm:inline">{c.nav.commandCentre}</span>
@@ -632,7 +632,7 @@ export default function Landing() {
           </div>
           <Link
             to="/journey"
-            className="reveal inline-flex items-center gap-2 mt-4 ml-8 px-5 py-2.5 rounded-full border border-line text-ink text-sm font-semibold hover:bg-card transition"
+            className="tap reveal inline-flex items-center gap-2 mt-4 ml-8 px-5 py-2.5 rounded-full border border-line text-ink text-sm font-semibold hover:bg-card transition"
           >
             <MapIcon />
             {c.journey.cta}
@@ -679,7 +679,7 @@ export default function Landing() {
             </div>
           </div>
 
-          <div className="mt-20 pt-8 border-t border-ink/12 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-ink-2">
+          <div className="mt-20 pt-8 border-t border-ink/12 flex flex-col sm:flex-row items-center justify-between gap-y-9 gap-x-4 sm:gap-4 text-xs text-ink-2">
             <span
               onClick={(e) => {
                 const now = Date.now()
@@ -692,21 +692,21 @@ export default function Landing() {
             >{c.contact.footer}</span>
             <Link
               to="/roadmap"
-              className="group inline-flex items-center gap-2 hover:text-ink transition"
+              className="tap group inline-flex items-center gap-2 hover:text-ink transition"
             >
               <MapIcon />
               <span>Roadmap</span>
             </Link>
             <a
               href="/skills"
-              className="group inline-flex items-center gap-2 hover:text-ink transition"
+              className="tap group inline-flex items-center gap-2 hover:text-ink transition"
             >
               <BoltIcon />
               <span>Skill Claude</span>
             </a>
             <Link
               to="/login"
-              className="group inline-flex items-center gap-2 hover:text-ink transition"
+              className="tap group inline-flex items-center gap-2 hover:text-ink transition"
             >
               <LockIcon />
               <span>{c.nav.enterCommandCentre}</span>
@@ -724,14 +724,46 @@ export default function Landing() {
 // atau autoplay disekat (jimat data + hormat pilihan pengguna).
 function SeaStorm() {
   const [motionOK, setMotionOK] = useState(true)
+  // p-lazy: video 1.2 MB ini 88% daripada berat muatan pertama laman, dan ia
+  // HIASAN. Dulu ia autoplay serta-merta walaupun blok tu belum tentu nampak.
+  // Kini fail video langsung tak diminta sampai blok masuk viewport; sebelum
+  // tu poster 33 KB je yang dipapar. Muatan pertama 1368 KB -> ~165 KB.
+  const [nampak, setNampak] = useState(false)
+  const kotakRef = useRef(null)
+  const videoRef = useRef(null)
+
   useEffect(() => {
     setMotionOK(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)
   }, [])
+
+  useEffect(() => {
+    const el = kotakRef.current
+    if (!el) return
+    // Pelayar tanpa IntersectionObserver: muat terus, jangan tinggal kosong.
+    if (typeof IntersectionObserver === 'undefined') { setNampak(true); return }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) setNampak(true)
+        // Berhenti main bila keluar skrin: jimat bateri dan CPU, bukan sekadar data.
+        const v = videoRef.current
+        if (v) { if (e.isIntersecting) { v.play().catch(() => {}) } else { v.pause() } }
+      })
+    // rootMargin 0: diukur pada 390px, blok ni duduk 76px SAHAJA bawah
+    // viewport. Apa-apa margin yang bermakna akan mencetus serta-merta dan
+    // lazy loading jadi tipu. Poster 33 KB terpapar sampai video sedia.
+    }, { rootMargin: '0px' })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
+  const mainVideo = motionOK && nampak
+
   return (
-    <div className="seastorm" aria-hidden="true">
+    <div className="seastorm" ref={kotakRef} aria-hidden="true">
       <span className="seastorm__cap">Sea Storm · 2.9188° N, 101.6520° E</span>
-      {motionOK ? (
+      {mainVideo ? (
         <video
+          ref={videoRef}
           className="seastorm__media"
           src="/bg/sea-storm.mp4"
           poster="/bg/sea-storm.webp"
@@ -739,16 +771,17 @@ function SeaStorm() {
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="none"
         />
       ) : (
-        <img className="seastorm__media" src="/bg/sea-storm.webp" alt="" />
+        <img className="seastorm__media" src="/bg/sea-storm.webp" alt="" loading="lazy" decoding="async" />
       )}
       <div className="seastorm__scrim" />
       <div className="seastorm__fade" />
     </div>
   )
 }
+
 
 // ---- intro montaj (sekali per sesi, ~2.8s) — GSAP timeline sinematik ----
 function Intro({ onDone }) {
@@ -936,7 +969,7 @@ function LangSwitcher({ lang, setLang }) {
           onClick={() => setLang(l.code)}
           aria-pressed={lang === l.code}
           title={l.label}
-          className={`px-2.5 py-1 rounded-full text-[11px] font-bold leading-none transition ${
+          className={`tap tap--tight px-2.5 py-1 rounded-full text-[11px] font-bold leading-none transition ${
             lang === l.code
               ? 'bg-ink text-paper'
               : 'text-ink-3 hover:text-ink'

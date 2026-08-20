@@ -368,3 +368,49 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .route-fallback__label { opacity: 1; animation: none; }
 }
+
+/* ============================================================
+   p-tap (2026-08-20) — KAWASAN SENTUH.
+   Diukur pada 375px: 9 daripada 21 elemen interaktif bawah 44x44,
+   paling teruk toggle BM/EN pada 38x19 dan 35x19. Itu bukan butang,
+   itu ujian ketepatan ibu jari.
+
+   Kaedah: pseudo-element yang meluaskan kawasan TEKAN sahaja. Saiz
+   visual, jarak dan susun atur kekal SAMA — tiada apa bergerak. Ini
+   sengaja, sebab masalahnya kawasan sentuh, bukan rupa.
+   ============================================================ */
+.tap { position: relative; }
+.tap::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 44px;
+  min-width: 44px;
+}
+/* Toggle bahasa ialah kawalan bersegmen: BM dan EN dua bahagian satu pil.
+   Kawasannya diluaskan MENEGAK sahaja (19px -> 44px, itu kecacatan sebenar).
+   min-width 44px dimatikan di sini: dua segmen berdempet, jadi memaksa 44px
+   melebar akan buat kawasan bertindih 6px dan tekanan pergi ke bahasa yang
+   salah. Sasaran kecil menjengkelkan; sasaran bertindih menipu. */
+.tap--tight::after { left: 0; right: 0; min-width: 0; }
+/* NOTA kiraan untuk susunan menegak: kawasan sentuh TAK BOLEH lebih besar
+   daripada jarak pusat-ke-pusat, kalau tidak dua pautan berebut jalur yang
+   sama dan tekanan pergi kepada yang atas dalam DOM. Itu lebih teruk
+   daripada sasaran kecil, sebab pengguna tekan betul tapi dapat salah.
+   Footer mobile: tinggi 16px + jurang 36px = 52px pusat-ke-pusat,
+   jadi 44px muat dengan baki 8px, tepat pada syarat jarak minimum. */
+
+/* ============================================================
+   p-focus (2026-08-20) — CINCIN FOKUS GLOBAL.
+   Sebelum ni hanya 4 medan input ada gaya fokus tersuai (sempadan 1px
+   tukar warna). Semua pautan dan butang lain bergantung pada outline
+   1px auto default pelayar, yang hampir tak nampak atas kertas.
+   Ink atas kertas = 16.46:1.
+   ============================================================ */
+:focus-visible {
+  outline: 3px solid var(--color-ink);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
